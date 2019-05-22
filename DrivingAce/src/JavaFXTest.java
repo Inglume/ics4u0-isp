@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  * The A class is a test class for JavaFX
  * 
  * @author Nicholas Glenn
- * @date May 21, 2019
+ * @date May 22, 2019
  */
 public class JavaFXTest extends Application {
 
@@ -28,16 +28,13 @@ public class JavaFXTest extends Application {
     btn.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent event) {
-        System.out.println("Hello World!");
+        System.out.println("peepee");
       }
     });
-
     Group root = new Group();
     root.getChildren().add(canvas);
     root.getChildren().add(btn);
-
     Scene scene = new Scene(root, 300, 250);
-
     stage.setTitle("Hello World!");
     stage.setScene(scene);
     stage.show();
@@ -46,4 +43,5 @@ public class JavaFXTest extends Application {
   public static void main(String[] args) {
     launch(args);
   }
+
 }
