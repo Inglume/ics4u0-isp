@@ -14,7 +14,7 @@ public class DrivingAce extends Application {
   
   @Override
   public void start(Stage primaryStage) {
-    primaryStage.setTitle("Driving Game");
+    primaryStage.setTitle("Driving Ace");
 
     StackPane root = new StackPane();
     primaryStage.setScene(new Scene(root, 1300, 650));
