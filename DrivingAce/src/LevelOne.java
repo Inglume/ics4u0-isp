@@ -12,7 +12,7 @@ import javafx.scene.paint.Paint;
  * 
  * @author Nicholas Glenn
  */
-public class LevelOne extends Scene {
+public class LevelOne {
 
   private long startNanoTime;
 

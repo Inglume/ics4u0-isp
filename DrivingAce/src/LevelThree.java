@@ -3,7 +3,7 @@ import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.paint.Paint;
 
-public class LevelThree extends Scene {
+public class LevelThree {
 
   public LevelThree(Parent arg0) {
     super(arg0);

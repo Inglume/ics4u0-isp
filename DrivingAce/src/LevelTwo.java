@@ -8,7 +8,7 @@ import javafx.scene.paint.Paint;
  * 
  * @author d
  */
-public class LevelTwo extends Scene {
+public class LevelTwo {
 
   public LevelTwo(Parent arg0) {
     super(arg0);

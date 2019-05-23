@@ -11,10 +11,10 @@ public class DrivingAce extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    StackPane root = new StackPane(new Car(200, 200));
+    StackPane root = new StackPane();
 
     primaryStage.setTitle("Driving Ace");
-    primaryStage.setScene(new LevelOne(root, 640, 480));
+    primaryStage.setScene(new MainMenu(root, 600, 400));
     primaryStage.show();
   }
 
