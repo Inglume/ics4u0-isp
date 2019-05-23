@@ -2,6 +2,11 @@ import javafx.application.Application;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+
+/**
+ * @author jerry
+ *
+ */
 public class DrivingAce extends Application {
 
   @Override
