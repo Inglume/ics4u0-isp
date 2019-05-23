@@ -1,4 +1,6 @@
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Rotate;
 
 /**
  * The Car class does thsinsgs.
@@ -28,6 +30,16 @@ public class Car extends Rectangle {
   private double steeringRate;
 
   /**
+   * Rotates left.
+   */
+  private Rotate rotateLeft;
+
+  /**
+   * Rotates right.
+   */
+  private Rotate rotateRight;
+
+  /**
    * Constructor.
    * 
    * @param x x coordinate
@@ -35,7 +47,14 @@ public class Car extends Rectangle {
    */
   public Car(double x, double y) {
     super(x, y, 100, 200);
-    // TODO Auto-generated constructor stub
+    setFill(Color.RED);
+    setStroke(Color.RED);
+    velocity = 0;
+    setDirection(0);
+    accelerationRate = 1;
+    steeringRate = 2;
+    rotateLeft = new Rotate(-2);
+    rotateRight = new Rotate(2);
   }
 
   /**
@@ -66,14 +85,32 @@ public class Car extends Rectangle {
    * Steers car to left.
    */
   public void steerLeft() {
-    direction -= steeringRate;
+    setDirection(getDirection() - steeringRate);
+    getTransforms().add(rotateLeft);
   }
 
   /**
    * Steers car to right.
    */
   public void steerRight() {
-    direction += steeringRate;
+    setDirection(getDirection() + steeringRate);
+    getTransforms().add(rotateRight);
+  }
+
+  public double getVelocity() {
+    return velocity;
+  }
+
+  public void setVelocity(double velocity) {
+    this.velocity = velocity;
+  }
+
+  public double getDirection() {
+    return direction;
+  }
+
+  public void setDirection(double direction) {
+    this.direction = direction;
   }
 
 }

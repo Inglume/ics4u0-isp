@@ -1,24 +1,20 @@
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class DrivingAce extends Application {
-  
+
+  @Override
+  public void start(Stage primaryStage) {
+    StackPane root = new StackPane(new Car(200, 200));
+
+    primaryStage.setTitle("Driving Ace");
+    primaryStage.setScene(new LevelOne(root, 640, 480));
+    primaryStage.show();
+  }
+
   public static void main(String[] args) {
     launch(args);
   }
-  
-  @Override
-  public void start(Stage primaryStage) {
-    primaryStage.setTitle("Driving Ace");
 
-    StackPane root = new StackPane();
-    primaryStage.setScene(new Scene(root, 1300, 650));
-    primaryStage.show();
-  }
-  
 }
