@@ -4,7 +4,7 @@ import javafx.stage.Stage;
 
 
 /**
- * @author jerry
+ * @author Jerry Zhu
  *
  */
 public class DrivingAce extends Application {
