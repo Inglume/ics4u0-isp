@@ -1,5 +1,9 @@
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.layout.StackPane;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.scene.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
@@ -8,13 +12,26 @@ import javafx.stage.Stage;
  *
  */
 public class DrivingAce extends Application {
-
+  private AnchorPane root; 
+  
   @Override
   public void start(Stage primaryStage) {
-    StackPane root = new StackPane();
+    root = new AnchorPane();
+    root.setPrefSize(700, 500);
 
+    AnimationTimer timer = new AnimationTimer() {
+        @Override
+        public void handle(long now) {
+          
+        }
+    };
+    timer.start();
+    
     primaryStage.setTitle("Driving Ace");
-    primaryStage.setScene(new MainMenu(root, 600, 400));
+    primaryStage.setScene(new Scene(root));
+    
+    MenuButton btn = new MenuButton("LOL");
+    root.getChildren().add(btn);
     primaryStage.show();
   }
 
