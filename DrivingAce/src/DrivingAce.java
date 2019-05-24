@@ -16,6 +16,7 @@ public class DrivingAce extends Application {
   
   @Override
   public void start(Stage primaryStage) {
+    primaryStage.setResizable(false);
     root = new AnchorPane();
     root.setPrefSize(700, 500);
 
@@ -29,9 +30,8 @@ public class DrivingAce extends Application {
     
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(new Scene(root));
-    
-    MenuButton btn = new MenuButton("LOL");
-    root.getChildren().add(btn);
+    MainMenu i = new MainMenu(root);
+
     primaryStage.show();
   }
 

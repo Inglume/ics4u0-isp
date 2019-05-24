@@ -1,13 +1,12 @@
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.SceneAntialiasing;
+import javafx.scene.*;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Paint;
 
 /**
@@ -20,7 +19,25 @@ public class MainMenu {
 
   private long startNanoTime;
   
-  public MainMenu(Parent root, double width, double height) {
+  public MainMenu(AnchorPane r) {
+    MenuButton playBtn = new MenuButton("New Game");
+    playBtn.setLayoutX(100);
+    playBtn.setLayoutY(100);
+    r.getChildren().add(playBtn);
     
-
+    MenuButton helpBtn = new MenuButton("Help");
+    helpBtn.setLayoutX(100);
+    helpBtn.setLayoutY(200);
+    r.getChildren().add(helpBtn);
+    
+    MenuButton exitBtn = new MenuButton("Quit");
+    exitBtn.setLayoutX(100);
+    exitBtn.setLayoutY(300);
+    r.getChildren().add(exitBtn);
+    
+    BackgroundImage background = new BackgroundImage(new Image("/resources/menubackground.jpg",200,515,false,true),
+        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);
+    r.setBackground(new Background(background));
+  }
 }
