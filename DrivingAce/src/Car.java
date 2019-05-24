@@ -51,8 +51,8 @@ public class Car extends Rectangle {
     setStroke(Color.RED);
     velocity = 0;
     setDirection(0);
-    accelerationRate = 1;
-    steeringRate = 2;
+    accelerationRate = 10;
+    steeringRate = 20;
     rotateLeft = new Rotate(-2);
     rotateRight = new Rotate(2);
   }
