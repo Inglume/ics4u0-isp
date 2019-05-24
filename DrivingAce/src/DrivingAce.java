@@ -1,3 +1,5 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -5,6 +7,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -23,7 +26,7 @@ public class DrivingAce extends Application {
   private AnchorPane root; 
   
   @Override
-  public void start(Stage primaryStage) throws InterruptedException {
+  public void start(Stage primaryStage) throws FileNotFoundException {
     primaryStage.setResizable(false);
     root = new AnchorPane();
     root.setPrefSize(700, 500);
@@ -38,13 +41,34 @@ public class DrivingAce extends Application {
     
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(new Scene(root));
-    mainMenu();
+    intro();
+   // mainMenu();
     
     primaryStage.show();
   }
   
-  public void intro() {
+  
+  public void intro() throws FileNotFoundException {
+    BackgroundImage background = new BackgroundImage(new Image("/resources/gray.jpeg",200,515,false,true),
+        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
     
+    Image image = new Image(new FileInputStream("/resources/logo.png"));  
+    
+    //Setting the image view 1 
+    ImageView imageView1 = new ImageView(image); 
+    
+    //Setting the position of the image 
+    imageView1.setX(50); 
+    imageView1.setY(25); 
+    
+    //setting the fit height and width of the image view 
+    imageView1.setFitHeight(300); 
+    imageView1.setFitWidth(250);         
+    
+    //Setting the preserve ratio of the image view 
+    imageView1.setPreserveRatio(true); 
   }
 
   
@@ -69,6 +93,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(exitBtn);
     
     exitBtn.setOnAction(e -> Platform.exit());
+    
     
     BackgroundImage background = new BackgroundImage(new Image("/resources/menubackground.jpg",200,515,false,true),
         BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
