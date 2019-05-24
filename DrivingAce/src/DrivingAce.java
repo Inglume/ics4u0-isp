@@ -1,8 +1,5 @@
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-<<<<<<< HEAD
-import javafx.scene.layout.Pane;
-=======
 import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -15,7 +12,6 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.StackPane;
->>>>>>> branch 'master' of https://github.com/Inglume/ics4u0-isp.git
 import javafx.stage.Stage;
 
 
@@ -27,16 +23,10 @@ public class DrivingAce extends Application {
   private AnchorPane root; 
   
   @Override
-<<<<<<< HEAD
-  public void start(Stage primaryStage) {
-    Car car = new Car(200, 200);
-    Pane root = new Pane();
-=======
   public void start(Stage primaryStage) throws InterruptedException {
     primaryStage.setResizable(false);
     root = new AnchorPane();
     root.setPrefSize(700, 500);
->>>>>>> branch 'master' of https://github.com/Inglume/ics4u0-isp.git
 
     AnimationTimer timer = new AnimationTimer() {
         @Override
