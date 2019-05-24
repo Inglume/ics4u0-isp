@@ -1,5 +1,5 @@
 import javafx.application.Application;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 
@@ -11,7 +11,8 @@ public class DrivingAce extends Application {
 
   @Override
   public void start(Stage primaryStage) {
-    StackPane root = new StackPane(new Car(200, 200));
+    Car car = new Car(200, 200);
+    Pane root = new Pane();
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(new LevelOne(root, 640, 480));
