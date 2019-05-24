@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Paint;
 
 /**
@@ -16,16 +17,6 @@ public class LevelOne {
 
   private long startNanoTime;
 
-  public LevelOne(Parent arg0) {
-    super(arg0);
-    // TODO Auto-generated constructor stub
-  }
-
-  public LevelOne(Parent root, Paint fill) {
-    super(root, fill);
-    // TODO Auto-generated constructor stub
-  }
-
   /**
    * Ignore the other constructors for now ples.
    * 
@@ -33,8 +24,7 @@ public class LevelOne {
    * @param width
    * @param height
    */
-  public LevelOne(Parent root, double width, double height) {
-    super(root, width, height);
+  public LevelOne(AnchorPane r) {
     Car damn = new Car(200, 200);
     // add car to thing
     startNanoTime = System.nanoTime();
@@ -77,21 +67,4 @@ public class LevelOne {
       }
     }.start();
   }
-
-  public LevelOne(Parent root, double width, double height, Paint fill) {
-    super(root, width, height, fill);
-    // TODO Auto-generated constructor stub
-  }
-
-  public LevelOne(Parent root, double width, double height, boolean depthBuffer) {
-    super(root, width, height, depthBuffer);
-    // TODO Auto-generated constructor stub
-  }
-
-  public LevelOne(Parent root, double width, double height, boolean depthBuffer,
-      SceneAntialiasing antiAliasing) {
-    super(root, width, height, depthBuffer, antiAliasing);
-    // TODO Auto-generated constructor stub
-  }
-
 }

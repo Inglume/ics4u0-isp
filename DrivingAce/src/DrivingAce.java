@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
@@ -30,8 +31,8 @@ public class DrivingAce extends Application {
     
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(new Scene(root));
-    MainMenu i = new MainMenu(root);
-
+    MainMenu menu = new MainMenu(root);
+    
     primaryStage.show();
   }
 
