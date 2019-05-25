@@ -32,12 +32,12 @@ public class Car extends Rectangle {
   /**
    * Rotates left.
    */
-  private Rotate rotateLeft;
+  private double rotateLeft;
 
   /**
    * Rotates right.
    */
-  private Rotate rotateRight;
+  private double rotateRight;
 
   /**
    * Constructor.
@@ -53,8 +53,22 @@ public class Car extends Rectangle {
     setDirection(0);
     accelerationRate = 10;
     steeringRate = 20;
-    rotateLeft = new Rotate(-2);
-    rotateRight = new Rotate(2);
+    rotateLeft = -2;
+    rotateRight = 2;
+  }
+
+  /**
+   * Updates x-coordinate of car.
+   */
+  public void moveX(double t) {
+    setX(getX() + getVelocity() * t * (Math.sin(Math.toRadians(getDirection()))));
+  }
+
+  /**
+   * Updates y-coordinate of car.
+   */
+  public void moveY(double t) {
+    setY(getY() + getVelocity() * t * (Math.cos(Math.toRadians(getDirection()))));
   }
 
   /**
@@ -86,7 +100,11 @@ public class Car extends Rectangle {
    */
   public void steerLeft() {
     setDirection(getDirection() - steeringRate);
-    getTransforms().add(rotateLeft);
+    getTransforms().add(new Rotate(rotateLeft,
+        (getX() + 50) * (Math.cos(Math.toRadians(getDirection())))
+            - (getY() + 100) * (Math.sin(Math.toRadians(getDirection()))),
+        (getX() + 50) * (Math.sin(Math.toRadians(getDirection())))
+            + (getY() + 100) * (Math.cos(Math.toRadians(getDirection())))));
   }
 
   /**
@@ -94,7 +112,11 @@ public class Car extends Rectangle {
    */
   public void steerRight() {
     setDirection(getDirection() + steeringRate);
-    getTransforms().add(rotateRight);
+    getTransforms().add(new Rotate(rotateRight,
+        (getX() + 50) * (Math.cos(Math.toRadians(getDirection())))
+            - (getY() + 100) * (Math.sin(Math.toRadians(getDirection()))),
+        (getX() + 50) * (Math.sin(Math.toRadians(getDirection())))
+            + (getY() + 100) * (Math.cos(Math.toRadians(getDirection())))));
   }
 
   public double getVelocity() {

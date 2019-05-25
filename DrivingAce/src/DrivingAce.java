@@ -16,7 +16,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 
@@ -45,12 +44,12 @@ public class DrivingAce extends Application {
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-        double x = (damn.getVelocity() * t) * ((damn.getDirection()) / 90);
-        System.out.println(x);
-        double y = (damn.getVelocity() * t) * ((damn.getDirection() + 90) / 90);
-        System.out.println(y);
-        Translate translate = new Translate(x, y);
-        damn.getTransforms().addAll(translate);
+        damn.moveX(t);
+        System.out.println(damn.getX());
+        damn.moveY(t);
+        System.out.println(damn.getY());
+        // Translate translate = new Translate(x, y);
+        // damn.getTransforms().addAll(translate);
         startNanoTime = currentNanoTime;
         if (input.contains("W")) {
           damn.accelerate();
