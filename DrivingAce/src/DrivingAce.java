@@ -35,68 +35,68 @@ public class DrivingAce extends Application {
     root = new AnchorPane();
     root.setPrefSize(700, 500);
     Scene scene = new Scene(root);
-    Car damn = new Car(200, 200);
-    startNanoTime = System.nanoTime();
-
-    ArrayList<String> input = new ArrayList<String>();
-
-    new AnimationTimer() {
-      @Override
-      public void handle(long currentNanoTime) {
-        double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-        damn.moveX(t);
-        System.out.println(damn.getX());
-        damn.moveY(t);
-        System.out.println(damn.getY());
-        // Translate translate = new Translate(x, y);
-        // damn.getTransforms().addAll(translate);
-        startNanoTime = currentNanoTime;
-        if (input.contains("W")) {
-          damn.accelerate();
-          System.out.println("Forwards");
-        }
-        if (input.contains("A")) {
-          damn.steerLeft();
-          System.out.println("Left");
-        }
-        if (input.contains("S")) {
-          damn.reverse();
-          System.out.println("Backwards");
-        }
-        if (input.contains("D")) {
-          damn.steerRight();
-          System.out.println("Right");
-        }
-        if (input.contains("ESCAPE")) {
-          System.exit(0);
-        }
-      }
-    }.start();
-
-    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent e) {
-        String code = e.getCode().toString();
-        if (!input.contains(code)) {
-          input.add(code);
-        }
-      }
-    });
-
-    scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent e) {
-        String code = e.getCode().toString();
-        input.remove(code);
-      }
-    });
-
-    root.getChildren().add(damn);
-
+//    Car damn = new Car(200, 200);
+//    startNanoTime = System.nanoTime();
+//
+//    ArrayList<String> input = new ArrayList<String>();
+//
+//    new AnimationTimer() {
+//      @Override
+//      public void handle(long currentNanoTime) {
+//        double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+//        damn.moveX(t);
+//        System.out.println(damn.getX());
+//        damn.moveY(t);
+//        System.out.println(damn.getY());
+//        // Translate translate = new Translate(x, y);
+//        // damn.getTransforms().addAll(translate);
+//        startNanoTime = currentNanoTime;
+//        if (input.contains("W")) {
+//          damn.accelerate();
+//          System.out.println("Forwards");
+//        }
+//        if (input.contains("A")) {
+//          damn.steerLeft();
+//          System.out.println("Left");
+//        }
+//        if (input.contains("S")) {
+//          damn.reverse();
+//          System.out.println("Backwards");
+//        }
+//        if (input.contains("D")) {
+//          damn.steerRight();
+//          System.out.println("Right");
+//        }
+//        if (input.contains("ESCAPE")) {
+//          System.exit(0);
+//        }
+//      }
+//    }.start();
+//
+//    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//      @Override
+//      public void handle(KeyEvent e) {
+//        String code = e.getCode().toString();
+//        if (!input.contains(code)) {
+//          input.add(code);
+//        }
+//      }
+//    });
+//
+//    scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+//      @Override
+//      public void handle(KeyEvent e) {
+//        String code = e.getCode().toString();
+//        input.remove(code);
+//      }
+//    });
+//
+//  //  root.getChildren().add(damn);
+//
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    intro();
-    // mainMenu();
+//   // intro();
+    mainMenu();
 
     primaryStage.show();
   }
