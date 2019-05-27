@@ -31,7 +31,6 @@ public class DrivingAce extends Application {
     startNanoTime = System.nanoTime();
 
 
-    // // intro();
     
 
 
