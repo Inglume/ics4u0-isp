@@ -30,10 +30,6 @@ public class DrivingAce extends Application {
     Car damn = new Car(200, 200);
     startNanoTime = System.nanoTime();
 
-
-    
-
-
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
 
