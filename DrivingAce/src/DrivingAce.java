@@ -1,12 +1,9 @@
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.*;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -16,7 +13,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
@@ -25,9 +21,9 @@ import javafx.stage.Stage;
  *
  */
 public class DrivingAce extends Application {
-  private AnchorPane root; 
+  private AnchorPane root;
   private long startNanoTime;
-  
+
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
@@ -38,34 +34,35 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    intro();
-    //mainMenu();
+    // intro();
+    mainMenu();
     addCar(new Car(50, 10), scene);
     primaryStage.show();
   }
 
 
   public void intro() {
-//    BackgroundImage background = new BackgroundImage(new Image("/resources/logo.png",720,515,false,true),
-//        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-//        BackgroundSize.DEFAULT);
-//    root.setBackground(new Background(background));
+    // BackgroundImage background = new BackgroundImage(new
+    // Image("/resources/logo.png",720,515,false,true),
+    // BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+    // BackgroundSize.DEFAULT);
+    // root.setBackground(new Background(background));
 
-    Image image = new Image("/resources/logo_transparent.png",200,515,false,true);  
+    Image image = new Image("/resources/logo_transparent.png", 200, 515, false, true);
 
-    
-    //Setting the image view 1 
-    ImageView imageView1 = new ImageView(image); 
 
-    //Setting the position of the image 
-    imageView1.setX(100); 
-    imageView1.setY(100); 
+    // Setting the image view 1
+    ImageView imageView1 = new ImageView(image);
 
-    //setting the fit height and width of the image view 
-    imageView1.setFitHeight(515); 
-    imageView1.setFitWidth(1200);         
+    // Setting the position of the image
+    imageView1.setX(100);
+    imageView1.setY(100);
 
-    //Setting the preserve ratio of the image view 
+    // setting the fit height and width of the image view
+    imageView1.setFitHeight(515);
+    imageView1.setFitWidth(1200);
+
+    // Setting the preserve ratio of the image view
     imageView1.setPreserveRatio(true);
     imageView1.setVisible(true);
 
@@ -96,9 +93,9 @@ public class DrivingAce extends Application {
     exitBtn.setOnAction(e -> Platform.exit());
 
 
-    BackgroundImage background = new BackgroundImage(new Image("/resources/menubackground.jpg",200,515,false,true),
-        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-        BackgroundSize.DEFAULT);
+    BackgroundImage background = new BackgroundImage(
+        new Image("/resources/menubackground.jpg", 200, 515, false, true), BackgroundRepeat.REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
   }
 
@@ -118,10 +115,9 @@ public class DrivingAce extends Application {
 
   }
 
-  public void addCar(Car damn, Scene scene)
-  {
+  public void addCar(Car damn, Scene scene) {
     ArrayList<String> input = new ArrayList<String>();
-    
+
     new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
@@ -166,7 +162,7 @@ public class DrivingAce extends Application {
 
     root.getChildren().add(damn);
   }
-  
+
   public static void main(String[] args) {
     launch(args);
   }
