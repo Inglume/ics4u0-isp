@@ -3,9 +3,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 /**
- * The Car class does thsinsgs.
+ * The Car class.
  * 
  * @author Nicholas Glenn
+ * @version 1
  */
 public class Car extends Rectangle {
 

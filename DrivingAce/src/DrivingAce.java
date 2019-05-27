@@ -20,8 +20,10 @@ import javafx.stage.Stage;
 
 
 /**
+ * The DrivingAce class.
+ * 
  * @author Nicholas Glenn and Jerry Zhu
- *
+ * @version 1
  */
 public class DrivingAce extends Application {
 
@@ -86,12 +88,14 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    // // intro();
+    // intro();
     mainMenu();
-
     primaryStage.show();
   }
 
+  /**
+   * Intro method
+   */
   public void intro() {
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/gray.jpeg", 200, 515, false, true), BackgroundRepeat.REPEAT,
