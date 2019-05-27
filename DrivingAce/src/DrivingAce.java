@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.MenuButton;
+import javafx.scene.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -16,65 +16,60 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 
 /**
- * The DrivingAce class.
- * 
  * @author Nicholas Glenn and Jerry Zhu
- * @version 1
+ *
  */
 public class DrivingAce extends Application {
-
-  private AnchorPane root;
-
-  long startNanoTime;
-
+  private AnchorPane root; 
+  private long startNanoTime;
+  
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
     root = new AnchorPane();
     root.setPrefSize(700, 500);
     Scene scene = new Scene(root);
-    startNanoTime = System.nanoTime();
+
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-
-    mainMenu();
-    addCar(new Car(200, 200), scene);
+    intro();
+    //mainMenu();
+    addCar(new Car(50, 10), scene);
     primaryStage.show();
   }
 
-  /**
-   * Intro method
-   */
+
   public void intro() {
-    BackgroundImage background = new BackgroundImage(
-        new Image("/resources/gray.jpeg", 200, 515, false, true), BackgroundRepeat.REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    root.setBackground(new Background(background));
+//    BackgroundImage background = new BackgroundImage(new Image("/resources/logo.png",720,515,false,true),
+//        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+//        BackgroundSize.DEFAULT);
+//    root.setBackground(new Background(background));
 
-    try {
-      Image image = new Image(new FileInputStream("/resources/logo.png"));
+    Image image = new Image("/resources/logo_transparent.png",200,515,false,true);  
 
-      // Setting the image view 1
-      ImageView imageView1 = new ImageView(image);
+    
+    //Setting the image view 1 
+    ImageView imageView1 = new ImageView(image); 
 
-      // Setting the position of the image
-      imageView1.setX(50);
-      imageView1.setY(25);
+    //Setting the position of the image 
+    imageView1.setX(100); 
+    imageView1.setY(100); 
 
-      // setting the fit height and width of the image view
-      imageView1.setFitHeight(300);
-      imageView1.setFitWidth(250);
+    //setting the fit height and width of the image view 
+    imageView1.setFitHeight(515); 
+    imageView1.setFitWidth(1200);         
 
-      // Setting the preserve ratio of the image view
-      imageView1.setPreserveRatio(true);
-    } catch (FileNotFoundException e) {
-      System.out.println("YOU SUCK");
-    }
+    //Setting the preserve ratio of the image view 
+    imageView1.setPreserveRatio(true);
+    imageView1.setVisible(true);
+
+    root.getChildren().add(imageView1);
   }
 
 
@@ -100,10 +95,27 @@ public class DrivingAce extends Application {
 
     exitBtn.setOnAction(e -> Platform.exit());
 
-    BackgroundImage background = new BackgroundImage(
-        new Image("/resources/menubackground.jpg", 200, 515, false, true), BackgroundRepeat.REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+    BackgroundImage background = new BackgroundImage(new Image("/resources/menubackground.jpg",200,515,false,true),
+        BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+        BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
+  }
+
+  public void instructions() {
+
+  }
+
+  public void levelOne() {
+
+  }
+
+  public void levelTwo() {
+
+  }
+
+  public void levelThree() {
+
   }
 
   public void addCar(Car damn, Scene scene)
@@ -155,23 +167,6 @@ public class DrivingAce extends Application {
     root.getChildren().add(damn);
   }
   
-  
-  public void instructions() {
-
-  }
-
-  public void levelOne() {
-
-  }
-
-  public void levelTwo() {
-
-  }
-
-  public void levelThree() {
-
-  }
-
   public static void main(String[] args) {
     launch(args);
   }
