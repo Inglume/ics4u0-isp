@@ -8,8 +8,8 @@ import javafx.scene.text.Font;
 
 public class MenuButton extends Button{
   private final String FONT_PATH = "src/resources/kenvector_future.ttf";
-  private final String BTN_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button01.png');";
-  private final String BTN_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button00.png');";
+  private final String BTN_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('src/resources/yellow_button01.png');";
+  private final String BTN_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('src/resources/yellow_button00.png');";
 
   public MenuButton(String text) {
     setText(text);
