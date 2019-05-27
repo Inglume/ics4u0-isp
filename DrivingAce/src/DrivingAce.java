@@ -17,8 +17,10 @@ import javafx.stage.Stage;
 
 
 /**
+ * The DrivingAce class.
+ * 
  * @author Nicholas Glenn and Jerry Zhu
- *
+ * @version 1
  */
 public class DrivingAce extends Application {
   private AnchorPane root;
