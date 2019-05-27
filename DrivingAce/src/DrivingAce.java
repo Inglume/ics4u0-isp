@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 public class DrivingAce extends Application {
   private AnchorPane root; 
   private long startNanoTime;
-  
+
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
@@ -46,20 +46,34 @@ public class DrivingAce extends Application {
 
 
   public void intro() {
-//    BackgroundImage background = new BackgroundImage(new Image("/resources/logo.png",720,515,false,true),
-//        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
-//        BackgroundSize.DEFAULT);
-//    root.setBackground(new Background(background));
+    //    BackgroundImage background = new BackgroundImage(new Image("/resources/logo.png",720,515,false,true),
+    //        BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT,
+    //        BackgroundSize.DEFAULT);
+    //    root.setBackground(new Background(background));
 
     Image image = new Image("/resources/logo_transparent.png",200,515,false,true);  
 
-    
+
     //Setting the image view 1 
     ImageView imageView1 = new ImageView(image); 
 
-    //Setting the position of the image 
-    imageView1.setX(100); 
-    imageView1.setY(100); 
+    double w, h, reducCoeff = 0;
+
+    double ratioX = imageView1.getFitWidth() / image.getWidth();
+    double ratioY = imageView1.getFitHeight() / image.getHeight();
+
+    if(ratioX >= ratioY) {
+      reducCoeff = ratioY;
+    } else {
+      reducCoeff = ratioX;
+    }
+
+    w = image.getWidth() * reducCoeff;
+    h = image.getHeight() * reducCoeff;
+
+    imageView1.setX((imageView1.getFitWidth() - w) / 2);
+    imageView1.setY((imageView1.getFitHeight() - h) / 2);
+
 
     //setting the fit height and width of the image view 
     imageView1.setFitHeight(515); 
@@ -121,7 +135,7 @@ public class DrivingAce extends Application {
   public void addCar(Car damn, Scene scene)
   {
     ArrayList<String> input = new ArrayList<String>();
-    
+
     new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
@@ -166,7 +180,7 @@ public class DrivingAce extends Application {
 
     root.getChildren().add(damn);
   }
-  
+
   public static void main(String[] args) {
     launch(args);
   }
