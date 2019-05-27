@@ -44,28 +44,19 @@ public class DrivingAce extends Application {
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-        damn.moveX(t);
-        System.out.println(damn.getX());
-        damn.moveY(t);
-        System.out.println(damn.getY());
-        // Translate translate = new Translate(x, y);
-        // damn.getTransforms().addAll(translate);
+        damn.move(t);
         startNanoTime = currentNanoTime;
         if (input.contains("W")) {
           damn.accelerate();
-          System.out.println("Forwards");
         }
         if (input.contains("A")) {
           damn.steerLeft();
-          System.out.println("Left");
         }
         if (input.contains("S")) {
           damn.reverse();
-          System.out.println("Backwards");
         }
         if (input.contains("D")) {
           damn.steerRight();
-          System.out.println("Right");
         }
         if (input.contains("ESCAPE")) {
           System.exit(0);

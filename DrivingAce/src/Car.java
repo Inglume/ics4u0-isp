@@ -10,14 +10,14 @@ import javafx.scene.transform.Rotate;
 public class Car extends Rectangle {
 
   /**
+   * Center of car.
+   */
+  private Rectangle center;
+
+  /**
    * Velocity of car.
    */
   private double velocity;
-
-  /**
-   * Direction of car (left is negative value, right is positive value, straight is 0).
-   */
-  private double direction;
 
   /**
    * Rate of acceleration.
@@ -30,45 +30,29 @@ public class Car extends Rectangle {
   private double steeringRate;
 
   /**
-   * Rotates left.
-   */
-  private double rotateLeft;
-
-  /**
-   * Rotates right.
-   */
-  private double rotateRight;
-
-  /**
    * Constructor.
    * 
    * @param x x coordinate
    * @param y y coordinate
    */
   public Car(double x, double y) {
-    super(x, y, 100, 200);
+    super(x, y, 50, 100);
     setFill(Color.RED);
     setStroke(Color.RED);
+    center = new Rectangle(x + 25, y + 50, 0, 0);
     velocity = 0;
-    setDirection(0);
     accelerationRate = 10;
-    steeringRate = 20;
-    rotateLeft = -2;
-    rotateRight = 2;
+    steeringRate = 2;
   }
 
   /**
-   * Updates x-coordinate of car.
+   * Move coordinates of car.
    */
-  public void moveX(double t) {
-    setX(getX() + getVelocity() * t * (Math.sin(Math.toRadians(getDirection()))));
-  }
-
-  /**
-   * Updates y-coordinate of car.
-   */
-  public void moveY(double t) {
-    setY(getY() + getVelocity() * t * (Math.cos(Math.toRadians(getDirection()))));
+  public void move(double t) {
+    double cool = velocity * t;
+    friction();
+    setY(getY() - cool);
+    center.setY(center.getY() - cool);
   }
 
   /**
@@ -96,27 +80,32 @@ public class Car extends Rectangle {
   }
 
   /**
+   * Adds friction to car.
+   */
+  private void friction() {
+    if (velocity > 0) {
+      velocity--;
+    } else if (velocity < 0) {
+      velocity++;
+    }
+  }
+
+  /**
    * Steers car to left.
    */
   public void steerLeft() {
-    setDirection(getDirection() - steeringRate);
-    getTransforms().add(new Rotate(rotateLeft,
-        (getX() + 50) * (Math.cos(Math.toRadians(getDirection())))
-            - (getY() + 100) * (Math.sin(Math.toRadians(getDirection()))),
-        (getX() + 50) * (Math.sin(Math.toRadians(getDirection())))
-            + (getY() + 100) * (Math.cos(Math.toRadians(getDirection())))));
+    double rotate = steeringRate * velocity / -300;
+    getTransforms().add(new Rotate(rotate, center.getX(), center.getY()));
+    center.getTransforms().add(new Rotate(rotate, center.getX(), center.getY()));
   }
 
   /**
    * Steers car to right.
    */
   public void steerRight() {
-    setDirection(getDirection() + steeringRate);
-    getTransforms().add(new Rotate(rotateRight,
-        (getX() + 50) * (Math.cos(Math.toRadians(getDirection())))
-            - (getY() + 100) * (Math.sin(Math.toRadians(getDirection()))),
-        (getX() + 50) * (Math.sin(Math.toRadians(getDirection())))
-            + (getY() + 100) * (Math.cos(Math.toRadians(getDirection())))));
+    double rotate = steeringRate * velocity / 300;
+    getTransforms().add(new Rotate(rotate, center.getX(), center.getY()));
+    center.getTransforms().add(new Rotate(rotate, center.getX(), center.getY()));
   }
 
   public double getVelocity() {
@@ -125,14 +114,6 @@ public class Car extends Rectangle {
 
   public void setVelocity(double velocity) {
     this.velocity = velocity;
-  }
-
-  public double getDirection() {
-    return direction;
-  }
-
-  public void setDirection(double direction) {
-    this.direction = direction;
   }
 
 }
