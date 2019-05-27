@@ -89,7 +89,11 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     // intro();
-    mainMenu();
+    // mainMenu();
+    MenuButton playBtn = new MenuButton("New Game");
+    playBtn.setLayoutX(100);
+    playBtn.setLayoutY(100);
+    root.getChildren().add(playBtn);
     primaryStage.show();
   }
 
