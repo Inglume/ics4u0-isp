@@ -1,19 +1,29 @@
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
-import javafx.application.*;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuButton;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 
 
 /**
+ * The DrivingAce class.
+ * 
  * @author Nicholas Glenn and Jerry Zhu
- *
+ * @version 1
  */
 public class DrivingAce extends Application {
 
@@ -27,7 +37,6 @@ public class DrivingAce extends Application {
     root = new AnchorPane();
     root.setPrefSize(700, 500);
     Scene scene = new Scene(root);
-    Car damn = new Car(200, 200);
     startNanoTime = System.nanoTime();
 
     primaryStage.setTitle("Driving Ace");
@@ -38,6 +47,9 @@ public class DrivingAce extends Application {
     primaryStage.show();
   }
 
+  /**
+   * Intro method
+   */
   public void intro() {
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/gray.jpeg", 200, 515, false, true), BackgroundRepeat.REPEAT,
