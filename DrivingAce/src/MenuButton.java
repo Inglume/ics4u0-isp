@@ -2,14 +2,13 @@ import java.io.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.*;
 import javafx.scene.text.Font;
 
 public class MenuButton extends Button{
-  private final String FONT_PATH = "src/resources/kenvector_future.ttf";
-  private final String BTN_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('src/resources/yellow_button01.png');";
-  private final String BTN_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('src/resources/yellow_button00.png');";
+  private final String FONT_PATH = "/DrivingAce/src/resources/kenvector_future.ttf";
+  private final String BTN_PRESSED_STYLE = "-fx-background-color: transparent; -fx-background-image: url('/DrivingAce/src/resources/yellow_button01.png');";
+  private final String BTN_FREE_STYLE = "-fx-background-color: transparent; -fx-background-image: url('/DrivingAce/src/resources/yellow_button00.png');";
 
   public MenuButton(String text) {
     setText(text);
