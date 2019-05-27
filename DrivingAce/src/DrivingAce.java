@@ -30,60 +30,16 @@ public class DrivingAce extends Application {
     Car damn = new Car(200, 200);
     startNanoTime = System.nanoTime();
 
-    ArrayList<String> input = new ArrayList<String>();
 
-    new AnimationTimer() {
-      @Override
-      public void handle(long currentNanoTime) {
-        double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-        damn.move(t);
-        startNanoTime = currentNanoTime;
-        if (input.contains("W")) {
-          damn.accelerate();
-        }
-        if (input.contains("A")) {
-          damn.steerLeft();
-        }
-        if (input.contains("S")) {
-          damn.reverse();
-        }
-        if (input.contains("D")) {
-          damn.steerRight();
-        }
-        if (input.contains("ESCAPE")) {
-          System.exit(0);
-        }
-      }
-    }.start();
+    // // intro();
+    
 
-    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent e) {
-        String code = e.getCode().toString();
-        if (!input.contains(code)) {
-          input.add(code);
-        }
-      }
-    });
-
-    scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-      @Override
-      public void handle(KeyEvent e) {
-        String code = e.getCode().toString();
-        input.remove(code);
-      }
-    });
-
-    root.getChildren().add(damn);
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    // // intro();
-    //mainMenu();
-    MenuButton playBtn = new MenuButton("New Game");
-    playBtn.setLayoutX(100);
-    playBtn.setLayoutY(100);
-    root.getChildren().add(playBtn);
+
+    mainMenu();
+    addCar(new Car(200, 200), scene);
     primaryStage.show();
   }
 
@@ -143,6 +99,56 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
   }
 
+  public void addCar(Car damn, Scene scene)
+  {
+    ArrayList<String> input = new ArrayList<String>();
+    
+    new AnimationTimer() {
+      @Override
+      public void handle(long currentNanoTime) {
+        double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+        damn.move(t);
+        startNanoTime = currentNanoTime;
+        if (input.contains("W")) {
+          damn.accelerate();
+        }
+        if (input.contains("A")) {
+          damn.steerLeft();
+        }
+        if (input.contains("S")) {
+          damn.reverse();
+        }
+        if (input.contains("D")) {
+          damn.steerRight();
+        }
+        if (input.contains("ESCAPE")) {
+          System.exit(0);
+        }
+      }
+    }.start();
+
+    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent e) {
+        String code = e.getCode().toString();
+        if (!input.contains(code)) {
+          input.add(code);
+        }
+      }
+    });
+
+    scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent e) {
+        String code = e.getCode().toString();
+        input.remove(code);
+      }
+    });
+
+    root.getChildren().add(damn);
+  }
+  
+  
   public void instructions() {
 
   }
