@@ -30,7 +30,8 @@ public class DrivingAce extends Application {
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
     root = new AnchorPane();
-    root.setMaxSize(700, 500);
+    root.setMinSize(800 , 600);
+    root.setMaxSize(800 , 600);
     scene = new Scene(root);
 
     primaryStage.setTitle("Driving Ace");
@@ -43,14 +44,14 @@ public class DrivingAce extends Application {
 
 
   public void intro() {
-    Image image = new Image("/resources/logo_transparent.png", 200, 515, false, true);
+    Image image = new Image("/resources/logo_transparent.png", 500, 815, false, true);
 
     //Setting the image view 1 
     ImageView imageView1 = new ImageView(image);
     
     // Setting the position of the image
-    imageView1.setX(220);
-    imageView1.setY(140);
+    imageView1.setX(270);
+    imageView1.setY(170);
 
     // setting the fit height and width of the image view
     imageView1.setFitHeight(250);
@@ -72,58 +73,59 @@ public class DrivingAce extends Application {
 
 
   public void mainMenu() {
+//  Rectangle rect = new Rectangle (-100, -100, 830, 630);
+//  rect.setFill(Color.WHITE);
+//  root.getChildren().add(rect);
+//  
+//  FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
+//  ft.setFromValue(2);
+//  ft.setToValue(0);
+//  ft.setAutoReverse(true);
+//  ft.setCycleCount(1);
+//  ft.play();
+//  ft.setOnFinished(e -> addButtons());
+    
     ins = new Instructions();
     root.getChildren().add(ins);
-//    Rectangle rect = new Rectangle (-100, -100, 830, 630);
-//    rect.setFill(Color.WHITE);
-//    root.getChildren().add(rect);
-//    
-//    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
-//    ft.setFromValue(2);
-//    ft.setToValue(0);
-//    ft.setAutoReverse(true);
-//    ft.setCycleCount(1);
-//    ft.play();
-//    ft.setOnFinished(e -> addButtons());
+
     addButtons();
     BackgroundImage background = new BackgroundImage(
-        new Image("/resources/menubackground.jpg", 200, 515, false, true), BackgroundRepeat.REPEAT,
+        new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
   }
 
   public void addButtons()
   {
-    
     MenuButton playBtn = new MenuButton("New Game");
-    playBtn.setLayoutX(100);
-    playBtn.setLayoutY(100);
+    playBtn.setLayoutX(90);
+    playBtn.setLayoutY(160);
     root.getChildren().add(playBtn);
     playBtn.setOnAction(e -> levelOne());
 
     MenuButton helpBtn = new MenuButton("Help");
-    helpBtn.setLayoutX(100);
-    helpBtn.setLayoutY(200);
+    helpBtn.setLayoutX(90);
+    helpBtn.setLayoutY(260);
     root.getChildren().add(helpBtn);
     helpBtn.setOnAction(e -> ins.moveIn());
 
     MenuButton exitBtn = new MenuButton("Quit");
-    exitBtn.setLayoutX(100);
-    exitBtn.setLayoutY(300);
+    exitBtn.setLayoutX(90);
+    exitBtn.setLayoutY(360);
     root.getChildren().add(exitBtn);
     exitBtn.setOnAction(e -> Platform.exit());
     
 
     //Setting the image view 1 
-    ImageView logo = new ImageView(new Image("/resources/name1.png", 200, 515, false, true));
+    ImageView logo = new ImageView(new Image("/resources/name1.png", 350, 500, false, true));
     
     // Setting the position of the image
     logo.setX(370);
     logo.setY(40);
 
     // setting the fit height and width of the image view
-    logo.setFitHeight(75);
-    logo.setFitWidth(250);
+    logo.setFitHeight(100);
+    logo.setFitWidth(350);
     logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
