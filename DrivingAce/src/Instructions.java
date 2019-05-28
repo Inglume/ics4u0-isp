@@ -10,12 +10,11 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.util.Duration;
 
 public class Instructions extends SubScene{
-  private final String IMAGE_PATH = "/resources/yellow_panel.png";
 
   public Instructions() {
     super(new AnchorPane(), 700, 500);
-    prefWidth(400);
-    prefHeight(100);
+    maxWidth(400);
+    maxHeight(100);
     
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/yellow_panel.png", 300, 230, false, true), BackgroundRepeat.NO_REPEAT,
@@ -25,7 +24,7 @@ public class Instructions extends SubScene{
     r.setBackground(new Background(background));
     
     setLayoutX(0);
-  //  setLayoutY(0);
+    setLayoutY(10);
   }
   
   public void moveIn() {
@@ -35,6 +34,4 @@ public class Instructions extends SubScene{
     trans.setToX(-676);
     trans.play();
   }
-  
-  
 }

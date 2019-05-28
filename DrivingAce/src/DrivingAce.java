@@ -30,9 +30,8 @@ public class DrivingAce extends Application {
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
     root = new AnchorPane();
-    root.setPrefSize(700, 500);
+    root.setMaxSize(700, 500);
     scene = new Scene(root);
-
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
@@ -123,8 +122,8 @@ public class DrivingAce extends Application {
     logo.setY(40);
 
     // setting the fit height and width of the image view
-    logo.setFitHeight(90);
-    logo.setFitWidth(240);
+    logo.setFitHeight(75);
+    logo.setFitWidth(250);
     logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent event) {
@@ -138,7 +137,6 @@ public class DrivingAce extends Application {
         logo.setEffect(null);
       }
     });
-    
     root.getChildren().add(logo);
   }
   
