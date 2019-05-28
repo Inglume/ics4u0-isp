@@ -4,8 +4,9 @@ import javafx.animation.*;
 import javafx.application.*;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -21,6 +22,7 @@ public class DrivingAce extends Application {
   private AnchorPane root;
   private long startNanoTime;
   private Scene scene;
+  private Instructions ins;
   
   @Override
   public void start(Stage primaryStage) {
@@ -32,7 +34,8 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    intro();
+    //intro();
+    mainMenu();
     //addCar(new Car(50, 10), scene);
     primaryStage.show();
   }
@@ -68,21 +71,20 @@ public class DrivingAce extends Application {
 
 
   public void mainMenu() {
-    Rectangle rect = new Rectangle (0, 0, 710, 510);
-    rect.setFill(Color.WHITE);
-    root.getChildren().add(rect);
-    
-    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
-    ft.setFromValue(2);
-    ft.setToValue(0);
-    ft.setAutoReverse(true);
-    ft.setCycleCount(1);
-    ft.play();
-    ft.setOnFinished(e -> addButtons());
-    
- 
-
-
+    ins = new Instructions();
+    root.getChildren().add(ins);
+//    Rectangle rect = new Rectangle (-100, -100, 830, 630);
+//    rect.setFill(Color.WHITE);
+//    root.getChildren().add(rect);
+//    
+//    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
+//    ft.setFromValue(2);
+//    ft.setToValue(0);
+//    ft.setAutoReverse(true);
+//    ft.setCycleCount(1);
+//    ft.play();
+//    ft.setOnFinished(e -> addButtons());
+    addButtons();
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 515, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -91,31 +93,55 @@ public class DrivingAce extends Application {
 
   public void addButtons()
   {
+    
     MenuButton playBtn = new MenuButton("New Game");
     playBtn.setLayoutX(100);
     playBtn.setLayoutY(100);
     root.getChildren().add(playBtn);
-
     playBtn.setOnAction(e -> levelOne());
 
     MenuButton helpBtn = new MenuButton("Help");
     helpBtn.setLayoutX(100);
     helpBtn.setLayoutY(200);
     root.getChildren().add(helpBtn);
-
-    helpBtn.setOnAction(e -> instructions());
+    helpBtn.setOnAction(e -> ins.moveIn());
 
     MenuButton exitBtn = new MenuButton("Quit");
     exitBtn.setLayoutX(100);
     exitBtn.setLayoutY(300);
     root.getChildren().add(exitBtn);
-
     exitBtn.setOnAction(e -> Platform.exit());
     
+
+    //Setting the image view 1 
+    ImageView logo = new ImageView(new Image("/resources/name1.png", 200, 515, false, true));
+    
+    // Setting the position of the image
+    logo.setX(370);
+    logo.setY(40);
+
+    // setting the fit height and width of the image view
+    logo.setFitHeight(90);
+    logo.setFitWidth(240);
+    logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        logo.setEffect(new DropShadow());
+      }
+    });
+
+    logo.setOnMouseExited(new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent event) {
+        logo.setEffect(null);
+      }
+    });
+    
+    root.getChildren().add(logo);
   }
   
   public void instructions() {
-    
+    root.getChildren().add(ins);
   }
 
   public void levelOne() {
