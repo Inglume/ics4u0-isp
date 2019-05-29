@@ -1,4 +1,7 @@
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
@@ -46,10 +49,9 @@ public class Car extends Rectangle {
    * @param x x coordinate
    * @param y y coordinate
    */
-  public Car(double x, double y) {
+  public Car(double x, double y, Image i) {
     super(x, y, width, length);
-    setFill(Color.RED);
-    setStroke(Color.RED);
+    setFill(new ImagePattern(i));
     center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
     velocity = 0;
     accelerationRate = 5;

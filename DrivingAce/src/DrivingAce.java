@@ -65,7 +65,7 @@ public class DrivingAce extends Application {
     primaryStage.setScene(scene);
     // intro();
     mainMenu();
-    addCar(new Car(50, 10), scene);
+    
     root.getChildren().add(new Pylon(10, 10));
     root.getChildren().add(new Pylon(10, 20));
     root.getChildren().add(new Pylon(10, 40));
@@ -176,7 +176,7 @@ public class DrivingAce extends Application {
 
   public void levelOne() {
     Obstacle[] obstacles = new Obstacle[] {new Pylon(100, 100)};
-    new Car(100, 100);
+    addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
   }
 
   public void levelTwo() {
@@ -211,11 +211,11 @@ public class DrivingAce extends Application {
         if (input.contains("ESCAPE")) {
           Platform.exit();
         }
-        for (Obstacle o : obstacles) {
-          // if ((damn.intersects(o)) {
-          // System.out.println("CRASHED");
-          // }
-        }
+//        for (Obstacle o : obstacles) {
+//          // if ((damn.intersects(o)) {
+//          // System.out.println("CRASHED");
+//          // }
+//        }
       }
     }.start();
 
