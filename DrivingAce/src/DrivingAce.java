@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -46,9 +47,13 @@ public class DrivingAce extends Application {
     // intro();
     mainMenu();
     addCar(new Car(50, 10), scene);
-    root.getChildren().add(new Pylon(10, 10));
-    root.getChildren().add(new Pylon(10, 20));
-    root.getChildren().add(new Pylon(10, 40));
+    Pylon pylon1 = new Pylon(10, 10);
+    Pylon pylon2 = new Pylon(100, 200);
+    Pylon pylon3 = new Pylon(200, 300);
+    obstacles = new Obstacle[] {pylon1, pylon2, pylon3};
+    root.getChildren().add(pylon1);
+    root.getChildren().add(pylon2);
+    root.getChildren().add(pylon3);
     primaryStage.show();
   }
 
@@ -153,7 +158,6 @@ public class DrivingAce extends Application {
   }
 
   public void levelOne() {
-    Obstacle[] obstacles = new Obstacle[] {new Pylon(100, 100)};
     new Car(100, 100);
   }
 
@@ -189,11 +193,12 @@ public class DrivingAce extends Application {
         if (input.contains("ESCAPE")) {
           Platform.exit();
         }
-        // for (Obstacle o : obstacles) {
-        // if ((damn.intersects(o)) {
-        // System.out.println("CRASHED");
-        // }
-        // }
+        Bounds bounds = damn.getBoundsInParent();
+        for (Obstacle o : obstacles) {
+          if (o != null && damn.getBoundsInParent().intersects(o.getBoundsInParent())) {
+            System.out.println("CRASHED");
+          }
+        }
       }
     }.start();
 
