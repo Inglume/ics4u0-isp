@@ -63,8 +63,8 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    // intro();
-    mainMenu();
+    intro();
+    // mainMenu();
     addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
     Pylon pylon1 = new Pylon(10, 10);
     Pylon pylon2 = new Pylon(100, 200);
@@ -119,8 +119,6 @@ public class DrivingAce extends Application {
 
     ins = new Instructions();
     root.getChildren().add(ins);
-
-    addButtons();
 
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
