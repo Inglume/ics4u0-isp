@@ -31,19 +31,33 @@ public class Car extends Rectangle {
   private double steeringRate;
 
   /**
+   * 
+   */
+  private static final double length = 64;
+
+  /**
+   * 
+   */
+  private static final double width = 36;
+
+  /**
    * Constructor.
    * 
    * @param x x coordinate
    * @param y y coordinate
    */
   public Car(double x, double y) {
-    super(x, y, 50, 100);
+    super(x, y, width, length);
     setFill(Color.RED);
     setStroke(Color.RED);
-    center = new Rectangle(x + 25, y + 50, 0, 0);
+    center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
     velocity = 0;
-    accelerationRate = 10;
-    steeringRate = 2;
+    accelerationRate = 5;
+    steeringRate = 4;
+  }
+
+  public boolean intersects(Obstacle o) {
+    return false;
   }
 
   /**

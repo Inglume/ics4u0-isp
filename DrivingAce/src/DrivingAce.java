@@ -51,6 +51,7 @@ public class DrivingAce extends Application {
    * An instance of the Instructions class.
    */
   private Instructions ins;
+  private Obstacle[] obstacles;
 
   @Override
   public void start(Stage primaryStage) {
@@ -65,6 +66,9 @@ public class DrivingAce extends Application {
     // intro();
     mainMenu();
     addCar(new Car(50, 10), scene);
+    root.getChildren().add(new Pylon(10, 10));
+    root.getChildren().add(new Pylon(10, 20));
+    root.getChildren().add(new Pylon(10, 40));
     primaryStage.show();
   }
 
@@ -206,6 +210,11 @@ public class DrivingAce extends Application {
         }
         if (input.contains("ESCAPE")) {
           Platform.exit();
+        }
+        for (Obstacle o : obstacles) {
+          // if ((damn.intersects(o)) {
+          // System.out.println("CRASHED");
+          // }
         }
       }
     }.start();
