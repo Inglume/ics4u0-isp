@@ -4,7 +4,6 @@ import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -17,6 +16,8 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -28,9 +29,27 @@ import javafx.util.Duration;
  * @version 1
  */
 public class DrivingAce extends Application {
+
+  /**
+   * The Pane of the Game.
+   */
   private AnchorPane root;
+
+
+  /**
+   * The start time as a part of the game loop.
+   */
   private long startNanoTime;
+
+  /**
+   * The scene for the output. It will be put into the the Pane.
+   */
   private Scene scene;
+
+
+  /**
+   * An instance of the Instructions class.
+   */
   private Instructions ins;
   private Obstacle[] obstacles;
 
@@ -46,7 +65,7 @@ public class DrivingAce extends Application {
     primaryStage.setScene(scene);
     // intro();
     mainMenu();
-    addCar(new Car(50, 10), scene);
+    addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
     Pylon pylon1 = new Pylon(10, 10);
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
@@ -74,8 +93,6 @@ public class DrivingAce extends Application {
 
 
     root.getChildren().add(imageView1);
-    // PauseTransition pause = new PauseTransition(Duration.seconds(5));
-    // pause.play();
 
     FadeTransition ft = new FadeTransition(Duration.millis(4000), imageView1);
     ft.setFromValue(2);
@@ -88,26 +105,29 @@ public class DrivingAce extends Application {
 
 
   public void mainMenu() {
-    // Rectangle rect = new Rectangle (-100, -100, 830, 630);
-    // rect.setFill(Color.WHITE);
-    // root.getChildren().add(rect);
-    //
-    // FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
-    // ft.setFromValue(2);
-    // ft.setToValue(0);
-    // ft.setAutoReverse(true);
-    // ft.setCycleCount(1);
-    // ft.play();
-    // ft.setOnFinished(e -> addButtons());
+    Rectangle rect = new Rectangle(-100, -100, 1030, 930);
+    rect.setFill(Color.WHITE);
+    root.getChildren().add(rect);
+
+    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
+    ft.setFromValue(2);
+    ft.setToValue(0);
+    ft.setAutoReverse(true);
+    ft.setCycleCount(1);
+    ft.play();
+    ft.setOnFinished(e -> addButtons());
 
     ins = new Instructions();
     root.getChildren().add(ins);
+
     addButtons();
+
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
   }
+
 
   public void addButtons() {
     MenuButton playBtn = new MenuButton("New Game");
@@ -130,6 +150,7 @@ public class DrivingAce extends Application {
 
     // Setting the image view 1
     ImageView logo = new ImageView(new Image("/resources/name1.png", 350, 500, false, true));
+
     // Setting the position of the image
     logo.setX(370);
     logo.setY(40);
@@ -158,7 +179,8 @@ public class DrivingAce extends Application {
   }
 
   public void levelOne() {
-    new Car(100, 100);
+    Obstacle[] obstacles = new Obstacle[] {new Pylon(100, 100)};
+    addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
   }
 
   public void levelTwo() {
@@ -193,7 +215,6 @@ public class DrivingAce extends Application {
         if (input.contains("ESCAPE")) {
           Platform.exit();
         }
-        Bounds bounds = damn.getBoundsInParent();
         for (Obstacle o : obstacles) {
           if (o != null && damn.getBoundsInParent().intersects(o.getBoundsInParent())) {
             System.out.println("CRASHED");
