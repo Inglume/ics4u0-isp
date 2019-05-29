@@ -189,11 +189,11 @@ public class DrivingAce extends Application {
         if (input.contains("ESCAPE")) {
           Platform.exit();
         }
-        for (Obstacle o : obstacles) {
-          // if ((damn.intersects(o)) {
-          // System.out.println("CRASHED");
-          // }
-        }
+        // for (Obstacle o : obstacles) {
+        // if ((damn.intersects(o)) {
+        // System.out.println("CRASHED");
+        // }
+        // }
       }
     }.start();
 
