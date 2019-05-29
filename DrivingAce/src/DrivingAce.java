@@ -21,11 +21,29 @@ import javafx.util.Duration;
  * @version 1
  */
 public class DrivingAce extends Application {
-  private AnchorPane root;
-  private long startNanoTime;
-  private Scene scene;
-  private Instructions ins;
   
+  /**
+   * The Pane of the Game.
+   */
+  private AnchorPane root;
+  
+  
+  /**
+   * The start time as a part of the game loop.
+   */
+  private long startNanoTime;
+  
+  /**
+   * The scene for the output. It will be put into the the Pane.
+   */
+  private Scene scene;
+  
+  
+  /**
+   * An instance of the Instructions class.
+   */
+  private Instructions ins;
+
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
@@ -42,13 +60,13 @@ public class DrivingAce extends Application {
     primaryStage.show();
   }
 
-
+  
   public void intro() {
     Image image = new Image("/resources/logo_transparent.png", 500, 815, false, true);
 
     //Setting the image view 1 
     ImageView imageView1 = new ImageView(image);
-    
+
     // Setting the position of the image
     imageView1.setX(270);
     imageView1.setY(170);
@@ -61,7 +79,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(imageView1);
     //PauseTransition pause = new PauseTransition(Duration.seconds(5));
     //pause.play();
-    
+
     FadeTransition ft = new FadeTransition(Duration.millis(4000), imageView1);
     ft.setFromValue(2);
     ft.setToValue(0);
@@ -73,28 +91,28 @@ public class DrivingAce extends Application {
 
 
   public void mainMenu() {
-//  Rectangle rect = new Rectangle (-100, -100, 830, 630);
-//  rect.setFill(Color.WHITE);
-//  root.getChildren().add(rect);
-//  
-//  FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
-//  ft.setFromValue(2);
-//  ft.setToValue(0);
-//  ft.setAutoReverse(true);
-//  ft.setCycleCount(1);
-//  ft.play();
-//  ft.setOnFinished(e -> addButtons());
-    
+    Rectangle rect = new Rectangle (-100, -100, 1030, 930);
+    rect.setFill(Color.WHITE);
+    root.getChildren().add(rect);
+
+    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
+    ft.setFromValue(2);
+    ft.setToValue(0);
+    ft.setAutoReverse(true);
+    ft.setCycleCount(1);
+    ft.play();
+    ft.setOnFinished(e -> addButtons());
+
     ins = new Instructions();
     root.getChildren().add(ins);
 
-    addButtons();
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
   }
 
+  
   public void addButtons()
   {
     MenuButton playBtn = new MenuButton("New Game");
@@ -114,11 +132,11 @@ public class DrivingAce extends Application {
     exitBtn.setLayoutY(360);
     root.getChildren().add(exitBtn);
     exitBtn.setOnAction(e -> Platform.exit());
-    
+
 
     //Setting the image view 1 
     ImageView logo = new ImageView(new Image("/resources/name1.png", 350, 500, false, true));
-    
+
     // Setting the position of the image
     logo.setX(370);
     logo.setY(40);
@@ -141,7 +159,7 @@ public class DrivingAce extends Application {
     });
     root.getChildren().add(logo);
   }
-  
+
   public void instructions() {
     root.getChildren().add(ins);
   }
