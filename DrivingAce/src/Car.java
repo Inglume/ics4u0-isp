@@ -56,6 +56,10 @@ public class Car extends Rectangle {
     steeringRate = 4;
   }
 
+  public boolean intersects(Car c) {
+    return false;
+  }
+
   public boolean intersects(Obstacle o) {
     return false;
   }
