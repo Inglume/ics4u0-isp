@@ -10,12 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -211,19 +206,11 @@ public class DrivingAce extends Application {
         if (input.contains("ESCAPE")) {
           Platform.exit();
         }
-<<<<<<< HEAD
 //        for (Obstacle o : obstacles) {
 //          // if ((damn.intersects(o)) {
 //          // System.out.println("CRASHED");
 //          // }
 //        }
-=======
-        // for (Obstacle o : obstacles) {
-        // if ((damn.intersects(o)) {
-        // System.out.println("CRASHED");
-        // }
-        // }
->>>>>>> branch 'master' of https://github.com/Inglume/ics4u0-isp
       }
     }.start();
 

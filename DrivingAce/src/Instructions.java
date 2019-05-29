@@ -1,14 +1,8 @@
 import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextBuilder;
 import javafx.util.Duration;
 
 public class Instructions extends SubScene{
@@ -29,8 +23,8 @@ public class Instructions extends SubScene{
     Text t = new Text("Lol");
     
     //setting the position of the text
-    t.setX(50);
-    t.setY(160);
+    t.setLayoutX(1045);
+    t.setLayoutY(160);
     
     setLayoutX(1040);
     setLayoutY(160);            
