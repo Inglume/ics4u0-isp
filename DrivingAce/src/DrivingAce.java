@@ -1,15 +1,21 @@
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
-import javafx.animation.*;
-import javafx.application.*;
+import javafx.animation.FadeTransition;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.*;
-import javafx.scene.input.*;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -25,7 +31,7 @@ public class DrivingAce extends Application {
   private long startNanoTime;
   private Scene scene;
   private Instructions ins;
-  
+
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
@@ -35,9 +41,9 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    //intro();
+    // intro();
     mainMenu();
-    //addCar(new Car(50, 10), scene);
+    addCar(new Car(50, 10), scene);
     primaryStage.show();
   }
 
@@ -45,9 +51,9 @@ public class DrivingAce extends Application {
   public void intro() {
     Image image = new Image("/resources/logo_transparent.png", 200, 515, false, true);
 
-    //Setting the image view 1 
+    // Setting the image view 1
     ImageView imageView1 = new ImageView(image);
-    
+
     // Setting the position of the image
     imageView1.setX(220);
     imageView1.setY(140);
@@ -58,9 +64,9 @@ public class DrivingAce extends Application {
 
 
     root.getChildren().add(imageView1);
-    //PauseTransition pause = new PauseTransition(Duration.seconds(5));
-    //pause.play();
-    
+    // PauseTransition pause = new PauseTransition(Duration.seconds(5));
+    // pause.play();
+
     FadeTransition ft = new FadeTransition(Duration.millis(4000), imageView1);
     ft.setFromValue(2);
     ft.setToValue(0);
@@ -74,17 +80,17 @@ public class DrivingAce extends Application {
   public void mainMenu() {
     ins = new Instructions();
     root.getChildren().add(ins);
-//    Rectangle rect = new Rectangle (-100, -100, 830, 630);
-//    rect.setFill(Color.WHITE);
-//    root.getChildren().add(rect);
-//    
-//    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
-//    ft.setFromValue(2);
-//    ft.setToValue(0);
-//    ft.setAutoReverse(true);
-//    ft.setCycleCount(1);
-//    ft.play();
-//    ft.setOnFinished(e -> addButtons());
+    // Rectangle rect = new Rectangle (-100, -100, 830, 630);
+    // rect.setFill(Color.WHITE);
+    // root.getChildren().add(rect);
+    //
+    // FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
+    // ft.setFromValue(2);
+    // ft.setToValue(0);
+    // ft.setAutoReverse(true);
+    // ft.setCycleCount(1);
+    // ft.play();
+    // ft.setOnFinished(e -> addButtons());
     addButtons();
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 515, false, true), BackgroundRepeat.REPEAT,
@@ -92,9 +98,8 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
   }
 
-  public void addButtons()
-  {
-    
+  public void addButtons() {
+
     MenuButton playBtn = new MenuButton("New Game");
     playBtn.setLayoutX(100);
     playBtn.setLayoutY(100);
@@ -112,11 +117,11 @@ public class DrivingAce extends Application {
     exitBtn.setLayoutY(300);
     root.getChildren().add(exitBtn);
     exitBtn.setOnAction(e -> Platform.exit());
-    
 
-    //Setting the image view 1 
+
+    // Setting the image view 1
     ImageView logo = new ImageView(new Image("/resources/name1.png", 200, 515, false, true));
-    
+
     // Setting the position of the image
     logo.setX(370);
     logo.setY(40);
@@ -139,13 +144,14 @@ public class DrivingAce extends Application {
     });
     root.getChildren().add(logo);
   }
-  
+
   public void instructions() {
     root.getChildren().add(ins);
   }
 
   public void levelOne() {
-
+    Obstacle[] obstacles = new Obstacle[] {new Pylon(100, 100)};
+    new Car(100, 100);
   }
 
   public void levelTwo() {
@@ -165,20 +171,20 @@ public class DrivingAce extends Application {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
         damn.move(t);
         startNanoTime = currentNanoTime;
-        if (input.contains("W")) {
+        if (input.contains("W") || input.contains("UP")) {
           damn.accelerate();
         }
-        if (input.contains("A")) {
+        if (input.contains("A") || input.contains("LEFT")) {
           damn.steerLeft();
         }
-        if (input.contains("S")) {
+        if (input.contains("S") || input.contains("DOWN")) {
           damn.reverse();
         }
-        if (input.contains("D")) {
+        if (input.contains("D") || input.contains("RIGHT")) {
           damn.steerRight();
         }
         if (input.contains("ESCAPE")) {
-          System.exit(0);
+          Platform.exit();
         }
       }
     }.start();
