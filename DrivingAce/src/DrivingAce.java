@@ -66,10 +66,14 @@ public class DrivingAce extends Application {
     intro();
     // mainMenu();
     addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
+    Obstacle leftWall = new Obstacle(-1, 0, 0, 600);
+    Obstacle rightWall = new Obstacle(801, 0, 0, 600);
+    Obstacle upWall = new Obstacle(0, -1, 800, 0);
+    Obstacle downWall = new Obstacle(0, 601, 800, 0);
     Pylon pylon1 = new Pylon(10, 10);
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
-    obstacles = new Obstacle[] {pylon1, pylon2, pylon3};
+    obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
     root.getChildren().add(pylon1);
     root.getChildren().add(pylon2);
     root.getChildren().add(pylon3);
@@ -177,8 +181,8 @@ public class DrivingAce extends Application {
   }
 
   public void levelOne() {
-    Obstacle[] obstacles = new Obstacle[] {new Pylon(100, 100)};
-    addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
+    // Obstacle[] obstacles = new Obstacle[] {new Pylon(100, 100)};
+    // addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
   }
 
   public void levelTwo() {
@@ -216,6 +220,7 @@ public class DrivingAce extends Application {
         for (Obstacle o : obstacles) {
           if (o != null && damn.getBoundsInParent().intersects(o.getBoundsInParent())) {
             System.out.println("CRASHED");
+            damn.setVelocity(-damn.getVelocity());
           }
         }
       }
