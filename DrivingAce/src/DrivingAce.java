@@ -211,11 +211,19 @@ public class DrivingAce extends Application {
         if (input.contains("ESCAPE")) {
           Platform.exit();
         }
+<<<<<<< HEAD
 //        for (Obstacle o : obstacles) {
 //          // if ((damn.intersects(o)) {
 //          // System.out.println("CRASHED");
 //          // }
 //        }
+=======
+        // for (Obstacle o : obstacles) {
+        // if ((damn.intersects(o)) {
+        // System.out.println("CRASHED");
+        // }
+        // }
+>>>>>>> branch 'master' of https://github.com/Inglume/ics4u0-isp
       }
     }.start();
 
