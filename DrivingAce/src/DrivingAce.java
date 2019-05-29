@@ -1,13 +1,21 @@
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
-import javafx.animation.*;
-import javafx.application.*;
+import javafx.animation.FadeTransition;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.image.*;
-import javafx.scene.input.*;
-import javafx.scene.layout.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -48,15 +56,15 @@ public class DrivingAce extends Application {
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
     root = new AnchorPane();
-    root.setMinSize(800 , 600);
-    root.setMaxSize(800 , 600);
+    root.setMinSize(800, 600);
+    root.setMaxSize(800, 600);
     scene = new Scene(root);
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    //intro();
+    // intro();
     mainMenu();
-    //addCar(new Car(50, 10), scene);
+    addCar(new Car(50, 10), scene);
     primaryStage.show();
   }
 
@@ -64,7 +72,7 @@ public class DrivingAce extends Application {
   public void intro() {
     Image image = new Image("/resources/logo_transparent.png", 500, 815, false, true);
 
-    //Setting the image view 1 
+    // Setting the image view 1
     ImageView imageView1 = new ImageView(image);
 
     // Setting the position of the image
@@ -77,8 +85,6 @@ public class DrivingAce extends Application {
 
 
     root.getChildren().add(imageView1);
-    //PauseTransition pause = new PauseTransition(Duration.seconds(5));
-    //pause.play();
 
     FadeTransition ft = new FadeTransition(Duration.millis(4000), imageView1);
     ft.setFromValue(2);
@@ -106,6 +112,8 @@ public class DrivingAce extends Application {
     ins = new Instructions();
     root.getChildren().add(ins);
 
+    addButtons();
+    
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -113,8 +121,7 @@ public class DrivingAce extends Application {
   }
 
   
-  public void addButtons()
-  {
+  public void addButtons() {
     MenuButton playBtn = new MenuButton("New Game");
     playBtn.setLayoutX(90);
     playBtn.setLayoutY(160);
@@ -133,8 +140,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(exitBtn);
     exitBtn.setOnAction(e -> Platform.exit());
 
-
-    //Setting the image view 1 
+    // Setting the image view 1
     ImageView logo = new ImageView(new Image("/resources/name1.png", 350, 500, false, true));
 
     // Setting the position of the image
@@ -165,7 +171,8 @@ public class DrivingAce extends Application {
   }
 
   public void levelOne() {
-
+    Obstacle[] obstacles = new Obstacle[] {new Pylon(100, 100)};
+    new Car(100, 100);
   }
 
   public void levelTwo() {
@@ -185,20 +192,20 @@ public class DrivingAce extends Application {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
         damn.move(t);
         startNanoTime = currentNanoTime;
-        if (input.contains("W")) {
+        if (input.contains("W") || input.contains("UP")) {
           damn.accelerate();
         }
-        if (input.contains("A")) {
+        if (input.contains("A") || input.contains("LEFT")) {
           damn.steerLeft();
         }
-        if (input.contains("S")) {
+        if (input.contains("S") || input.contains("DOWN")) {
           damn.reverse();
         }
-        if (input.contains("D")) {
+        if (input.contains("D") || input.contains("RIGHT")) {
           damn.steerRight();
         }
         if (input.contains("ESCAPE")) {
-          System.exit(0);
+          Platform.exit();
         }
       }
     }.start();
