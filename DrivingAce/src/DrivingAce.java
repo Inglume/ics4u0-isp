@@ -180,7 +180,7 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
     Obstacle leftWall = new Obstacle(-1, 0, 0, 600);
     Obstacle rightWall = new Obstacle(801, 0, 0, 600);
     Obstacle upWall = new Obstacle(0, -1, 800, 0);
