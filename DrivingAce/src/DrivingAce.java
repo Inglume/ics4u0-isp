@@ -64,7 +64,6 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     intro();
-    // mainMenu();
     primaryStage.show();
   }
 
@@ -169,7 +168,19 @@ public class DrivingAce extends Application {
   }
 
   public void levelOne() {
-    addCar(new Car(50, 10, new Image("/resources/car_red_small_5.png")), scene);
+    root.getChildren().clear();
+    Rectangle rect = new Rectangle(-100, -100, 1030, 930);
+    rect.setFill(Color.WHITE);
+    root.getChildren().add(rect);
+
+    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
+    ft.setFromValue(2);
+    ft.setToValue(0);
+    ft.setAutoReverse(true);
+    ft.setCycleCount(1);
+    ft.play();
+
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
     Obstacle leftWall = new Obstacle(-1, 0, 0, 600);
     Obstacle rightWall = new Obstacle(801, 0, 0, 600);
     Obstacle upWall = new Obstacle(0, -1, 800, 0);
@@ -178,13 +189,18 @@ public class DrivingAce extends Application {
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
     obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
-    root.getChildren().add(pylon1);
-    root.getChildren().add(pylon2);
-    root.getChildren().add(pylon3);
     root.getChildren().add(leftWall);
     root.getChildren().add(rightWall);
     root.getChildren().add(upWall);
     root.getChildren().add(downWall);
+    root.getChildren().add(pylon1);
+    root.getChildren().add(pylon2);
+    root.getChildren().add(pylon3);
+
+    BackgroundImage background = new BackgroundImage(
+        new Image("/resources/level1.jpg", 800, 615, false, true), BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
   }
 
   public void levelTwo() {
@@ -195,39 +211,38 @@ public class DrivingAce extends Application {
 
   }
 
-  public void addCar(Car damn, Scene scene) {
+  public void addCar(Car car, Scene scene) {
+    root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
 
     new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-        damn.move(t);
+        car.move(t);
         startNanoTime = currentNanoTime;
         if (input.contains("W") || input.contains("UP")) {
-          damn.accelerate();
+          car.accelerate();
         }
         if (input.contains("A") || input.contains("LEFT")) {
-          damn.steerLeft();
+          car.steerLeft();
         }
         if (input.contains("S") || input.contains("DOWN")) {
-          damn.reverse();
+          car.reverse();
         }
         if (input.contains("D") || input.contains("RIGHT")) {
-          damn.steerRight();
+          car.steerRight();
         }
         if (input.contains("ESCAPE")) {
-          for (Obstacle o : obstacles) {
-            root.getChildren().remove(o);
-          }
+          root.getChildren().clear();
           obstacles = new Obstacle[0];
-          root.getChildren().remove(damn);
-          return;
+          mainMenu();
+          this.stop();
         }
         for (Obstacle o : obstacles) {
-          if (o != null && damn.getBoundsInParent().intersects(o.getBoundsInParent())) {
+          if (o != null && car.getBoundsInParent().intersects(o.getBoundsInParent())) {
             System.out.println("CRASHED");
-            damn.setVelocity(-damn.getVelocity());
+            car.setVelocity(-car.getVelocity());
           }
         }
       }
@@ -250,8 +265,6 @@ public class DrivingAce extends Application {
         input.remove(code);
       }
     });
-
-    root.getChildren().add(damn);
   }
 
   public static void main(String[] args) {

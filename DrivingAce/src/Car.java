@@ -32,12 +32,12 @@ public class Car extends Rectangle {
   private double steeringRate;
 
   /**
-   * 
+   * Length of car
    */
   private static final double length = 64;
 
   /**
-   * 
+   * Width of car
    */
   private static final double width = 36;
 
@@ -52,7 +52,7 @@ public class Car extends Rectangle {
     setFill(new ImagePattern(i));
     center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
     velocity = 0;
-    accelerationRate = 5;
+    accelerationRate = 4;
     steeringRate = 4;
   }
 
@@ -134,5 +134,4 @@ public class Car extends Rectangle {
   public void setVelocity(double velocity) {
     this.velocity = velocity;
   }
-
 }
