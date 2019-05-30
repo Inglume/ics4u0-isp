@@ -134,5 +134,4 @@ public class Car extends Rectangle {
   public void setVelocity(double velocity) {
     this.velocity = velocity;
   }
-
 }
