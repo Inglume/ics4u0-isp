@@ -167,6 +167,10 @@ public class DrivingAce extends Application {
     root.getChildren().add(ins);
   }
 
+  public void levelSelect() {
+    // TODO menu with buttons for selecting three different levels or going back to main menu
+  }
+
   public void levelOne() {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -212,6 +216,8 @@ public class DrivingAce extends Application {
   }
 
   public void addCar(Car car, Scene scene) {
+    // TODO camera that moves with scene (read this:
+    // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
 
