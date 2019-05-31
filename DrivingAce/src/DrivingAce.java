@@ -167,6 +167,10 @@ public class DrivingAce extends Application {
     root.getChildren().add(ins);
   }
 
+  public void levelSelect() {
+    // TODO menu with buttons for selecting three different levels or going back to main menu
+  }
+
   public void levelOne() {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -189,6 +193,10 @@ public class DrivingAce extends Application {
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
     obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
+    root.getChildren().add(leftWall);
+    root.getChildren().add(rightWall);
+    root.getChildren().add(upWall);
+    root.getChildren().add(downWall);
     root.getChildren().add(pylon1);
     root.getChildren().add(pylon2);
     root.getChildren().add(pylon3);
@@ -222,34 +230,40 @@ public class DrivingAce extends Application {
 
   }
 
-  public void addCar(Car damn, Scene scene) {
+  public void addCar(Car car, Scene scene) {
+    // TODO camera that moves with scene (read this:
+    // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
+    root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
 
     new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-        damn.move(t);
+        car.move(t);
         startNanoTime = currentNanoTime;
         if (input.contains("W") || input.contains("UP")) {
-          damn.accelerate();
+          car.accelerate();
         }
         if (input.contains("A") || input.contains("LEFT")) {
-          damn.steerLeft();
+          car.steerLeft();
         }
         if (input.contains("S") || input.contains("DOWN")) {
-          damn.reverse();
+          car.reverse();
         }
         if (input.contains("D") || input.contains("RIGHT")) {
-          damn.steerRight();
+          car.steerRight();
         }
         if (input.contains("ESCAPE")) {
-          Platform.exit();
+          root.getChildren().clear();
+          obstacles = new Obstacle[0];
+          mainMenu();
+          this.stop();
         }
         for (Obstacle o : obstacles) {
-          if (o != null && damn.getBoundsInParent().intersects(o.getBoundsInParent())) {
+          if (o != null && car.getBoundsInParent().intersects(o.getBoundsInParent())) {
             System.out.println("CRASHED");
-            damn.setVelocity(-damn.getVelocity());
+            car.setVelocity(-car.getVelocity());
           }
         }
       }
@@ -272,8 +286,6 @@ public class DrivingAce extends Application {
         input.remove(code);
       }
     });
-
-    root.getChildren().add(damn);
   }
 
   public static void main(String[] args) {
