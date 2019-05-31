@@ -55,6 +55,8 @@ public class Car extends Rectangle {
   public Car(double x, double y, Image i, double direction) {
     super(x, y, width, length);
     setFill(new ImagePattern(i));
+    setArcHeight(20);
+    setArcWidth(20);
     center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
     accelerationRate = 4;
     steeringRate = 4;

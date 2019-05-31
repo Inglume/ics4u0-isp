@@ -67,8 +67,8 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     // intro();
-    // levelTwo();
-    mainMenu();
+     levelTwo();
+    //mainMenu();
     primaryStage.show();
   }
 
@@ -255,9 +255,9 @@ public class DrivingAce extends Application {
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), -90), scene);
-    Obstacle o1 = new Obstacle(473, 585, 124, 1, "l");
-    Obstacle o2 = new Obstacle(801, 0, 1, 600, "l");
+    addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), scene);
+    Obstacle o1 = new Obstacle(473, 582, 124, 1, "l");
+    Obstacle o2 = new Obstacle(473, 510, 118, 1, "l");
     Obstacle o3 = new Obstacle(0, -1, 800, 1, "l");
     Obstacle o4 = new Obstacle(0, 601, 800, 1, "l");
     obstacles = new Obstacle[] {o1, o2, o3, o4};
