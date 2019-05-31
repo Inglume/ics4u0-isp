@@ -20,6 +20,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -256,16 +257,46 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
 
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), scene);
-    Obstacle o1 = new Obstacle(473, 582, 124, 1, "l");
-    Obstacle o2 = new Obstacle(473, 510, 118, 1, "l");
-    Obstacle o3 = new Obstacle(0, -1, 800, 1, "l");
-    Obstacle o4 = new Obstacle(0, 601, 800, 1, "l");
-    obstacles = new Obstacle[] {o1, o2, o3, o4};
-    root.getChildren().add(o1);
-    root.getChildren().add(o2);
-    root.getChildren().add(o3);
-    root.getChildren().add(o4);
-
+    Obstacle o1 = new Obstacle(473, 582, 124, 1, "l"); //lower
+    Obstacle o2 = new Obstacle(473, 510, 118, 1, "l"); //upper
+    
+    //diagonal
+    Obstacle o3 = new Obstacle(390, 538, 94, 1, "l"); //lower
+    Obstacle o4 = new Obstacle(390, 460, 94, 1, "l"); //upper
+    o3.getTransforms().add(new Rotate(28, o3.getX(), o3.getY()));
+    o4.getTransforms().add(new Rotate(32, o4.getX(), o4.getY()));
+    
+    Obstacle o5 = new Obstacle(148, 559, 242, 1, "l"); //lower
+    Obstacle o6 = new Obstacle(146, 480, 244, 1, "l"); //upper
+    o5.getTransforms().add(new Rotate(355, o5.getX(), o5.getY()));
+    o6.getTransforms().add(new Rotate(355, o6.getX(), o6.getY()));
+    
+    //straight
+    Obstacle o7 = new Obstacle(139, 252, 1, 223, "l"); //right
+    Obstacle o8 = new Obstacle(51, 252, 1, 223, "l"); //leftmost
+    
+    //bottom left corner
+    Obstacle o9 = new Obstacle(51, 475, 1, 60, "l"); //upper
+    Obstacle o10 = new Obstacle(66, 519, 35, 1, "l"); //middle
+    Obstacle o11 = new Obstacle(90, 540, 60, 1, "l"); //lower
+    o9.getTransforms().add(new Rotate(344, o9.getX(), o9.getY()));
+    o10.getTransforms().add(new Rotate(45, o10.getX(), o10.getY()));
+    o11.getTransforms().add(new Rotate(20, o11.getX(), o11.getY()));
+    
+    //top left corner
+    Obstacle o12 = new Obstacle(68, 196, 1, 60, "l"); //lower
+    Obstacle o13 = new Obstacle(70, 199, 52, 1, "l"); //upper
+    o12.getTransforms().add(new Rotate(20, o12.getX(), o12.getY()));
+    o13.getTransforms().add(new Rotate(332, o13.getX(), o13.getY()));
+    
+    //top horizontal
+    Obstacle o14 = new Obstacle(116, 172, 273, 1, "l"); //lower
+    
+    obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14};
+    for(int x = 0; x < obstacles.length; x++)
+      root.getChildren().add(obstacles[x]);
+      
+    
     MenuButton menuBtn = new MenuButton("Main Menu", 125, 30, 15);
     menuBtn.setLayoutX(674);
     menuBtn.setLayoutY(579);
