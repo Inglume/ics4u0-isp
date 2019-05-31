@@ -17,8 +17,13 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+<<<<<<< HEAD
 import javafx.scene.text.Text;
+=======
+import javafx.scene.shape.Shape;
+>>>>>>> branch 'master' of https://github.com/Inglume/ics4u0-isp
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -194,10 +199,10 @@ public class DrivingAce extends Application {
     ft.play();
 
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
-    Obstacle leftWall = new Obstacle(-1, 0, 0, 600);
-    Obstacle rightWall = new Obstacle(801, 0, 0, 600);
-    Obstacle upWall = new Obstacle(0, -1, 800, 0);
-    Obstacle downWall = new Obstacle(0, 601, 800, 0);
+    Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
+    Obstacle rightWall = new Obstacle(801, 0, 1, 600);
+    Obstacle upWall = new Obstacle(0, -1, 800, 1);
+    Obstacle downWall = new Obstacle(0, 601, 800, 1);
     Pylon pylon1 = new Pylon(10, 10);
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
@@ -293,7 +298,7 @@ public class DrivingAce extends Application {
           this.stop();
         }
         for (Obstacle o : obstacles) {
-          if (o != null && car.getBoundsInParent().intersects(o.getBoundsInParent())) {
+          if (o != null && ((Path) Shape.intersect(car, o)).getElements().size() > 0) {
             System.out.println("CRASHED");
             car.setVelocity(-car.getVelocity());
           }

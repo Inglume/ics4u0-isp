@@ -32,6 +32,11 @@ public class Car extends Rectangle {
   private double steeringRate;
 
   /**
+   * Max velocity of car.
+   */
+  private double maxVelocity;
+
+  /**
    * Length of car
    */
   private static final double length = 64;
@@ -54,6 +59,7 @@ public class Car extends Rectangle {
     velocity = 0;
     accelerationRate = 4;
     steeringRate = 4;
+    maxVelocity = 400;
   }
 
   public boolean intersects(Car c) {
@@ -79,6 +85,9 @@ public class Car extends Rectangle {
    */
   public void accelerate() {
     velocity += accelerationRate;
+    if (velocity > maxVelocity) {
+      velocity = maxVelocity;
+    }
   }
 
   /**
