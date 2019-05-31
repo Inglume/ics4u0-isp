@@ -230,10 +230,10 @@ public class DrivingAce extends Application {
     ft.play();
 
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
-    Obstacle leftWall = new Obstacle(-1, 0, 0, 600);
-    Obstacle rightWall = new Obstacle(801, 0, 0, 600);
-    Obstacle upWall = new Obstacle(0, -1, 800, 0);
-    Obstacle downWall = new Obstacle(0, 601, 800, 0);
+    Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
+    Obstacle rightWall = new Obstacle(801, 0, 1, 600);
+    Obstacle upWall = new Obstacle(0, -1, 800, 1);
+    Obstacle downWall = new Obstacle(0, 601, 800, 1);
     Pylon pylon1 = new Pylon(10, 10);
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
