@@ -234,7 +234,6 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), -90), scene);
     Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
     Obstacle rightWall = new Obstacle(801, 0, 1, 600);
     Obstacle upWall = new Obstacle(0, -1, 800, 1);
@@ -255,6 +254,17 @@ public class DrivingAce extends Application {
         new Image("/resources/2nd.jpg", 800, 615, false, true), BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
+
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), -90), scene);
+    Obstacle o1 = new Obstacle(473, 585, 124, 1, "l");
+    Obstacle o2 = new Obstacle(801, 0, 1, 600, "l");
+    Obstacle o3 = new Obstacle(0, -1, 800, 1, "l");
+    Obstacle o4 = new Obstacle(0, 601, 800, 1, "l");
+    obstacles = new Obstacle[] {o1, o2, o3, o4};
+    root.getChildren().add(o1);
+    root.getChildren().add(o2);
+    root.getChildren().add(o3);
+    root.getChildren().add(o4);
 
     MenuButton menuBtn = new MenuButton("Main Menu", 125, 30, 15);
     menuBtn.setLayoutX(674);

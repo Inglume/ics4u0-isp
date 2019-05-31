@@ -6,4 +6,8 @@ public class Obstacle extends Rectangle {
     super(x, y, width, height);
     setFill(Color.TRANSPARENT);
   }
+  public Obstacle(double x, double y, double width, double height, String i) {
+    super(x, y, width, height);
+    setFill(Color.BLACK);
+  }
 }
