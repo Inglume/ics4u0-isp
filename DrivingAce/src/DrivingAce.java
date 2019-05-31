@@ -255,13 +255,8 @@ public class DrivingAce extends Application {
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-<<<<<<< HEAD
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
-    Obstacle o1 = new Obstacle(473, 583, 124, 1, "l");
-=======
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), -90), scene);
     Obstacle o1 = new Obstacle(473, 585, 124, 1, "l");
->>>>>>> refs/remotes/origin/master
     Obstacle o2 = new Obstacle(801, 0, 1, 600, "l");
     Obstacle o3 = new Obstacle(0, -1, 800, 1, "l");
     Obstacle o4 = new Obstacle(0, 601, 800, 1, "l");
