@@ -123,7 +123,7 @@ public class DrivingAce extends Application {
     playBtn.setLayoutX(90);
     playBtn.setLayoutY(160);
     root.getChildren().add(playBtn);
-    playBtn.setOnAction(e -> levelOne());
+    playBtn.setOnAction(e -> levelTwo());
 
     MenuButton helpBtn = new MenuButton("Help");
     helpBtn.setLayoutX(90);
@@ -200,7 +200,22 @@ public class DrivingAce extends Application {
   }
 
   public void levelTwo() {
+    root.getChildren().clear();
+    Rectangle rect = new Rectangle(-100, -100, 1030, 930);
+    rect.setFill(Color.WHITE);
+    root.getChildren().add(rect);
 
+    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
+    ft.setFromValue(2);
+    ft.setToValue(0);
+    ft.setAutoReverse(true);
+    ft.setCycleCount(1);
+    ft.play();
+    
+    BackgroundImage background = new BackgroundImage(
+        new Image("/resources/2nd.jpg", 800, 615, false, true), BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
   }
 
   public void levelThree() {
