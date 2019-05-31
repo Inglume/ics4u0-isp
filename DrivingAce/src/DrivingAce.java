@@ -19,7 +19,6 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -55,6 +54,7 @@ public class DrivingAce extends Application {
    */
   private Instructions ins;
   private Obstacle[] obstacles;
+  private AnimationTimer animationTimer;
 
   @Override
   public void start(Stage primaryStage) {
@@ -102,6 +102,10 @@ public class DrivingAce extends Application {
 
   public void mainMenu() {
     root.getChildren().clear();
+    obstacles = new Obstacle[0];
+    if (animationTimer != null) {
+      animationTimer.stop();
+    }
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
@@ -194,7 +198,7 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), 0), scene);
     Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
     Obstacle rightWall = new Obstacle(801, 0, 1, 600);
     Obstacle upWall = new Obstacle(0, -1, 800, 1);
@@ -230,15 +234,34 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-
+    Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
+    Obstacle rightWall = new Obstacle(801, 0, 1, 600);
+    Obstacle upWall = new Obstacle(0, -1, 800, 1);
+    Obstacle downWall = new Obstacle(0, 601, 800, 1);
+    Pylon pylon1 = new Pylon(10, 10);
+    Pylon pylon2 = new Pylon(100, 200);
+    Pylon pylon3 = new Pylon(200, 300);
+    obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
+    root.getChildren().add(leftWall);
+    root.getChildren().add(rightWall);
+    root.getChildren().add(upWall);
+    root.getChildren().add(downWall);
+    root.getChildren().add(pylon1);
+    root.getChildren().add(pylon2);
+    root.getChildren().add(pylon3);
 
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/2nd.jpg", 800, 615, false, true), BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
+<<<<<<< HEAD
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
     Obstacle o1 = new Obstacle(473, 583, 124, 1, "l");
+=======
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), -90), scene);
+    Obstacle o1 = new Obstacle(473, 585, 124, 1, "l");
+>>>>>>> refs/remotes/origin/master
     Obstacle o2 = new Obstacle(801, 0, 1, 600, "l");
     Obstacle o3 = new Obstacle(0, -1, 800, 1, "l");
     Obstacle o4 = new Obstacle(0, 601, 800, 1, "l");
@@ -247,7 +270,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(o2);
     root.getChildren().add(o3);
     root.getChildren().add(o4);
-    
+
     MenuButton menuBtn = new MenuButton("Main Menu", 125, 30, 15);
     menuBtn.setLayoutX(674);
     menuBtn.setLayoutY(579);
@@ -265,7 +288,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
 
-    new AnimationTimer() {
+    animationTimer = new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
@@ -283,12 +306,6 @@ public class DrivingAce extends Application {
         if (input.contains("D") || input.contains("RIGHT")) {
           car.steerRight();
         }
-        if (input.contains("ESCAPE")) {
-          root.getChildren().clear();
-          obstacles = new Obstacle[0];
-          mainMenu();
-          this.stop();
-        }
         for (Obstacle o : obstacles) {
           if (o != null && ((Path) Shape.intersect(car, o)).getElements().size() > 0) {
             System.out.println("CRASHED");
@@ -296,7 +313,8 @@ public class DrivingAce extends Application {
           }
         }
       }
-    }.start();
+    };
+    animationTimer.start();
 
     scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
