@@ -54,6 +54,7 @@ public class DrivingAce extends Application {
    */
   private Instructions ins;
   private Obstacle[] obstacles;
+  private AnimationTimer animationTimer;
 
   @Override
   public void start(Stage primaryStage) {
@@ -101,6 +102,10 @@ public class DrivingAce extends Application {
 
   public void mainMenu() {
     root.getChildren().clear();
+    obstacles = new Obstacle[0];
+    if (animationTimer != null) {
+      animationTimer.stop();
+    }
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
@@ -193,7 +198,7 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), 0), scene);
     Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
     Obstacle rightWall = new Obstacle(801, 0, 1, 600);
     Obstacle upWall = new Obstacle(0, -1, 800, 1);
@@ -229,7 +234,7 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), -90), scene);
     Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
     Obstacle rightWall = new Obstacle(801, 0, 1, 600);
     Obstacle upWall = new Obstacle(0, -1, 800, 1);
@@ -268,7 +273,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
 
-    new AnimationTimer() {
+    animationTimer = new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
@@ -286,12 +291,6 @@ public class DrivingAce extends Application {
         if (input.contains("D") || input.contains("RIGHT")) {
           car.steerRight();
         }
-        if (input.contains("ESCAPE")) {
-          root.getChildren().clear();
-          obstacles = new Obstacle[0];
-          mainMenu();
-          this.stop();
-        }
         for (Obstacle o : obstacles) {
           if (o != null && ((Path) Shape.intersect(car, o)).getElements().size() > 0) {
             System.out.println("CRASHED");
@@ -299,7 +298,8 @@ public class DrivingAce extends Application {
           }
         }
       }
-    }.start();
+    };
+    animationTimer.start();
 
     scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override

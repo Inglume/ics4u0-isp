@@ -52,14 +52,14 @@ public class Car extends Rectangle {
    * @param x x coordinate
    * @param y y coordinate
    */
-  public Car(double x, double y, Image i) {
+  public Car(double x, double y, Image i, double direction) {
     super(x, y, width, length);
     setFill(new ImagePattern(i));
     center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
-    velocity = 0;
     accelerationRate = 4;
     steeringRate = 4;
     maxVelocity = 400;
+    getTransforms().add(new Rotate(direction, center.getX(), center.getY()));
   }
 
   public boolean intersects(Car c) {
