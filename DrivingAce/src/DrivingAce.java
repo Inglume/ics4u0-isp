@@ -19,11 +19,8 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-<<<<<<< HEAD
 import javafx.scene.text.Text;
-=======
 import javafx.scene.shape.Shape;
->>>>>>> branch 'master' of https://github.com/Inglume/ics4u0-isp
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
