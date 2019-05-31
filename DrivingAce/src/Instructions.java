@@ -1,5 +1,6 @@
 import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
@@ -19,12 +20,14 @@ public class Instructions extends SubScene{
     
     AnchorPane r = (AnchorPane)this.getRoot();
     r.setBackground(new Background(background));
-
-    Text t = new Text("Lol");
+    
+    Label l = new Label("Instructions");
     
     //setting the position of the text
-    t.setLayoutX(1045);
-    t.setLayoutY(160);
+    l.setLayoutX(1045);
+    l.setLayoutY(165);
+    r.getChildren().add(l);
+
     
     setLayoutX(1040);
     setLayoutY(160);            
@@ -41,5 +44,6 @@ public class Instructions extends SubScene{
     }
     trans.play();
     isVisible = !isVisible;
+   
   }
 }

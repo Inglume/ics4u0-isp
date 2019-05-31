@@ -18,6 +18,7 @@ import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -63,7 +64,9 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    intro();
+    //intro();
+    //levelTwo();
+    mainMenu();
     primaryStage.show();
   }
 
@@ -96,6 +99,7 @@ public class DrivingAce extends Application {
 
 
   public void mainMenu() {
+    root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
@@ -110,7 +114,7 @@ public class DrivingAce extends Application {
 
     ins = new Instructions();
     root.getChildren().add(ins);
-
+    
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -119,19 +123,19 @@ public class DrivingAce extends Application {
 
 
   public void addButtons() {
-    MenuButton playBtn = new MenuButton("New Game");
+    MenuButton playBtn = new MenuButton("New Game", 190, 49, 23);
     playBtn.setLayoutX(90);
     playBtn.setLayoutY(160);
     root.getChildren().add(playBtn);
     playBtn.setOnAction(e -> levelTwo());
 
-    MenuButton helpBtn = new MenuButton("Help");
+    MenuButton helpBtn = new MenuButton("Help", 190, 49, 23);
     helpBtn.setLayoutX(90);
     helpBtn.setLayoutY(260);
     root.getChildren().add(helpBtn);
     helpBtn.setOnAction(e -> ins.moveIn());
 
-    MenuButton exitBtn = new MenuButton("Quit");
+    MenuButton exitBtn = new MenuButton("Quit", 190, 49, 23);
     exitBtn.setLayoutX(90);
     exitBtn.setLayoutY(360);
     root.getChildren().add(exitBtn);
@@ -167,10 +171,15 @@ public class DrivingAce extends Application {
     root.getChildren().add(ins);
   }
 
+  
+  
   public void levelSelect() {
-    // TODO menu with buttons for selecting three different levels or going back to main menu
+      // TODO menu with buttons for selecting three different levels or going back to main menu
   }
 
+  
+  
+  
   public void levelOne() {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -220,10 +229,33 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
     
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
+    Obstacle leftWall = new Obstacle(-1, 0, 0, 600);
+    Obstacle rightWall = new Obstacle(801, 0, 0, 600);
+    Obstacle upWall = new Obstacle(0, -1, 800, 0);
+    Obstacle downWall = new Obstacle(0, 601, 800, 0);
+    Pylon pylon1 = new Pylon(10, 10);
+    Pylon pylon2 = new Pylon(100, 200);
+    Pylon pylon3 = new Pylon(200, 300);
+    obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
+    root.getChildren().add(leftWall);
+    root.getChildren().add(rightWall);
+    root.getChildren().add(upWall);
+    root.getChildren().add(downWall);
+    root.getChildren().add(pylon1);
+    root.getChildren().add(pylon2);
+    root.getChildren().add(pylon3);
+    
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/2nd.jpg", 800, 615, false, true), BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
+
+    MenuButton menuBtn = new MenuButton("Main Menu", 125, 30, 15);
+    menuBtn.setLayoutX(674);
+    menuBtn.setLayoutY(579);
+    root.getChildren().add(menuBtn);
+    menuBtn.setOnAction(e -> mainMenu());
   }
 
   public void levelThree() {

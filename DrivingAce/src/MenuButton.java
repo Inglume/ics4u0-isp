@@ -1,4 +1,3 @@
-import java.io.*;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
@@ -12,38 +11,34 @@ import javafx.scene.text.Font;
  * @version 1
  */
 public class MenuButton extends Button {
-  private final String FONT_PATH = "/resources/kenvector_future.ttf";
   private final String BTN_PRESSED_STYLE =
-      "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button01.png');";
+      "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button01.png'); -fx-background-repeat: no-repeat;"; 
   private final String BTN_FREE_STYLE =
-      "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button00.png');";
-
-  public MenuButton(String text) {
+      "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button00.png'); -fx-background-repeat: no-repeat;"; 
+  private int height;
+  
+  public MenuButton(String text, int w, int h, int f) {
+    height = h;
     setText(text);
-    setButtonFont();
-    setPrefWidth(190);
-    setPrefHeight(49);
+    setFont(Font.font("verdana", f));
+    setMinWidth(w);
+    setMinHeight(h);
+    setMaxWidth(w);
+    setMaxHeight(h);
     setStyle(BTN_FREE_STYLE);
     listeners();
   }
-
-  private void setButtonFont() {
-    try {
-      setFont(Font.loadFont(new FileInputStream(FONT_PATH), 23));
-    } catch (FileNotFoundException e) {
-      setFont(Font.font("verdana", 23));
-    }
-  }
+  
 
   private void setPressedStyle() {
     setStyle(BTN_PRESSED_STYLE);
-    setPrefHeight(45);
+    setPrefHeight(height - 4);
     setLayoutY(getLayoutY() + 4);
   }
 
   private void setFreeStyle() {
     setStyle(BTN_FREE_STYLE);
-    setPrefHeight(49);
+    setPrefHeight(height);
     setLayoutY(getLayoutY() - 4);
   }
 
