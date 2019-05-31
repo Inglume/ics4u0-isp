@@ -19,7 +19,10 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+<<<<<<< HEAD
 import javafx.scene.text.Text;
+=======
+>>>>>>> branch 'master' of https://github.com/Inglume/ics4u0-isp
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -66,8 +69,8 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    //intro();
-    //levelTwo();
+    // intro();
+    // levelTwo();
     mainMenu();
     primaryStage.show();
   }
@@ -116,7 +119,7 @@ public class DrivingAce extends Application {
 
     ins = new Instructions();
     root.getChildren().add(ins);
-    
+
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -173,15 +176,14 @@ public class DrivingAce extends Application {
     root.getChildren().add(ins);
   }
 
-  
-  
+
+
   public void levelSelect() {
-      // TODO menu with buttons for selecting three different levels or going back to main menu
+    // TODO menu with buttons for selecting three different levels or going back to main menu
   }
 
-  
-  
-  
+
+
   public void levelOne() {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -230,12 +232,12 @@ public class DrivingAce extends Application {
     ft.setAutoReverse(true);
     ft.setCycleCount(1);
     ft.play();
-    
+
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), scene);
-    Obstacle leftWall = new Obstacle(-1, 0, 0, 600);
-    Obstacle rightWall = new Obstacle(801, 0, 0, 600);
-    Obstacle upWall = new Obstacle(0, -1, 800, 0);
-    Obstacle downWall = new Obstacle(0, 601, 800, 0);
+    Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
+    Obstacle rightWall = new Obstacle(801, 0, 1, 600);
+    Obstacle upWall = new Obstacle(0, -1, 800, 1);
+    Obstacle downWall = new Obstacle(0, 601, 800, 1);
     Pylon pylon1 = new Pylon(10, 10);
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
@@ -247,7 +249,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(pylon1);
     root.getChildren().add(pylon2);
     root.getChildren().add(pylon3);
-    
+
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/2nd.jpg", 800, 615, false, true), BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
