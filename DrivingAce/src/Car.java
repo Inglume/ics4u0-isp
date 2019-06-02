@@ -24,7 +24,7 @@ public class Car extends Rectangle {
   /**
    * Center of car.
    */
-  private Rectangle center;
+  public Rectangle center;
 
   /**
    * Velocity of car.
@@ -64,8 +64,8 @@ public class Car extends Rectangle {
    */
   public Car(double x, double y, Image i) {
     super(x, y, width, length);
-    setStartX(x);
-    setStartY(y);
+    startX = x;
+    startY = y;
     setFill(new ImagePattern(i));
     setArcHeight(20);
     setArcWidth(20);
@@ -83,6 +83,8 @@ public class Car extends Rectangle {
    */
   public Car(double x, double y, Image i, double direction) {
     super(x, y, width, length);
+    startX = x;
+    startY = y;
     setFill(new ImagePattern(i));
     setArcHeight(20);
     setArcWidth(20);

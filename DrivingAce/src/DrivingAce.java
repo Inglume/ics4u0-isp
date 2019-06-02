@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -39,7 +40,6 @@ public class DrivingAce extends Application {
    */
   private AnchorPane root;
 
-
   /**
    * The start time as a part of the game loop.
    */
@@ -50,13 +50,24 @@ public class DrivingAce extends Application {
    */
   private Scene scene;
 
-
   /**
    * An instance of the Instructions class.
    */
   private Instructions ins;
+
+  /**
+   * Array of objects in a level.
+   */
   private Obstacle[] obstacles;
+
+  /**
+   * Array of cars in a level.
+   */
   private Car[] cars;
+
+  /**
+   * AnimationTimer in a level.
+   */
   private AnimationTimer animationTimer;
 
   @Override
@@ -323,6 +334,7 @@ public class DrivingAce extends Application {
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
         car.move(t);
+        Bounds bounds = car.localToScene(car.getBoundsInLocal());
         updateBackground(car, image);
         startNanoTime = currentNanoTime;
         if (input.contains("W") || input.contains("UP")) {
@@ -347,17 +359,14 @@ public class DrivingAce extends Application {
             car.setVelocity(-car.getVelocity());
           }
           c.move(t, 0);
-//          if (c.getX() < -c.getWidth() - 20) {
-//            c.setX(root.getWidth());
-//          }
-//          if (c.getX() > root.getWidth() + c.getWidth() + 20) {
-//            c.setX(-c.getWidth());
-//          }
-          if (c.getY() < -c.getHeight() - 20) {
-            c.setY(root.getHeight());
+          bounds = c.localToScene(c.getBoundsInLocal());
+          if (bounds.getMaxX() < -20 || bounds.getMinX() > root.getWidth() + 20) {
+            c.setY(c.getY() + root.getWidth() + c.getWidth() + 20);
+            c.center.setY(c.center.getY() + root.getWidth() + c.getWidth() + 20);
           }
-          if (c.getY() > root.getHeight() + c.getHeight() + 20) {
-            c.setY(-c.getHeight());
+          if (bounds.getMaxY() < -20 || bounds.getMinY() > root.getHeight() + 20) {
+            c.setY(c.getY() + root.getHeight() + c.getHeight() + 20);
+            c.center.setY(c.center.getY() + root.getHeight() + c.getHeight() + 20);
           }
         }
       }
