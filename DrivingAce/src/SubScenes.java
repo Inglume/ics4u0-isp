@@ -3,16 +3,17 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.text.Text;
 import javafx.util.Duration;
 
-public class Instructions extends SubScene{
-  private boolean isVisible = false;
+public class SubScenes extends SubScene{
+  private boolean isVisible;
   
-  public Instructions() {
+  public SubScenes(int i) {
     super(new AnchorPane(), 375, 330);
     prefWidth(375);
     prefHeight(265);
+
+    isVisible = false;
     
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/yellow_panel.png", 375, 330, false, true), BackgroundRepeat.NO_REPEAT,
@@ -20,17 +21,23 @@ public class Instructions extends SubScene{
     
     AnchorPane r = (AnchorPane)this.getRoot();
     r.setBackground(new Background(background));
-    
-    Label l = new Label("Instructions");
-    
-    //setting the position of the text
-    l.setLayoutX(1045);
-    l.setLayoutY(165);
-    r.getChildren().add(l);
 
-    
     setLayoutX(1040);
-    setLayoutY(160);            
+    setLayoutY(160);    
+    
+    if(i == 1) {
+      Label l = new Label("Instructions");
+      //setting the position of the text
+   //  l.setLayoutX(1045);
+     // l.setLayoutY(165);
+      r.getChildren().add(l);
+    }else {
+      Label l = new Label("High Scores");
+      //setting the position of the text
+   //  l.setLayoutX(1045);
+     // l.setLayoutY(165);
+      r.getChildren().add(l);
+    }
   }
   
   public void moveIn() {
@@ -44,6 +51,9 @@ public class Instructions extends SubScene{
     }
     trans.play();
     isVisible = !isVisible;
-   
+  }
+  
+  public boolean getVisible() {
+    return isVisible;
   }
 }
