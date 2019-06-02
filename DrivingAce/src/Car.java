@@ -49,13 +49,15 @@ public class Car extends Rectangle {
   /**
    * Length of car
    */
-  private static final double length = 64;
+ // private static final double length = 64;
 
   /**
    * Width of car
    */
-  private static final double width = 36;
+ // private static final double width = 36;
 
+  private static final double length = 43;
+  private static final double width = 24;
   /**
    * Constructor.
    * 
@@ -70,8 +72,8 @@ public class Car extends Rectangle {
     setArcHeight(20);
     setArcWidth(20);
     center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
-    accelerationRate = 4;
-    steeringRate = 4;
+    accelerationRate = 3;
+    steeringRate = 3;
     maxVelocity = 400;
   }
 
