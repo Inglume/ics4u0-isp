@@ -4,6 +4,7 @@ import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
@@ -54,6 +55,7 @@ public class DrivingAce extends Application {
    */
   private Instructions ins;
   private Obstacle[] obstacles;
+  private Car[] cars;
   private AnimationTimer animationTimer;
 
   @Override
@@ -67,8 +69,9 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     // intro();
-     levelTwo();
-    //mainMenu();
+    levelOne();
+    // levelTwo();
+    // mainMenu();
     primaryStage.show();
   }
 
@@ -198,27 +201,31 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png"), 0), scene);
-    Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
-    Obstacle rightWall = new Obstacle(801, 0, 1, 600);
-    Obstacle upWall = new Obstacle(0, -1, 800, 1);
-    Obstacle downWall = new Obstacle(0, 601, 800, 1);
+    Car car1 = new Car(600, 120, new Image("/resources/car_red_small_5.png"));
+    car1.setVelocity(100);
+    cars = new Car[] {car1};
+    Wall leftWall = new Wall(-1, 0, 1, 600);
+    Wall rightWall = new Wall(801, 0, 1, 600);
+    Wall upWall = new Wall(0, -1, 800, 1);
+    Wall downWall = new Wall(0, 601, 800, 1);
     Pylon pylon1 = new Pylon(10, 10);
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
     obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
-    root.getChildren().add(leftWall);
-    root.getChildren().add(rightWall);
-    root.getChildren().add(upWall);
-    root.getChildren().add(downWall);
-    root.getChildren().add(pylon1);
-    root.getChildren().add(pylon2);
-    root.getChildren().add(pylon3);
 
-    BackgroundImage background = new BackgroundImage(
-        new Image("/resources/level1.jpg", 800, 615, false, true), BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    for (Obstacle o : obstacles) {
+      root.getChildren().add((Shape) o);
+    }
+    for (Car c : cars) {
+      root.getChildren().add(c);
+    }
+
+    Image image = new Image("/resources/level1.jpg", 800, 615, false, true);
+    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
+
+    startNanoTime = System.nanoTime();
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image);
   }
 
   public void levelTwo() {
@@ -234,10 +241,10 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    Obstacle leftWall = new Obstacle(-1, 0, 1, 600);
-    Obstacle rightWall = new Obstacle(801, 0, 1, 600);
-    Obstacle upWall = new Obstacle(0, -1, 800, 1);
-    Obstacle downWall = new Obstacle(0, 601, 800, 1);
+    Wall leftWall = new Wall(-1, 0, 1, 600);
+    Wall rightWall = new Wall(801, 0, 1, 600);
+    Wall upWall = new Wall(0, -1, 800, 1);
+    Wall downWall = new Wall(0, 601, 800, 1);
     Pylon pylon1 = new Pylon(10, 10);
     Pylon pylon2 = new Pylon(100, 200);
     Pylon pylon3 = new Pylon(200, 300);
@@ -250,16 +257,15 @@ public class DrivingAce extends Application {
     root.getChildren().add(pylon2);
     root.getChildren().add(pylon3);
 
-    BackgroundImage background = new BackgroundImage(
-        new Image("/resources/2nd.jpg", 800, 615, false, true), BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
+    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-    addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), scene);
-    Obstacle o1 = new Obstacle(473, 582, 124, 1, "l");
-    Obstacle o2 = new Obstacle(473, 510, 118, 1, "l");
-    Obstacle o3 = new Obstacle(0, -1, 800, 1, "l");
-    Obstacle o4 = new Obstacle(0, 601, 800, 1, "l");
+    addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image);
+    Wall o1 = new Wall(473, 582, 124, 1, "l");
+    Wall o2 = new Wall(473, 510, 118, 1, "l");
+    Wall o3 = new Wall(0, -1, 800, 1, "l");
+    Wall o4 = new Wall(0, 601, 800, 1, "l");
     obstacles = new Obstacle[] {o1, o2, o3, o4};
     root.getChildren().add(o1);
     root.getChildren().add(o2);
@@ -277,17 +283,17 @@ public class DrivingAce extends Application {
 
   }
 
-  public void addCar(Car car, Scene scene) {
+  public void addCar(Car car, Image image) {
     // TODO camera that moves with scene (read this:
     // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
-
     animationTimer = new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
         car.move(t);
+        updateBackground(car, image);
         startNanoTime = currentNanoTime;
         if (input.contains("W") || input.contains("UP")) {
           car.accelerate();
@@ -302,15 +308,32 @@ public class DrivingAce extends Application {
           car.steerRight();
         }
         for (Obstacle o : obstacles) {
-          if (o != null && ((Path) Shape.intersect(car, o)).getElements().size() > 0) {
-            System.out.println("CRASHED");
+          if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if crashed
             car.setVelocity(-car.getVelocity());
+          }
+        }
+        for (Car c : cars) {
+          if (((Path) Shape.intersect(car, (Shape) c)).getElements().size() > 0) { // if crashed
+            car.setVelocity(-car.getVelocity());
+          }
+          c.move(t, 0);
+//          if (c.getX() < -c.getWidth() - 20) {
+//            c.setX(root.getWidth());
+//          }
+//          if (c.getX() > root.getWidth() + c.getWidth() + 20) {
+//            c.setX(-c.getWidth());
+//          }
+          if (c.getY() < -c.getHeight() - 20) {
+            c.setY(root.getHeight());
+          }
+          if (c.getY() > root.getHeight() + c.getHeight() + 20) {
+            c.setY(-c.getHeight());
           }
         }
       }
     };
     animationTimer.start();
-
+    
     scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent e) {
@@ -329,6 +352,16 @@ public class DrivingAce extends Application {
       }
     });
   }
+
+    public void updateBackground(Car car, Image image) {
+        double x = 0;
+        double y = 0;
+//        BackgroundPosition bp = new BackgroundPosition(Side.LEFT, t, false, Side.TOP, t, false);
+//    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+//        BackgroundRepeat.NO_REPEAT, /* do this */, BackgroundSize.DEFAULT);
+//    root.setBackground(new Background(background));
+      
+    }
 
   public static void main(String[] args) {
     launch(args);

@@ -1,8 +1,9 @@
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 
-public class Pylon extends Obstacle {
+public class Pylon extends Rectangle implements Obstacle {
 
   public Pylon(double x, double y) {
     super(x, y, 20, 20);
