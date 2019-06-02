@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import com.sun.javafx.tk.Toolkit;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.application.Application;
@@ -248,11 +249,42 @@ public class DrivingAce extends Application {
     rect.setFill(Color.WHITE);
     rect.setOpacity(0.7);
     root.getChildren().add(rect);
+    ArrayList<String> input = new ArrayList<String>();
+    animationTimer = new AnimationTimer() {
+      @Override
+      public void handle(long currentNanoTime) {
+        if (input.size() > 0) {
+          root.getChildren().remove(rect);
+          System.out.println("good");
+          animationTimer.stop();
+        }
+      }
+    };
+    animationTimer.start();
+
+    scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent e) {
+        String code = e.getCode().toString();
+        if (!input.contains(code)) {
+          input.add(code);
+        }
+      }
+    });
+
+    scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
+      @Override
+      public void handle(KeyEvent e) {
+        String code = e.getCode().toString();
+        input.remove(code);
+      }
+    });
   }
 
 
   public void levelTwo() {
     introTwo();
+
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
