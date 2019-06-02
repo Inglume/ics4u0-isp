@@ -96,10 +96,10 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-     intro();
+    // intro();
    // intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue.");
-    //mainMenu();
-    //levelOne();
+   // mainMenu();
+    levelTwo();
     primaryStage.show();
   }
 
@@ -394,8 +394,12 @@ public class DrivingAce extends Application {
     Wall o29 = new Wall(662, 560, 1, 68, "l");
     o29.getTransforms().add(new Rotate(71, o29.getX(), o29.getY()));
 
+    //Additional Barriers to Fix Bugs
+    Wall o30 = new Wall(65, 50, 1000, 1);
+    o30.getTransforms().add(new Rotate(71, o30.getX(), o30.getY()));
+    
     obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15,
-        o16, o17, o18, o19, o20, o21, o22, o23, o24, o25, o26, o27, o28, o29};
+        o16, o17, o18, o19, o20, o21, o22, o23, o24, o25, o26, o27, o28, o29, o30};
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
