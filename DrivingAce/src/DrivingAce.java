@@ -21,6 +21,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -105,7 +106,7 @@ public class DrivingAce extends Application {
 
   public void mainMenu() {
     root.getChildren().clear();
-    obstacles = new Obstacle[0];
+    obstacles = new Wall[0];
     if (animationTimer != null) {
       animationTimer.stop();
     }
@@ -262,16 +263,45 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
 
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image);
-    Wall o1 = new Wall(473, 582, 124, 1, "l");
-    Wall o2 = new Wall(473, 510, 118, 1, "l");
-    Wall o3 = new Wall(0, -1, 800, 1, "l");
-    Wall o4 = new Wall(0, 601, 800, 1, "l");
-    obstacles = new Obstacle[] {o1, o2, o3, o4};
-    root.getChildren().add(o1);
-    root.getChildren().add(o2);
-    root.getChildren().add(o3);
-    root.getChildren().add(o4);
-
+    Wall o1 = new Wall(473, 582, 124, 1, "l"); //lower
+    Wall o2 = new Wall(473, 510, 118, 1, "l"); //upper
+    
+    //diagonal
+    Wall o3 = new Wall(390, 538, 94, 1, "l"); //lower
+    Wall o4 = new Wall(390, 460, 94, 1, "l"); //upper
+    o3.getTransforms().add(new Rotate(28, o3.getX(), o3.getY()));
+    o4.getTransforms().add(new Rotate(32, o4.getX(), o4.getY()));
+    
+    Wall o5 = new Wall(148, 559, 242, 1, "l"); //lower
+    Wall o6 = new Wall(146, 480, 244, 1, "l"); //upper
+    o5.getTransforms().add(new Rotate(355, o5.getX(), o5.getY()));
+    o6.getTransforms().add(new Rotate(355, o6.getX(), o6.getY()));
+    
+    //straight
+    Wall o7 = new Wall(139, 252, 1, 223, "l"); //right
+    Wall o8 = new Wall(51, 252, 1, 223, "l"); //leftmost
+    
+    //bottom left corner
+    Wall o9 = new Wall(51, 475, 1, 60, "l"); //upper
+    Wall o10 = new Wall(66, 519, 35, 1, "l"); //middle
+    Wall o11 = new Wall(90, 540, 60, 1, "l"); //lower
+    o9.getTransforms().add(new Rotate(344, o9.getX(), o9.getY()));
+    o10.getTransforms().add(new Rotate(45, o10.getX(), o10.getY()));
+    o11.getTransforms().add(new Rotate(20, o11.getX(), o11.getY()));
+    
+    //top left corner
+    Wall o12 = new Wall(68, 196, 1, 60, "l"); //lower
+    Wall o13 = new Wall(70, 199, 52, 1, "l"); //upper
+    o12.getTransforms().add(new Rotate(20, o12.getX(), o12.getY()));
+    o13.getTransforms().add(new Rotate(332, o13.getX(), o13.getY()));
+    
+    //top horizontal
+    Wall o14 = new Wall(116, 172, 273, 1, "l"); //lower
+    
+    obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14};
+    for (Obstacle o : obstacles) {
+      root.getChildren().add((Shape) o);
+    }
     MenuButton menuBtn = new MenuButton("Main Menu", 125, 30, 15);
     menuBtn.setLayoutX(674);
     menuBtn.setLayoutY(579);
