@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -82,7 +83,8 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     // intro();
-    levelTwo();
+    introTwo();
+    //levelTwo();
     //levelOne();
     // mainMenu();
     primaryStage.show();
@@ -151,15 +153,21 @@ public class DrivingAce extends Application {
     root.getChildren().add(playBtn);
     playBtn.setOnAction(e -> levelTwo());
 
+    MenuButton scoresBtn = new MenuButton("High Scores", 190, 49, 23);
+    scoresBtn.setLayoutX(90);
+    scoresBtn.setLayoutY(250);
+    root.getChildren().add(scoresBtn);
+    scoresBtn.setOnAction(e -> ins.moveIn());
+    
     MenuButton helpBtn = new MenuButton("Help", 190, 49, 23);
     helpBtn.setLayoutX(90);
-    helpBtn.setLayoutY(260);
+    helpBtn.setLayoutY(340);
     root.getChildren().add(helpBtn);
     helpBtn.setOnAction(e -> ins.moveIn());
 
     MenuButton exitBtn = new MenuButton("Quit", 190, 49, 23);
     exitBtn.setLayoutX(90);
-    exitBtn.setLayoutY(360);
+    exitBtn.setLayoutY(430);
     root.getChildren().add(exitBtn);
     exitBtn.setOnAction(e -> Platform.exit());
 
@@ -246,13 +254,21 @@ public class DrivingAce extends Application {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
     rect.setFill(Color.WHITE);
-    rect.setOpacity(0.7);
+    rect.setOpacity(0.9);
     root.getChildren().add(rect);
+    root.getScene().setOnKeyPressed(e -> {
+      levelTwo();
+   });
+    Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
+    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
+    Label l = new Label("This is bad");
+    root.getChildren().add(l);
   }
 
 
   public void levelTwo() {
-    introTwo();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
@@ -263,38 +279,6 @@ public class DrivingAce extends Application {
     ft.setAutoReverse(true);
     ft.setCycleCount(1);
     ft.play();
-
-    //    Wall leftWall = new Wall(-1, 0, 1, 600);
-    //    Wall rightWall = new Wall(801, 0, 1, 600);
-    //    Wall upWall = new Wall(0, -1, 800, 1);
-    //    Wall downWall = new Wall(0, 601, 800, 1);
-    //    Pylon pylon1 = new Pylon(10, 10);
-    //    Pylon pylon2 = new Pylon(100, 200);
-    //    Pylon pylon3 = new Pylon(200, 300);
-    //    obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
-    //    root.getChildren().add(leftWall);
-    //    root.getChildren().add(rightWall);
-    //    root.getChildren().add(upWall);
-    //    root.getChildren().add(downWall);
-    //    root.getChildren().add(pylon1);
-    //    root.getChildren().add(pylon2);
-    //    root.getChildren().add(pylon3);
-    
-    // Wall leftWall = new Wall(-1, 0, 1, 600);
-    // Wall rightWall = new Wall(801, 0, 1, 600);
-    // Wall upWall = new Wall(0, -1, 800, 1);
-    // Wall downWall = new Wall(0, 601, 800, 1);
-    // Pylon pylon1 = new Pylon(10, 10);
-    // Pylon pylon2 = new Pylon(100, 200);
-    // Pylon pylon3 = new Pylon(200, 300);
-    // obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
-    // root.getChildren().add(leftWall);
-    // root.getChildren().add(rightWall);
-    // root.getChildren().add(upWall);
-    // root.getChildren().add(downWall);
-    // root.getChildren().add(pylon1);
-    // root.getChildren().add(pylon2);
-    // root.getChildren().add(pylon3);
 
     Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
