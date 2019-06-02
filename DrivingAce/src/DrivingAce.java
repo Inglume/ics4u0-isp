@@ -70,8 +70,8 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     // intro();
-    levelOne();
-    // levelTwo();
+    //levelOne();
+     levelTwo();
     // mainMenu();
     primaryStage.show();
   }
@@ -242,27 +242,28 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    Wall leftWall = new Wall(-1, 0, 1, 600);
-    Wall rightWall = new Wall(801, 0, 1, 600);
-    Wall upWall = new Wall(0, -1, 800, 1);
-    Wall downWall = new Wall(0, 601, 800, 1);
-    Pylon pylon1 = new Pylon(10, 10);
-    Pylon pylon2 = new Pylon(100, 200);
-    Pylon pylon3 = new Pylon(200, 300);
-    obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
-    root.getChildren().add(leftWall);
-    root.getChildren().add(rightWall);
-    root.getChildren().add(upWall);
-    root.getChildren().add(downWall);
-    root.getChildren().add(pylon1);
-    root.getChildren().add(pylon2);
-    root.getChildren().add(pylon3);
+//    Wall leftWall = new Wall(-1, 0, 1, 600);
+//    Wall rightWall = new Wall(801, 0, 1, 600);
+//    Wall upWall = new Wall(0, -1, 800, 1);
+//    Wall downWall = new Wall(0, 601, 800, 1);
+//    Pylon pylon1 = new Pylon(10, 10);
+//    Pylon pylon2 = new Pylon(100, 200);
+//    Pylon pylon3 = new Pylon(200, 300);
+//    obstacles = new Obstacle[] {leftWall, rightWall, upWall, downWall, pylon1, pylon2, pylon3};
+//    root.getChildren().add(leftWall);
+//    root.getChildren().add(rightWall);
+//    root.getChildren().add(upWall);
+//    root.getChildren().add(downWall);
+//    root.getChildren().add(pylon1);
+//    root.getChildren().add(pylon2);
+//    root.getChildren().add(pylon3);
 
     Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image);
+    
     Wall o1 = new Wall(473, 582, 124, 1, "l"); //lower
     Wall o2 = new Wall(473, 510, 118, 1, "l"); //upper
     
@@ -296,9 +297,40 @@ public class DrivingAce extends Application {
     o13.getTransforms().add(new Rotate(332, o13.getX(), o13.getY()));
     
     //top horizontal
-    Wall o14 = new Wall(116, 172, 273, 1, "l"); //lower
+    Wall o14 = new Wall(116, 172, 280, 1, "l"); //upper
+    Wall o15 = new Wall(142, 244, 273, 1, "l"); //lower
     
-    obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14};
+    //top turns
+    Wall o16 = new Wall(398, 73, 1, 100, "l"); //upper
+    Wall o17 = new Wall(399, 73, 1, 57, "l"); //upper
+    o17.getTransforms().add(new Rotate(225, o17.getX(), o17.getY()));
+    Wall o18 = new Wall(439, 33, 170, 1, "l"); //upper
+    Wall o19 = new Wall(609, 33, 65, 1, "l"); //upper
+    o19.getTransforms().add(new Rotate(22, o19.getX(), o19.getY()));
+    Wall o20 = new Wall(666, 54, 45, 1, "l"); //upper
+    o20.getTransforms().add(new Rotate(60, o20.getX(), o20.getY()));
+    
+    Wall o21 = new Wall(412, 244, 40, 1, "l"); //lower
+    o21.getTransforms().add(new Rotate(325, o21.getX(), o21.getY()));
+    Wall o22 = new Wall(445, 222, 50, 1, "l"); //lower
+    o22.getTransforms().add(new Rotate(290, o22.getX(), o22.getY()));
+    Wall o23 = new Wall(462, 97, 1, 80, "l"); //lower
+    Wall o24 = new Wall(463, 97, 125, 1, "l"); //lower
+    
+    //finishes inner
+    Wall o25 = new Wall(589, 97, 15, 1, "l");
+    o25.getTransforms().add(new Rotate(58, o25.getX(), o25.getY()));
+    Wall o26 = new Wall(595, 110, 1, 392, "l");
+    
+    //finishes outer
+    Wall o27 = new Wall(690, 96, 1, 423, "l");
+    Wall o28 = new Wall(690, 517, 1, 53, "l");
+    o28.getTransforms().add(new Rotate(31, o28.getX(), o28.getY()));
+    Wall o29 = new Wall(662, 560, 1, 68, "l");
+    o29.getTransforms().add(new Rotate(71, o29.getX(), o29.getY()));
+    
+    obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15, 
+        o16, o17, o18, o19, o20, o21, o22, o23, o24, o25, o26, o27, o28, o29};
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
@@ -342,24 +374,24 @@ public class DrivingAce extends Application {
             car.setVelocity(-car.getVelocity());
           }
         }
-        for (Car c : cars) {
-          if (((Path) Shape.intersect(car, (Shape) c)).getElements().size() > 0) { // if crashed
-            car.setVelocity(-car.getVelocity());
-          }
-          c.move(t, 0);
-//          if (c.getX() < -c.getWidth() - 20) {
-//            c.setX(root.getWidth());
+//        for (Car c : cars) {
+//          if (((Path) Shape.intersect(car, (Shape) c)).getElements().size() > 0) { // if crashed
+//            car.setVelocity(-car.getVelocity());
 //          }
-//          if (c.getX() > root.getWidth() + c.getWidth() + 20) {
-//            c.setX(-c.getWidth());
+//          c.move(t, 0);
+////          if (c.getX() < -c.getWidth() - 20) {
+////            c.setX(root.getWidth());
+////          }
+////          if (c.getX() > root.getWidth() + c.getWidth() + 20) {
+////            c.setX(-c.getWidth());
+////          }
+//          if (c.getY() < -c.getHeight() - 20) {
+//            c.setY(root.getHeight());
 //          }
-          if (c.getY() < -c.getHeight() - 20) {
-            c.setY(root.getHeight());
-          }
-          if (c.getY() > root.getHeight() + c.getHeight() + 20) {
-            c.setY(-c.getHeight());
-          }
-        }
+//          if (c.getY() > root.getHeight() + c.getHeight() + 20) {
+//            c.setY(-c.getHeight());
+//          }
+//        }
       }
     };
     animationTimer.start();

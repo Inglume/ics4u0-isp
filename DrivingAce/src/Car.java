@@ -49,13 +49,15 @@ public class Car extends Rectangle {
   /**
    * Length of car
    */
-  private static final double length = 64;
+ // private static final double length = 64;
 
   /**
    * Width of car
    */
-  private static final double width = 36;
+ // private static final double width = 36;
 
+  private static final double length = 43;
+  private static final double width = 24;
   /**
    * Constructor.
    * 
