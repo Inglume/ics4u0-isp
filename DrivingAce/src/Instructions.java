@@ -10,12 +10,12 @@ public class Instructions extends SubScene{
   private boolean isVisible = false;
   
   public Instructions() {
-    super(new AnchorPane(), 375, 265);
+    super(new AnchorPane(), 375, 330);
     prefWidth(375);
     prefHeight(265);
     
     BackgroundImage background = new BackgroundImage(
-        new Image("/resources/yellow_panel.png", 375, 265, false, true), BackgroundRepeat.NO_REPEAT,
+        new Image("/resources/yellow_panel.png", 375, 330, false, true), BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, null, null);
     
     AnchorPane r = (AnchorPane)this.getRoot();
