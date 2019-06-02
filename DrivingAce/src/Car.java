@@ -32,6 +32,11 @@ public class Car extends Rectangle {
   private double velocity;
 
   /**
+   * Velocity of car.
+   */
+  private double direction;
+
+  /**
    * Rate of acceleration.
    */
   private double accelerationRate;
@@ -91,6 +96,7 @@ public class Car extends Rectangle {
     setArcHeight(20);
     setArcWidth(20);
     center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
+    this.direction = direction;
     accelerationRate = 4;
     steeringRate = 4;
     maxVelocity = 400;
