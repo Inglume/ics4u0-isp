@@ -1,10 +1,15 @@
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Scene;
@@ -24,6 +29,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -83,9 +90,7 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     // intro();
-    introTwo();
-    //levelTwo();
-    //levelOne();
+    intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue.");
     // mainMenu();
     primaryStage.show();
   }
@@ -158,7 +163,7 @@ public class DrivingAce extends Application {
     scoresBtn.setLayoutY(250);
     root.getChildren().add(scoresBtn);
     scoresBtn.setOnAction(e -> ins.moveIn());
-    
+
     MenuButton helpBtn = new MenuButton("Help", 190, 49, 23);
     helpBtn.setLayoutX(90);
     helpBtn.setLayoutY(340);
@@ -250,35 +255,58 @@ public class DrivingAce extends Application {
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image);
   }
 
-  public void introTwo() {
+  public void intros(int l, String str) {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
     rect.setFill(Color.WHITE);
-    rect.setOpacity(0.9);
+    rect.setOpacity(0.8);
     root.getChildren().add(rect);
-    root.getScene().setOnKeyPressed(e -> {
-      levelTwo();
-   });
+
+    if(l == 1) {
+      root.getScene().setOnKeyPressed(e -> {
+        levelOne();
+      });
+    }
+    else if (l == 2) {
+      root.getScene().setOnKeyPressed(e -> {
+        levelTwo();
+      });
+    }else {
+      root.getScene().setOnKeyPressed(e -> {
+        levelThree();
+      });
+    }
     Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
-    Label l = new Label("This is bad");
-    root.getChildren().add(l);
+
+    Timeline timeline = new Timeline();
+    Text text = new Text();
+    text.setLayoutX(200);
+    text.setLayoutY(250);
+    text.setFont(Font.font("verdana", 20));
+    final IntegerProperty i = new SimpleIntegerProperty(0);
+    KeyFrame keyFrame = new KeyFrame(
+        Duration.seconds(0.1),
+        event -> {
+          if (i.get() > str.length()) {
+            timeline.stop();
+          } else {
+            text.setText(str.substring(0, i.get()));
+            i.set(i.get() + 1);
+          }
+        });
+    timeline.getKeyFrames().add(keyFrame);
+    timeline.setCycleCount(Animation.INDEFINITE);
+    timeline.play();
+    root.getChildren().add(text);
+
   }
 
 
   public void levelTwo() {
-    Rectangle rect = new Rectangle(-100, -100, 1030, 930);
-    rect.setFill(Color.WHITE);
-    root.getChildren().add(rect);
-
-    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
-    ft.setFromValue(2);
-    ft.setToValue(0);
-    ft.setAutoReverse(true);
-    ft.setCycleCount(1);
-    ft.play();
+    root.getChildren().clear();
 
     Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
