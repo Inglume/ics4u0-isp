@@ -270,6 +270,7 @@ public class DrivingAce extends Application {
 
 
   public void levelTwo() {
+    root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
