@@ -7,7 +7,7 @@ import javafx.scene.transform.Rotate;
  * The Car class.
  * 
  * @author Nicholas Glenn
- * @version 1
+ * @version 2
  */
 public class Car extends Rectangle {
 
@@ -52,22 +52,21 @@ public class Car extends Rectangle {
   private double maxVelocity;
 
   /**
-   * Length of car
+   * Length of car.
    */
- // private static final double length = 64;
+  private static final double length = 43;
 
   /**
-   * Width of car
+   * Width of car.
    */
- // private static final double width = 36;
-
-  private static final double length = 43;
   private static final double width = 24;
+
   /**
    * Constructor.
    * 
    * @param x x coordinate
    * @param y y coordinate
+   * @param i image fill of car
    */
   public Car(double x, double y, Image i) {
     super(x, y, width, length);
@@ -87,6 +86,8 @@ public class Car extends Rectangle {
    * 
    * @param x x coordinate
    * @param y y coordinate
+   * @param i image fill of car
+   * @param direction direction of car
    */
   public Car(double x, double y, Image i, double direction) {
     super(x, y, width, length);

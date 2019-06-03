@@ -1,8 +1,5 @@
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import javafx.animation.Animation;
-import com.sun.javafx.tk.Toolkit;
 import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.animation.KeyFrame;
@@ -43,7 +40,7 @@ import javafx.util.Duration;
  * The DrivingAce class.
  * 
  * @author Nicholas Glenn and Jerry Zhu
- * @version 1
+ * @version 2
  */
 public class DrivingAce extends Application {
 
@@ -71,7 +68,7 @@ public class DrivingAce extends Application {
    * An instance of the SubScenes class for High Scores.
    */
   private SubScenes high;
-  
+
   /**
    * Array of objects in a level.
    */
@@ -87,6 +84,9 @@ public class DrivingAce extends Application {
    */
   private AnimationTimer animationTimer;
 
+  /**
+   * Runs everything.
+   */
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setResizable(false);
@@ -98,13 +98,17 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     // intro();
-   // intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue.");
-   // mainMenu();
+    // intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a
+    // Key to Continue.");
+    // mainMenu();
     levelTwo();
     primaryStage.show();
   }
 
 
+  /**
+   * Splash screen to program.
+   */
   public void intro() {
     Image image = new Image("/resources/logo_transparent.png", 500, 815, false, true);
 
@@ -131,6 +135,9 @@ public class DrivingAce extends Application {
     ft.setOnFinished(e -> mainMenu());
   }
 
+  /**
+   * Main menu.
+   */
   public void mainMenu() {
     root.getChildren().clear();
     obstacles = new Wall[0];
@@ -153,38 +160,42 @@ public class DrivingAce extends Application {
     root.getChildren().add(ins);
     high = new SubScenes(2);
     root.getChildren().add(high);
-    
+
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
   }
 
+  /**
+   * Adds buttons to main menu.
+   */
   public void addButtons() {
     MenuButton playBtn = new MenuButton("New Game", 190, 49, 23);
     playBtn.setLayoutX(90);
     playBtn.setLayoutY(160);
     root.getChildren().add(playBtn);
-    playBtn.setOnAction(e -> intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
+    playBtn.setOnAction(e -> intros(2,
+        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
 
     MenuButton scoresBtn = new MenuButton("High Scores", 190, 49, 23);
     scoresBtn.setLayoutX(90);
     scoresBtn.setLayoutY(250);
     root.getChildren().add(scoresBtn);
     scoresBtn.setOnAction(e -> ins.moveIn());
-    
+
     MenuButton helpBtn = new MenuButton("Help", 190, 49, 23);
     helpBtn.setLayoutX(90);
     helpBtn.setLayoutY(340);
     root.getChildren().add(helpBtn);
     helpBtn.setOnAction(new EventHandler<ActionEvent>() {
-      @Override 
+      @Override
       public void handle(ActionEvent e) {
-          if(high.getVisible())
-            high.moveIn();
-          ins.moveIn();
+        if (high.getVisible())
+          high.moveIn();
+        ins.moveIn();
       }
-  });
+    });
 
     MenuButton exitBtn = new MenuButton("Quit", 190, 49, 23);
     exitBtn.setLayoutX(90);
@@ -218,14 +229,26 @@ public class DrivingAce extends Application {
     root.getChildren().add(logo);
   }
 
+  /**
+   * Adds instructions pop-up to main menu.
+   */
   public void instructions() {
     root.getChildren().add(ins);
   }
 
+  /**
+   * Level selection menu.
+   */
   public void levelSelect() {
     // TODO menu with buttons for selecting three different levels or going back to main menu
   }
 
+  /**
+   * Introduces level.
+   * 
+   * @param l the level to open
+   * @param str message included on introduction to level
+   */
   public void intros(int l, String str) {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -233,16 +256,15 @@ public class DrivingAce extends Application {
     rect.setOpacity(0.8);
     root.getChildren().add(rect);
 
-    if(l == 1) {
+    if (l == 1) {
       root.getScene().setOnKeyPressed(e -> {
         levelOne();
       });
-    }
-    else if (l == 2) {
+    } else if (l == 2) {
       root.getScene().setOnKeyPressed(e -> {
         levelTwo();
       });
-    }else {
+    } else {
       root.getScene().setOnKeyPressed(e -> {
         levelThree();
       });
@@ -258,22 +280,23 @@ public class DrivingAce extends Application {
     text.setLayoutY(250);
     text.setFont(Font.font("verdana", 20));
     final IntegerProperty i = new SimpleIntegerProperty(0);
-    KeyFrame keyFrame = new KeyFrame(
-        Duration.seconds(0.1),
-        event -> {
-          if (i.get() > str.length()) {
-            timeline.stop();
-          } else {
-            text.setText(str.substring(0, i.get()));
-            i.set(i.get() + 1);
-          }
-        });
+    KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.1), event -> {
+      if (i.get() > str.length()) {
+        timeline.stop();
+      } else {
+        text.setText(str.substring(0, i.get()));
+        i.set(i.get() + 1);
+      }
+    });
     timeline.getKeyFrames().add(keyFrame);
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
     root.getChildren().add(text);
   }
 
+  /**
+   * Level one.
+   */
   public void levelOne() {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -319,6 +342,9 @@ public class DrivingAce extends Application {
     addCar(new Car(100, 100, new Image("/resources/car_red_small_5.png"), 90), image);
   }
 
+  /**
+   * Introduction to level two.
+   */
   public void introTwo() {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -336,6 +362,9 @@ public class DrivingAce extends Application {
     root.getChildren().add(l);
   }
 
+  /**
+   * Level two.
+   */
   public void levelTwo() {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -356,12 +385,12 @@ public class DrivingAce extends Application {
 
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image);
 
-    Wall o1 = new Wall(423, 582, 184, 20, "l"); //lower
-    Wall o2 = new Wall(473, 510, 118, 1, "l"); //upper
+    Wall o1 = new Wall(423, 582, 184, 20, "l"); // lower
+    Wall o2 = new Wall(473, 510, 118, 1, "l"); // upper
 
-    //diagonal
-    Wall o3 = new Wall(386, 535, 154, 50, "l"); //lower
-    Wall o4 = new Wall(382, 454, 110, 1, "l"); //upper
+    // diagonal
+    Wall o3 = new Wall(386, 535, 154, 50, "l"); // lower
+    Wall o4 = new Wall(382, 454, 110, 1, "l"); // upper
     o3.getTransforms().add(new Rotate(28, o3.getX(), o3.getY()));
     o4.getTransforms().add(new Rotate(32, o4.getX(), o4.getY()));
 
@@ -388,13 +417,13 @@ public class DrivingAce extends Application {
     o12.getTransforms().add(new Rotate(20, o12.getX(), o12.getY()));
     o13.getTransforms().add(new Rotate(332, o13.getX(), o13.getY()));
 
-    //top horizontal
-    Wall o14 = new Wall(112, 132, 284, 41, "l"); //upper
-    Wall o15 = new Wall(142, 244, 273, 214, "l"); //lower
+    // top horizontal
+    Wall o14 = new Wall(112, 132, 284, 41, "l"); // upper
+    Wall o15 = new Wall(142, 244, 273, 214, "l"); // lower
 
-    //top turns
-    Wall o16 = new Wall(10, 70, 388, 100, "l"); //upper
-    Wall o17 = new Wall(399, 73, 1, 57, "l"); //upper
+    // top turns
+    Wall o16 = new Wall(10, 70, 388, 100, "l"); // upper
+    Wall o17 = new Wall(399, 73, 1, 57, "l"); // upper
     o17.getTransforms().add(new Rotate(225, o17.getX(), o17.getY()));
     Wall o18 = new Wall(339, 3, 400, 31, "l"); // upper
     Wall o19 = new Wall(609, 33, 65, 1, "l"); // upper
@@ -406,7 +435,7 @@ public class DrivingAce extends Application {
     o21.getTransforms().add(new Rotate(325, o21.getX(), o21.getY()));
     Wall o22 = new Wall(445, 222, 50, 100, "l"); // lower
     o22.getTransforms().add(new Rotate(290, o22.getX(), o22.getY()));
-    Wall o24 = new Wall(463, 97, 125, 410, "l"); //lower
+    Wall o24 = new Wall(463, 97, 125, 410, "l"); // lower
 
     // finishes inner
     Wall o25 = new Wall(569, 97, 15, 30, "l");
@@ -418,10 +447,10 @@ public class DrivingAce extends Application {
     Wall o29 = new Wall(662, 560, 30, 68, "l");
     o29.getTransforms().add(new Rotate(71, o29.getX(), o29.getY()));
 
-    //Additional Barriers to Fix Bugs
- //   Wall o30 = new Wall(65, 516, 40, 1, "l");
-   // o30.getTransforms().add(new Rotate(43, o30.getX(), o30.getY()));
-    
+    // Additional Barriers to Fix Bugs
+    // Wall o30 = new Wall(65, 516, 40, 1, "l");
+    // o30.getTransforms().add(new Rotate(43, o30.getX(), o30.getY()));
+
     obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15,
         o16, o17, o18, o19, o20, o21, o22, o24, o25, o26, o27, o28, o29};
     for (Obstacle o : obstacles) {
@@ -434,6 +463,9 @@ public class DrivingAce extends Application {
     menuBtn.setOnAction(e -> mainMenu());
   }
 
+  /**
+   * Level three.
+   */
   public void levelThree() {
     root.getChildren().clear();
     Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -475,6 +507,12 @@ public class DrivingAce extends Application {
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image);
   }
 
+  /**
+   * Adds car to stage.
+   * 
+   * @param car the car to add
+   * @param image the background image
+   */
   public void addCar(Car car, Image image) {
     // TODO camera that moves with scene (read this:
     // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
@@ -602,6 +640,11 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
   }
 
+  /**
+   * Driver method.
+   * 
+   * @param args command-line arguments
+   */
   public static void main(String[] args) {
     launch(args);
   }
