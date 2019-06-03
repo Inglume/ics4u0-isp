@@ -331,41 +331,41 @@ public class DrivingAce extends Application {
 
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image);
 
-    Wall o1 = new Wall(473, 582, 124, 1, "l"); //lower
+    Wall o1 = new Wall(423, 582, 184, 1, "l"); //lower
     Wall o2 = new Wall(473, 510, 118, 1, "l"); //upper
 
     //diagonal
-    Wall o3 = new Wall(390, 538, 94, 1, "l"); //lower
-    Wall o4 = new Wall(390, 460, 94, 1, "l"); //upper
+    Wall o3 = new Wall(386, 535, 154, 1, "l"); //lower
+    Wall o4 = new Wall(382, 454, 110, 1, "l"); //upper
     o3.getTransforms().add(new Rotate(28, o3.getX(), o3.getY()));
     o4.getTransforms().add(new Rotate(32, o4.getX(), o4.getY()));
 
-    Wall o5 = new Wall(148, 559, 242, 1, "l"); // lower
-    Wall o6 = new Wall(146, 480, 244, 1, "l"); // upper
+    Wall o5 = new Wall(134, 559, 260, 1, "l"); // lower
+    Wall o6 = new Wall(146, 480, 254, 1, "l"); // upper
     o5.getTransforms().add(new Rotate(355, o5.getX(), o5.getY()));
     o6.getTransforms().add(new Rotate(355, o6.getX(), o6.getY()));
 
     // straight
     Wall o7 = new Wall(139, 252, 1, 223, "l"); // right
-    Wall o8 = new Wall(51, 252, 1, 223, "l"); // leftmost
+    Wall o8 = new Wall(51, 202, 1, 310, "l"); // leftmost
 
     // bottom left corner
-    Wall o9 = new Wall(51, 475, 1, 60, "l"); // upper
-    Wall o10 = new Wall(66, 519, 35, 1, "l"); // middle
+    Wall o9 = new Wall(46, 460, 1, 100, "l"); // upper
+    Wall o10 = new Wall(56, 505, 80, 1, "l"); // middle
     Wall o11 = new Wall(90, 540, 60, 1, "l"); // lower
     o9.getTransforms().add(new Rotate(344, o9.getX(), o9.getY()));
     o10.getTransforms().add(new Rotate(45, o10.getX(), o10.getY()));
     o11.getTransforms().add(new Rotate(20, o11.getX(), o11.getY()));
 
     // top left corner
-    Wall o12 = new Wall(68, 196, 1, 60, "l"); // lower
-    Wall o13 = new Wall(70, 199, 52, 1, "l"); // upper
+    Wall o12 = new Wall(8, 196, 61, 60, "l"); // lower
+    Wall o13 = new Wall(50, 210, 102, 1, "l"); // upper
     o12.getTransforms().add(new Rotate(20, o12.getX(), o12.getY()));
     o13.getTransforms().add(new Rotate(332, o13.getX(), o13.getY()));
 
     //top horizontal
-    Wall o14 = new Wall(116, 172, 280, 1, "l"); //upper
-    Wall o15 = new Wall(142, 244, 273, 1, "l"); //lower
+    Wall o14 = new Wall(112, 132, 284, 41, "l"); //upper
+    Wall o15 = new Wall(142, 244, 273, 201, "l"); //lower
 
     //top turns
     Wall o16 = new Wall(398, 73, 1, 100, "l"); //upper
@@ -381,13 +381,13 @@ public class DrivingAce extends Application {
     o21.getTransforms().add(new Rotate(325, o21.getX(), o21.getY()));
     Wall o22 = new Wall(445, 222, 50, 1, "l"); // lower
     o22.getTransforms().add(new Rotate(290, o22.getX(), o22.getY()));
-    Wall o23 = new Wall(462, 97, 1, 80, "l"); //lower
-    Wall o24 = new Wall(463, 97, 125, 1, "l"); //lower
+    Wall o23 = new Wall(463, 97, 1, 80, "l"); //lower
+    Wall o24 = new Wall(463, 97, 125, 410, "l"); //lower
 
     // finishes inner
     Wall o25 = new Wall(589, 97, 15, 1, "l");
     o25.getTransforms().add(new Rotate(58, o25.getX(), o25.getY()));
-    Wall o26 = new Wall(595, 110, 1, 392, "l");
+    Wall o26 = new Wall(495, 110, 101, 392, "l");
     Wall o27 = new Wall(690, 96, 1, 423, "l");
     Wall o28 = new Wall(690, 517, 1, 53, "l");
     o28.getTransforms().add(new Rotate(31, o28.getX(), o28.getY()));
@@ -395,8 +395,8 @@ public class DrivingAce extends Application {
     o29.getTransforms().add(new Rotate(71, o29.getX(), o29.getY()));
 
     //Additional Barriers to Fix Bugs
-    Wall o30 = new Wall(65, 50, 1000, 1);
-    o30.getTransforms().add(new Rotate(71, o30.getX(), o30.getY()));
+    Wall o30 = new Wall(65, 516, 40, 1, "l");
+    o30.getTransforms().add(new Rotate(43, o30.getX(), o30.getY()));
     
     obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15,
         o16, o17, o18, o19, o20, o21, o22, o23, o24, o25, o26, o27, o28, o29, o30};
