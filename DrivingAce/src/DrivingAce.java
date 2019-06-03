@@ -101,7 +101,7 @@ public class DrivingAce extends Application {
     // intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a
     // Key to Continue.");
     // mainMenu();
-    levelTwo();
+    // levelTwo();
     primaryStage.show();
   }
 
