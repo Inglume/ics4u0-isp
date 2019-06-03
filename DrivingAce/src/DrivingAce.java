@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
+import javafx.geometry.Side;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
@@ -84,9 +85,9 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     // intro();
-    introTwo();
-    //levelTwo();
-    //levelOne();
+    levelOne();
+    // introTwo();
+    // levelTwo();
     // mainMenu();
     primaryStage.show();
   }
@@ -159,7 +160,7 @@ public class DrivingAce extends Application {
     scoresBtn.setLayoutY(250);
     root.getChildren().add(scoresBtn);
     scoresBtn.setOnAction(e -> ins.moveIn());
-    
+
     MenuButton helpBtn = new MenuButton("Help", 190, 49, 23);
     helpBtn.setLayoutX(90);
     helpBtn.setLayoutY(340);
@@ -202,13 +203,9 @@ public class DrivingAce extends Application {
     root.getChildren().add(ins);
   }
 
-
-
   public void levelSelect() {
     // TODO menu with buttons for selecting three different levels or going back to main menu
   }
-
-
 
   public void levelOne() {
     root.getChildren().clear();
@@ -225,7 +222,11 @@ public class DrivingAce extends Application {
 
     Car car1 = new Car(600, 120, new Image("/resources/car_red_small_5.png"));
     car1.setVelocity(100);
-    cars = new Car[] {car1};
+
+    Car car2 = new Car(0, 120, new Image("/resources/car_red_small_5.png"), 90);
+    car2.setVelocity(100);
+
+    cars = new Car[] {car1, car2};
     Wall leftWall = new Wall(-1, 0, 1, 600);
     Wall rightWall = new Wall(801, 0, 1, 600);
     Wall upWall = new Wall(0, -1, 800, 1);
@@ -242,13 +243,13 @@ public class DrivingAce extends Application {
       root.getChildren().add(c);
     }
 
-    Image image = new Image("/resources/level1.jpg", 800, 615, false, true);
+    Image image = new Image("/resources/level1.jpg", 0, 1000, true, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
     startNanoTime = System.nanoTime();
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image);
+    addCar(new Car(100, 100, new Image("/resources/car_red_small_5.png"), 90), image);
   }
 
   public void introTwo() {
@@ -259,7 +260,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(rect);
     root.getScene().setOnKeyPressed(e -> {
       levelTwo();
-   });
+    });
     Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
@@ -267,7 +268,6 @@ public class DrivingAce extends Application {
     Label l = new Label("This is bad");
     root.getChildren().add(l);
   }
-
 
   public void levelTwo() {
     root.getChildren().clear();
@@ -282,19 +282,19 @@ public class DrivingAce extends Application {
     ft.setCycleCount(1);
     ft.play();
 
-    Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
+    Image image = new Image("/resources/2nd.jpg", 0, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image);
 
-    Wall o1 = new Wall(473, 582, 124, 1, "l"); //lower
-    Wall o2 = new Wall(473, 510, 118, 1, "l"); //upper
+    Wall o1 = new Wall(473, 582, 124, 1, "l"); // lower
+    Wall o2 = new Wall(473, 510, 118, 1, "l"); // upper
 
-    //diagonal
-    Wall o3 = new Wall(390, 538, 94, 1, "l"); //lower
-    Wall o4 = new Wall(390, 460, 94, 1, "l"); //upper
+    // diagonal
+    Wall o3 = new Wall(390, 538, 94, 1, "l"); // lower
+    Wall o4 = new Wall(390, 460, 94, 1, "l"); // upper
     o3.getTransforms().add(new Rotate(28, o3.getX(), o3.getY()));
     o4.getTransforms().add(new Rotate(32, o4.getX(), o4.getY()));
 
@@ -321,13 +321,13 @@ public class DrivingAce extends Application {
     o12.getTransforms().add(new Rotate(20, o12.getX(), o12.getY()));
     o13.getTransforms().add(new Rotate(332, o13.getX(), o13.getY()));
 
-    //top horizontal
-    Wall o14 = new Wall(116, 172, 280, 1, "l"); //upper
-    Wall o15 = new Wall(142, 244, 273, 1, "l"); //lower
+    // top horizontal
+    Wall o14 = new Wall(116, 172, 280, 1, "l"); // upper
+    Wall o15 = new Wall(142, 244, 273, 1, "l"); // lower
 
-    //top turns
-    Wall o16 = new Wall(398, 73, 1, 100, "l"); //upper
-    Wall o17 = new Wall(399, 73, 1, 57, "l"); //upper
+    // top turns
+    Wall o16 = new Wall(398, 73, 1, 100, "l"); // upper
+    Wall o17 = new Wall(399, 73, 1, 57, "l"); // upper
     o17.getTransforms().add(new Rotate(225, o17.getX(), o17.getY()));
     Wall o18 = new Wall(439, 33, 170, 1, "l"); // upper
     Wall o19 = new Wall(609, 33, 65, 1, "l"); // upper
@@ -339,8 +339,8 @@ public class DrivingAce extends Application {
     o21.getTransforms().add(new Rotate(325, o21.getX(), o21.getY()));
     Wall o22 = new Wall(445, 222, 50, 1, "l"); // lower
     o22.getTransforms().add(new Rotate(290, o22.getX(), o22.getY()));
-    Wall o23 = new Wall(462, 97, 1, 80, "l"); //lower
-    Wall o24 = new Wall(463, 97, 125, 1, "l"); //lower
+    Wall o23 = new Wall(462, 97, 1, 80, "l"); // lower
+    Wall o24 = new Wall(463, 97, 125, 1, "l"); // lower
 
     // finishes inner
     Wall o25 = new Wall(589, 97, 15, 1, "l");
@@ -373,13 +373,21 @@ public class DrivingAce extends Application {
     // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
+    double movedX = 0;
+    double movedY = 0;
     animationTimer = new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+        Bounds oldBounds = car.center.localToScene(car.center.getBoundsInLocal());
         car.move(t);
         Bounds bounds = car.localToScene(car.getBoundsInLocal());
-        updateBackground(car, image);
+        Bounds centerBounds = car.center.localToScene(car.center.getBoundsInLocal());
+        Background oldBackground = root.getBackground();
+        updateBackground(car, t, centerBounds, oldBounds, image, oldBackground.getImages().get(0).getPosition());
+          // root.setBackground(oldBackground);
+          car.move(-t);
+//          root.setBackground(oldBackground);
         startNanoTime = currentNanoTime;
         if (input.contains("W") || input.contains("UP")) {
           car.accelerate();
@@ -436,18 +444,54 @@ public class DrivingAce extends Application {
     });
   }
 
-  public void updateBackground(Car car, Image image) {
+  private double clampRange(double value, double min, double max) {
+    if (value < min)
+      return min;
+    if (value > max)
+      return max;
+    return value;
+  }
+
+  public void updateBackground(Car car, double t, Bounds bounds, Bounds oldBounds, Image image, BackgroundPosition old) {
+    // root.getBackground().
     double x = 0;
     double y = 0;
-    //        BackgroundPosition bp = new BackgroundPosition(Side.LEFT, t, false, Side.TOP, t, false);
-    //    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-    //        BackgroundRepeat.NO_REPEAT, /* do this */, BackgroundSize.DEFAULT);
-    //    root.setBackground(new Background(background));
-    // BackgroundPosition bp = new BackgroundPosition(Side.LEFT, t, false, Side.TOP, t, false);
-    // BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-    // BackgroundRepeat.NO_REPEAT, /* do this */, BackgroundSize.DEFAULT);
-    // root.setBackground(new Background(background));
+    boolean moved = false;
 
+    // I still want the backgroudn to move thoguhhh somehow
+    // maybe make it move based on car's direction and velocity using sin and cos and annyoign stuff
+    if (old.getHorizontalPosition() < image.getWidth() - root.getWidth() && old.getHorizontalPosition() > 0) {
+      x = old.getHorizontalPosition() + oldBounds.getMaxX() - bounds.getMaxX();
+      car.translate(oldBounds.getMaxX() - bounds.getMaxX(), 0);
+    }
+    if (old.getVerticalPosition() < image.getHeight() - root.getHeight() && old.getVerticalPosition() > 0) {
+      y = old.getVerticalPosition() + oldBounds.getMaxY() - bounds.getMaxY();
+      car.translate(0, oldBounds.getMaxY() - bounds.getMaxY());
+    }
+//    if (old.getHorizontalPosition() >= image.getWidth() - root.getWidth()) {
+//      
+//    } else if (old.getHorizontalPosition() <= 0) {
+//      
+//    }
+//    if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() - root.getWidth())) != 0
+//        || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
+//            image.getHeight() - root.getHeight())) != 0) {
+//      moved = false;
+//    System.out.println("moved");
+//    }
+//    if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() - root.getWidth())) != 0
+//        || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
+//            image.getHeight() - root.getHeight())) != 0) {
+//      moved = false;
+//    }
+
+//    System.out.println(x + " " + y);
+//    x -= root.getWidth();
+//    y -= root.getHeight() / 2;
+    BackgroundPosition bp = new BackgroundPosition(Side.RIGHT, x, false, Side.BOTTOM, y, false);
+    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
   }
 
   public static void main(String[] args) {

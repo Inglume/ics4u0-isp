@@ -122,6 +122,13 @@ public class Car extends Rectangle {
     setY(getY() - cool);
     center.setY(center.getY() - cool);
   }
+  
+  public void translate(double x, double y) {
+   getTransforms().add(new Rotate(-direction, center.getX(), center.getY()));
+   setX(getX() + x);
+   setY(getY() + y);
+   getTransforms().add(new Rotate(direction, center.getX(), center.getY()));
+  }
 
   /**
    * Accelerates car.
