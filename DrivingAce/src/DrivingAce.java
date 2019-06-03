@@ -373,8 +373,8 @@ public class DrivingAce extends Application {
     // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
-    double movedX = 0;
-    double movedY = 0;
+//    double movedX = 0;
+//    double movedY = 0;
     animationTimer = new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
@@ -386,7 +386,7 @@ public class DrivingAce extends Application {
         Background oldBackground = root.getBackground();
         updateBackground(car, t, centerBounds, oldBounds, image, oldBackground.getImages().get(0).getPosition());
           // root.setBackground(oldBackground);
-          car.move(-t);
+//          car.move(-t);
 //          root.setBackground(oldBackground);
         startNanoTime = currentNanoTime;
         if (input.contains("W") || input.contains("UP")) {
@@ -458,8 +458,10 @@ public class DrivingAce extends Application {
     double y = 0;
     boolean moved = false;
 
-    // I still want the backgroudn to move thoguhhh somehow
-    // maybe make it move based on car's direction and velocity using sin and cos and annyoign stuff
+//     I still want the backgroudn to move thoguhhh somehow
+//     maybe make it move based on car's direction and velocity using sin and cos and annyoign stuff
+    // disregard this ^^
+    // I have to make the background move if the car crosses the middle and stop when it reaches this vv
     if (old.getHorizontalPosition() < image.getWidth() - root.getWidth() && old.getHorizontalPosition() > 0) {
       x = old.getHorizontalPosition() + oldBounds.getMaxX() - bounds.getMaxX();
       car.translate(oldBounds.getMaxX() - bounds.getMaxX(), 0);
