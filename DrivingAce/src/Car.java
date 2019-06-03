@@ -7,7 +7,7 @@ import javafx.scene.transform.Rotate;
  * The Car class.
  * 
  * @author Nicholas Glenn
- * @version 2
+ * @version 3
  */
 public class Car extends Rectangle {
 

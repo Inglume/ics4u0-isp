@@ -6,9 +6,23 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
+
+/**
+ * @author Jerry Zhu
+ * @version 3
+ */
 public class SubScenes extends SubScene{
+  
+  /**
+   * isVisible is a boolean that stores whether the subscene is visible or not.
+   */
   private boolean isVisible;
   
+  
+  /**
+   * SubsScenes constructor.
+   * @param i an int that stores whether the subscene is the Instructions screen or High Scores Screen.
+   */
   public SubScenes(int i) {
     super(new AnchorPane(), 400, 330);
     prefWidth(375);
@@ -54,6 +68,10 @@ public class SubScenes extends SubScene{
     r.getChildren().add(l);
   }
   
+  
+  /**
+   * Moves the subscene.
+   */
   public void moveIn() {
     TranslateTransition trans = new TranslateTransition();
     trans.setDuration(Duration.seconds(0.3));

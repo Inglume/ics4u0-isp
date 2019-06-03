@@ -40,7 +40,7 @@ import javafx.util.Duration;
  * The DrivingAce class.
  * 
  * @author Nicholas Glenn and Jerry Zhu
- * @version 2
+ * @version 3
  */
 public class DrivingAce extends Application {
 
