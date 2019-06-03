@@ -373,8 +373,8 @@ public class DrivingAce extends Application {
     // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
-//    double movedX = 0;
-//    double movedY = 0;
+    // double movedX = 0;
+    // double movedY = 0;
     animationTimer = new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
@@ -384,10 +384,8 @@ public class DrivingAce extends Application {
         Bounds bounds = car.localToScene(car.getBoundsInLocal());
         Bounds centerBounds = car.center.localToScene(car.center.getBoundsInLocal());
         Background oldBackground = root.getBackground();
-        updateBackground(car, t, centerBounds, oldBounds, image, oldBackground.getImages().get(0).getPosition());
-          // root.setBackground(oldBackground);
-//          car.move(-t);
-//          root.setBackground(oldBackground);
+        updateBackground(car, t, centerBounds, oldBounds, image,
+            oldBackground.getImages().get(0).getPosition());
         startNanoTime = currentNanoTime;
         if (input.contains("W") || input.contains("UP")) {
           car.accelerate();
@@ -428,9 +426,9 @@ public class DrivingAce extends Application {
     scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent e) {
-        String code = e.getCode().toString();
-        if (!input.contains(code)) {
-          input.add(code);
+        String key = e.getCode().toString();
+        if (!input.contains(key)) {
+          input.add(key);
         }
       }
     });
@@ -438,58 +436,57 @@ public class DrivingAce extends Application {
     scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
       @Override
       public void handle(KeyEvent e) {
-        String code = e.getCode().toString();
-        input.remove(code);
+        String key = e.getCode().toString();
+        input.remove(key);
       }
     });
   }
 
-  private double clampRange(double value, double min, double max) {
-    if (value < min)
-      return min;
-    if (value > max)
-      return max;
-    return value;
-  }
-
-  public void updateBackground(Car car, double t, Bounds bounds, Bounds oldBounds, Image image, BackgroundPosition old) {
+  /**
+   * This method is a work-in-progress, ignore this.
+   */
+  public void updateBackground(Car car, double t, Bounds bounds, Bounds oldBounds, Image image,
+      BackgroundPosition old) {
     // root.getBackground().
     double x = 0;
     double y = 0;
-    boolean moved = false;
 
-//     I still want the backgroudn to move thoguhhh somehow
-//     maybe make it move based on car's direction and velocity using sin and cos and annyoign stuff
+    // maybe make it move based on car's direction and velocity using sin and cosine
     // disregard this ^^
-    // I have to make the background move if the car crosses the middle and stop when it reaches this vv
-    if (old.getHorizontalPosition() < image.getWidth() - root.getWidth() && old.getHorizontalPosition() > 0) {
+    // I have to make the background move if the car crosses the middle and stop when it reaches
+    // this vv
+    if (old.getHorizontalPosition() < image.getWidth() - root.getWidth()
+        && old.getHorizontalPosition() > 0) {
       x = old.getHorizontalPosition() + oldBounds.getMaxX() - bounds.getMaxX();
       car.translate(oldBounds.getMaxX() - bounds.getMaxX(), 0);
     }
-    if (old.getVerticalPosition() < image.getHeight() - root.getHeight() && old.getVerticalPosition() > 0) {
+    if (old.getVerticalPosition() < image.getHeight() - root.getHeight()
+        && old.getVerticalPosition() > 0) {
       y = old.getVerticalPosition() + oldBounds.getMaxY() - bounds.getMaxY();
       car.translate(0, oldBounds.getMaxY() - bounds.getMaxY());
     }
-//    if (old.getHorizontalPosition() >= image.getWidth() - root.getWidth()) {
-//      
-//    } else if (old.getHorizontalPosition() <= 0) {
-//      
-//    }
-//    if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() - root.getWidth())) != 0
-//        || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
-//            image.getHeight() - root.getHeight())) != 0) {
-//      moved = false;
-//    System.out.println("moved");
-//    }
-//    if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() - root.getWidth())) != 0
-//        || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
-//            image.getHeight() - root.getHeight())) != 0) {
-//      moved = false;
-//    }
+    // if (old.getHorizontalPosition() >= image.getWidth() - root.getWidth()) {
+    //
+    // } else if (old.getHorizontalPosition() <= 0) {
+    //
+    // }
+    // if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() -
+    // root.getWidth())) != 0
+    // || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
+    // image.getHeight() - root.getHeight())) != 0) {
+    // moved = false;
+    // System.out.println("moved");
+    // }
+    // if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() -
+    // root.getWidth())) != 0
+    // || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
+    // image.getHeight() - root.getHeight())) != 0) {
+    // moved = false;
+    // }
 
-//    System.out.println(x + " " + y);
-//    x -= root.getWidth();
-//    y -= root.getHeight() / 2;
+    // System.out.println(x + " " + y);
+    // x -= root.getWidth();
+    // y -= root.getHeight() / 2;
     BackgroundPosition bp = new BackgroundPosition(Side.RIGHT, x, false, Side.BOTTOM, y, false);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);
