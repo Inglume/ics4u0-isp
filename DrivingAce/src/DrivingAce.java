@@ -340,7 +340,7 @@ public class DrivingAce extends Application {
   }
 
   /**
-   * Level one.
+   * Level one of the game.
    */
   public void levelOne() {
     root.getChildren().clear();
