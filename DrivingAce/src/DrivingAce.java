@@ -8,12 +8,10 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -99,15 +97,14 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    // intro();
-    // intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a
+     intro();
     // Key to Continue.");
    // mainMenu();
     //levelEnd(false);
     // levelTwo();
     // levelOne();
     // levelThree();
-    levelEnd(false, 1);
+   // levelEnd(false, 1);
     primaryStage.show();
   }
 
@@ -305,7 +302,7 @@ public class DrivingAce extends Application {
         levelOne();
       });
     } else if (l == 2) {
-      Image image = new Image("/resources/2.png", 800, 615, false, true);
+      Image image = new Image("/resources/2.svg", 800, 615, false, true);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -373,8 +370,8 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
 
     lastNanoTime = System.nanoTime();
-    addCar(new Car(500, 100, new Image("/resources/car_red_small_5.png"), 0), image, 1);
     
+    addCar(new Car(500, 100, new Image("/resources/car_red_small_5.png"), 0), image, 1);
     addMenuButton();
   }
 
@@ -385,7 +382,7 @@ public class DrivingAce extends Application {
   public void levelTwo() {
     root.getChildren().clear();
 
-    Image image = new Image("/resources/2.png", 0, 615, false, true);
+    Image image = new Image("/resources/2.svg", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
@@ -500,7 +497,6 @@ public class DrivingAce extends Application {
 
     lastNanoTime = System.nanoTime();
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image, 3);
-    
     addMenuButton();
   }
 
@@ -557,6 +553,9 @@ public class DrivingAce extends Application {
         Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal());
         // updateBackground(car, t, bounds, oldBounds, image,
         // oldBackground.getImages().get(0).getPosition());
+        
+//        updateBackground(car, t, bounds, oldBounds, image,
+//            oldBackground.getImages().get(0).getPosition());
       }
     };
     animationTimer.start();
@@ -579,7 +578,7 @@ public class DrivingAce extends Application {
       }
     });
   }
-
+  
   public double clamp(double n, double min, double max) {
     if (n < min) {
       return min;
@@ -600,12 +599,11 @@ public class DrivingAce extends Application {
     double y = 0;
     double offsetX = 0;
     double offsetY = 0;
-
+    
     // maybe make it move based on car's direction and velocity using sin and cosine
     // disregard this ^^
     // I have to make the background move if the car crosses the middle and stop when it reaches
     // this vv
-
     car.relocate(root.getWidth() / 2, root.getHeight() / 2);
 
     if (x > 0) { // past left edge of background
@@ -677,6 +675,7 @@ public class DrivingAce extends Application {
     // // System.out.println(x + " " + y);
     // // x -= root.getWidth();
     // // y -= root.getHeight() / 2;
+    
     BackgroundPosition bp = new BackgroundPosition(Side.LEFT, x, false, Side.TOP, y, false);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);

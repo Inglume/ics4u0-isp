@@ -1,3 +1,4 @@
+import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
@@ -125,10 +126,17 @@ public class Car extends Rectangle {
   }
   
   public void translate(double x, double y) {
-   getTransforms().add(new Rotate(-direction, center.getX(), center.getY()));
-   setX(getX() + x);
-   setY(getY() + y);
-   getTransforms().add(new Rotate(direction, center.getX(), center.getY()));
+   setLayoutX(getLayoutX() + x);
+   center.setLayoutX(center.getLayoutX() + x);
+   setLayoutY(getLayoutY() + y);
+   center.setLayoutY(center.getLayoutY() + y);
+  }
+
+  public void relocate(double x, double y) {
+   setLayoutX(x);
+   center.setLayoutX(x);
+   setLayoutY(y);
+   center.setLayoutY(y);
   }
 
   /**
