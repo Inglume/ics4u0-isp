@@ -52,7 +52,7 @@ public class DrivingAce extends Application {
   /**
    * The start time as a part of the game loop.
    */
-  private long startNanoTime;
+  private long lastNanoTime;
 
   /**
    * The scene for the output. It will be put into the the Pane.
@@ -101,7 +101,8 @@ public class DrivingAce extends Application {
     // intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a
     // Key to Continue.");
     // mainMenu();
-    levelTwo();
+//    levelOne();
+//    levelTwo();
     primaryStage.show();
   }
 
@@ -333,12 +334,12 @@ public class DrivingAce extends Application {
       root.getChildren().add(c);
     }
 
-    Image image = new Image("/resources/level1.jpg", 0, 1000, true, true);
+    Image image = new Image("/resources/1st.png", 0, 1000, true, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-    startNanoTime = System.nanoTime();
+    lastNanoTime = System.nanoTime();
     addCar(new Car(100, 100, new Image("/resources/car_red_small_5.png"), 90), image);
   }
 
@@ -503,7 +504,7 @@ public class DrivingAce extends Application {
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-    startNanoTime = System.nanoTime();
+    lastNanoTime = System.nanoTime();
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image);
   }
 
@@ -523,15 +524,12 @@ public class DrivingAce extends Application {
     animationTimer = new AnimationTimer() {
       @Override
       public void handle(long currentNanoTime) {
-        double t = (currentNanoTime - startNanoTime) / 1000000000.0;
+        double t = (currentNanoTime - lastNanoTime) / 1_000_000_000.0;
+        lastNanoTime = currentNanoTime;
         Bounds oldBounds = car.center.localToScene(car.center.getBoundsInLocal());
         car.move(t);
-        Bounds bounds = car.localToScene(car.getBoundsInLocal());
         Bounds centerBounds = car.center.localToScene(car.center.getBoundsInLocal());
         Background oldBackground = root.getBackground();
-        updateBackground(car, t, centerBounds, oldBounds, image,
-            oldBackground.getImages().get(0).getPosition());
-        startNanoTime = currentNanoTime;
         if (input.contains("W") || input.contains("UP")) {
           car.accelerate();
         }
@@ -556,16 +554,10 @@ public class DrivingAce extends Application {
             car.setVelocity(-car.getVelocity());
           }
           c.move(t, 0);
-          bounds = c.localToScene(c.getBoundsInLocal());
-          if (bounds.getMaxX() < -20 || bounds.getMinX() > root.getWidth() + 20) {
-            c.setY(c.getY() + root.getWidth() + c.getWidth() + 20);
-            c.center.setY(c.center.getY() + root.getWidth() + c.getWidth() + 20);
-          }
-          if (bounds.getMaxY() < -20 || bounds.getMinY() > root.getHeight() + 20) {
-            c.setY(c.getY() + root.getHeight() + c.getHeight() + 20);
-            c.center.setY(c.center.getY() + root.getHeight() + c.getHeight() + 20);
-          }
         }
+        Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal());
+//        updateBackground(car, t, bounds, oldBounds, image,
+//            oldBackground.getImages().get(0).getPosition());
       }
     };
     animationTimer.start();
@@ -588,6 +580,16 @@ public class DrivingAce extends Application {
       }
     });
   }
+  
+  public double clamp(double n, double min, double max) {
+    if (n < min) {
+      return min;
+    }
+    if (n > max) {
+      return max;
+    }
+    return n;
+  }
 
   /**
    * This method is a work-in-progress, ignore this.
@@ -597,44 +599,86 @@ public class DrivingAce extends Application {
     // root.getBackground().
     double x = 0;
     double y = 0;
-
+    double offsetX = 0;
+    double offsetY = 0;
+    
     // maybe make it move based on car's direction and velocity using sin and cosine
     // disregard this ^^
     // I have to make the background move if the car crosses the middle and stop when it reaches
     // this vv
-    if (old.getHorizontalPosition() < image.getWidth() - root.getWidth()
-        && old.getHorizontalPosition() > 0) {
-      x = old.getHorizontalPosition() + oldBounds.getMaxX() - bounds.getMaxX();
-      car.translate(oldBounds.getMaxX() - bounds.getMaxX(), 0);
-    }
-    if (old.getVerticalPosition() < image.getHeight() - root.getHeight()
-        && old.getVerticalPosition() > 0) {
-      y = old.getVerticalPosition() + oldBounds.getMaxY() - bounds.getMaxY();
-      car.translate(0, oldBounds.getMaxY() - bounds.getMaxY());
-    }
-    // if (old.getHorizontalPosition() >= image.getWidth() - root.getWidth()) {
-    //
-    // } else if (old.getHorizontalPosition() <= 0) {
-    //
-    // }
-    // if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() -
-    // root.getWidth())) != 0
-    // || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
-    // image.getHeight() - root.getHeight())) != 0) {
-    // moved = false;
-    // System.out.println("moved");
-    // }
-    // if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() -
-    // root.getWidth())) != 0
-    // || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
-    // image.getHeight() - root.getHeight())) != 0) {
-    // moved = false;
-    // }
 
-    // System.out.println(x + " " + y);
-    // x -= root.getWidth();
-    // y -= root.getHeight() / 2;
-    BackgroundPosition bp = new BackgroundPosition(Side.RIGHT, x, false, Side.BOTTOM, y, false);
+    car.relocate(root.getWidth() / 2, root.getHeight() / 2);
+    
+    if (x > 0) { // past left edge of background
+      offsetX = -x;
+      x = 0;
+    }
+    double rightEdgeLimit = -image.getWidth() + root.getWidth();
+    if (x < rightEdgeLimit) { // past right edge of background
+      offsetX = -x;
+      x = rightEdgeLimit;
+    }
+    if (y > 0) { // past left edge of background
+      offsetY = -y;
+      y = 0;
+    }
+    double bottomEdgeLimit = -image.getHeight() + root.getHeight();
+    if (y < bottomEdgeLimit) { // past right edge of background
+      offsetY = -y;
+      y = bottomEdgeLimit;
+    }
+    
+    if (offsetX != 0) {
+      System.out.println(x + " " + y);
+      System.out.println(offsetX);
+    }
+    if (offsetY != 0) {
+      System.out.println(x + " " + y);
+      System.out.println(offsetY);
+    }
+    
+    car.translate(offsetX, offsetY);
+    
+//    if (oldBounds.getMaxX() <= root.getWidth() / 2 && bounds.getMaxX() > root.getWidth() / 2 ||
+//    oldBounds.getMaxX() >= root.getWidth() / 2 && bounds.getMaxX() < root.getWidth() / 2 ||
+//    oldBounds.getMaxY() <= root.getHeight() / 2 && bounds.getMaxY() > root.getHeight() / 2 ||
+//    oldBounds.getMaxY() >= root.getHeight() / 2 && bounds.getMaxY() < root.getHeight() / 2 ) {
+////    if (old.getHorizontalPosition() > -image.getWidth() + root.getWidth()
+////        && old.getHorizontalPosition() < 0) {
+//      x = old.getHorizontalPosition() + oldBounds.getMaxX() - bounds.getMaxX();
+//      car.translate(oldBounds.getMaxX() - bounds.getMaxX(), 0);
+////    } 
+////    if (old.getVerticalPosition() > -image.getHeight() + root.getHeight()
+////        && old.getVerticalPosition() < 0) {
+//      y = old.getVerticalPosition() + oldBounds.getMaxY() - bounds.getMaxY();
+//      car.translate(0, oldBounds.getMaxY() - bounds.getMaxY());
+//      x = clamp(x, 0, -image.getWidth() + root.getWidth());
+//      y = clamp(y, 0, -image.getHeight() + root.getHeight());
+////    }
+//    }
+//    // if (old.getHorizontalPosition() >= image.getWidth() - root.getWidth()) {
+//    //
+//    // } else if (old.getHorizontalPosition() <= 0) {
+//    //
+//    // }
+//    // if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() -
+//    // root.getWidth())) != 0
+//    // || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
+//    // image.getHeight() - root.getHeight())) != 0) {
+//    // moved = false;
+//    // System.out.println("moved");
+//    // }
+//    // if ((x = clampRange(bounds.getMaxX() - root.getWidth() / 2, 0, image.getWidth() -
+//    // root.getWidth())) != 0
+//    // || (y = clampRange(bounds.getMaxY() - root.getHeight() / 2, 0,
+//    // image.getHeight() - root.getHeight())) != 0) {
+//    // moved = false;
+//    // }
+//
+//    // System.out.println(x + " " + y);
+//    // x -= root.getWidth();
+//    // y -= root.getHeight() / 2;
+    BackgroundPosition bp = new BackgroundPosition(Side.LEFT, x, false, Side.TOP, y, false);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
