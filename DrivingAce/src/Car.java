@@ -1,3 +1,5 @@
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.Property;
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
@@ -36,7 +38,7 @@ public class Car extends Rectangle {
    * Velocity of car.
    */
   private double direction;
-
+  
   /**
    * Rate of acceleration.
    */
@@ -104,6 +106,22 @@ public class Car extends Rectangle {
     maxVelocity = 400;
     getTransforms().add(new Rotate(direction, center.getX(), center.getY()));
   }
+  
+  public double predictMoveX(double t) {
+    Bounds oldBounds = center.localToScene(center.getBoundsInLocal());
+    move(t, 0);
+    Bounds newBounds = center.localToScene(center.getBoundsInLocal());
+    move(-t, 0);
+    return newBounds.getMaxX() - oldBounds.getMaxX();
+  }
+
+  public double predictMoveY(double t) {
+    Bounds oldBounds = center.localToScene(center.getBoundsInLocal());
+    move(t, 0);
+    Bounds newBounds = center.localToScene(center.getBoundsInLocal());
+    move(-t, 0);
+    return newBounds.getMaxY() - oldBounds.getMaxY();
+  }
 
   /**
    * Move coordinates of car.
@@ -132,11 +150,12 @@ public class Car extends Rectangle {
    center.setLayoutY(center.getLayoutY() + y);
   }
 
-  public void relocate(double x, double y) {
-   setLayoutX(x);
-   center.setLayoutX(x);
-   setLayoutY(y);
-   center.setLayoutY(y);
+  public void reposition(double x, double y) {
+   Bounds bounds = center.localToScene(center.getBoundsInLocal());
+   setLayoutX(getLayoutX() + x - bounds.getMaxX());
+   center.setLayoutX(center.getLayoutX() + x - bounds.getMaxX());
+   setLayoutY(getLayoutY() + y - bounds.getMaxY());
+   center.setLayoutY(center.getLayoutY() + y - bounds.getMaxY());
   }
 
   /**
@@ -163,9 +182,11 @@ public class Car extends Rectangle {
    * Brakes car.
    */
   public void brake() {
-    velocity -= accelerationRate;
     if (velocity < 0) {
-      velocity = 0;
+    velocity += accelerationRate;
+    }
+    else if (velocity > 0) {
+    velocity -= accelerationRate;
     }
   }
 
