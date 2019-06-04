@@ -100,10 +100,10 @@ public class DrivingAce extends Application {
     // intro();
     // intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a
     // Key to Continue.");
-    //mainMenu();
+    mainMenu();
     // levelTwo();
     //levelOne();
-    levelThree();
+   // levelThree();
     primaryStage.show();
   }
 
@@ -177,8 +177,7 @@ public class DrivingAce extends Application {
     playBtn.setLayoutX(90);
     playBtn.setLayoutY(160);
     root.getChildren().add(playBtn);
-    playBtn.setOnAction(e -> intros(2,
-        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
+    playBtn.setOnAction(e -> levelSelect());
 
     MenuButton scoresBtn = new MenuButton("High Scores", 190, 49, 23);
     scoresBtn.setLayoutX(90);
@@ -236,7 +235,34 @@ public class DrivingAce extends Application {
    * Level selection menu.
    */
   public void levelSelect() {
-    // TODO menu with buttons for selecting three different levels or going back to main menu
+    root.getChildren().clear();
+
+    BackgroundImage background = new BackgroundImage(
+        new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
+    
+
+    MenuButton oneBtn = new MenuButton("Level One", 190, 49, 23);
+    oneBtn.setLayoutX(300);
+    oneBtn.setLayoutY(120);
+    root.getChildren().add(oneBtn);
+    oneBtn.setOnAction(e -> intros(1,
+        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
+
+    MenuButton twoBtn = new MenuButton("Level Two", 190, 49, 23);
+    twoBtn.setLayoutX(300);
+    twoBtn.setLayoutY(260);
+    root.getChildren().add(twoBtn);
+    twoBtn.setOnAction(e -> intros(2,
+        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
+
+    MenuButton threeBtn = new MenuButton("Level Three", 190, 49, 23);
+    threeBtn.setLayoutX(300);
+    threeBtn.setLayoutY(400);
+    root.getChildren().add(threeBtn);
+    threeBtn.setOnAction(e -> intros(3,
+        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
   }
 
   /**
@@ -253,22 +279,30 @@ public class DrivingAce extends Application {
     root.getChildren().add(rect);
 
     if (l == 1) {
+      Image image = new Image("/resources/1st.png", 800, 615, false, true);
+      BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+          BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+      root.setBackground(new Background(background));
       root.getScene().setOnKeyPressed(e -> {
         levelOne();
       });
     } else if (l == 2) {
+      Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
+      BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+          BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+      root.setBackground(new Background(background));
       root.getScene().setOnKeyPressed(e -> {
         levelTwo();
       });
     } else {
+      Image image = new Image("/resources/3rd.jpg", 800, 615, false, true);
+      BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+          BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+      root.setBackground(new Background(background));
       root.getScene().setOnKeyPressed(e -> {
         levelThree();
       });
     }
-    Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
-    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    root.setBackground(new Background(background));
 
     Timeline timeline = new Timeline();
     Text text = new Text();
