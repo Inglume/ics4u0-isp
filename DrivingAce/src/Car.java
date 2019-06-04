@@ -1,5 +1,3 @@
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.Property;
 import javafx.geometry.Bounds;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;

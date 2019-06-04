@@ -8,12 +8,10 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -84,6 +82,8 @@ public class DrivingAce extends Application {
    */
   private AnimationTimer animationTimer;
 
+  private int collisionCount;
+  
   /**
    * Runs everything.
    */
@@ -97,13 +97,14 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    // intro();
-    // intros(2, "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a
+   //  intro();
     // Key to Continue.");
-//    mainMenu();
-//     levelTwo();
-     levelOne();
-//     levelThree();
+   // mainMenu();
+    //levelEnd(false);
+     levelTwo();
+    // levelOne();
+    // levelThree();
+   // levelEnd(false, 1);
     primaryStage.show();
   }
 
@@ -141,6 +142,7 @@ public class DrivingAce extends Application {
    * Main menu.
    */
   public void mainMenu() {
+    collisionCount = 0;
     root.getChildren().clear();
     obstacles = new Wall[0];
     if (animationTimer != null) {
@@ -164,7 +166,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(high);
 
     BackgroundImage background = new BackgroundImage(
-        new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
+        new Image("/resources/menu.png", 200, 615, false, true), BackgroundRepeat.REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
   }
@@ -231,10 +233,24 @@ public class DrivingAce extends Application {
     root.getChildren().add(logo);
   }
 
+  
+  /**
+   * Adds the menu button into the screens of the levels.
+   */
+  public void addMenuButton() {
+    MenuButton menuBtn = new MenuButton("Main Menu", 125, 30, 15);
+    menuBtn.setLayoutX(674);
+    menuBtn.setLayoutY(579);
+    root.getChildren().add(menuBtn);
+    menuBtn.setOnAction(e -> mainMenu());
+  }
+  
   /**
    * Level selection menu.
    */
   public void levelSelect() {
+    collisionCount = 0;
+    
     root.getChildren().clear();
 
     BackgroundImage background = new BackgroundImage(
@@ -279,7 +295,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(rect);
 
     if (l == 1) {
-      Image image = new Image("/resources/1st.png", 800, 615, false, true);
+      Image image = new Image("/resources/1.png", 800, 615, false, true);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -287,7 +303,7 @@ public class DrivingAce extends Application {
         levelOne();
       });
     } else if (l == 2) {
-      Image image = new Image("/resources/2nd.jpg", 800, 615, false, true);
+      Image image = new Image("/resources/2.png", 800, 615, false, true);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -295,7 +311,7 @@ public class DrivingAce extends Application {
         levelTwo();
       });
     } else {
-      Image image = new Image("/resources/3rd.jpg", 800, 615, false, true);
+      Image image = new Image("/resources/3.png", 800, 615, false, true);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -325,7 +341,7 @@ public class DrivingAce extends Application {
   }
 
   /**
-   * Level one.
+   * Level one of the game.
    */
   public void levelOne() {
     root.getChildren().clear();
@@ -342,20 +358,21 @@ public class DrivingAce extends Application {
 //    obstacles = new Obstacle[] {leftWall, rightWall};
     obstacles = new Obstacle[] {};
 
-//    for (Obstacle o : obstacles) {
-//      root.getChildren().add((Shape) o);
-//    }
+    for (Obstacle o : obstacles) {
+      root.getChildren().add((Shape) o);
+    }
 
     for (Car c : cars) {
       root.getChildren().add(c);
     }
 
-    Image image = new Image("/resources/1st.png", 0, 1000, true, true);
+    Image image = new Image("/resources/1.png", 0, 1000, true, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-    addCar(new Car(500, 100, new Image("/resources/car_red_small_5.png"), 0), image);
+    addCar(new Car(500, 100, new Image("/resources/car_red_small_5.png"), 0), image, 1);
+    addMenuButton();
   }
 
 
@@ -364,23 +381,13 @@ public class DrivingAce extends Application {
    */
   public void levelTwo() {
     root.getChildren().clear();
-    Rectangle rect = new Rectangle(-100, -100, 1030, 930);
-    rect.setFill(Color.WHITE);
-    root.getChildren().add(rect);
 
-    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
-    ft.setFromValue(2);
-    ft.setToValue(0);
-    ft.setAutoReverse(true);
-    ft.setCycleCount(1);
-    ft.play();
-
-    Image image = new Image("/resources/2nd.jpg", 0, 615, false, true);
+    Image image = new Image("/resources/2.png", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-    addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image);
+    addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image, 2);
 
     Wall o1 = new Wall(423, 582, 184, 20, "l"); // lower
     Wall o2 = new Wall(473, 510, 118, 1, "l"); // upper
@@ -449,11 +456,7 @@ public class DrivingAce extends Application {
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
-    MenuButton menuBtn = new MenuButton("Main Menu", 125, 30, 15);
-    menuBtn.setLayoutX(674);
-    menuBtn.setLayoutY(579);
-    root.getChildren().add(menuBtn);
-    menuBtn.setOnAction(e -> mainMenu());
+    addMenuButton();
   }
 
   /**
@@ -486,12 +489,14 @@ public class DrivingAce extends Application {
       root.getChildren().add(c);
     }
 
-    Image image = new Image("/resources/3rd.jpg", 800, 615, false, true);
+    Image image = new Image("/resources/3.png", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image);
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image, 3);
+    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image, 3);
+    addMenuButton();
   }
 
   /**
@@ -500,7 +505,7 @@ public class DrivingAce extends Application {
    * @param car the car to add
    * @param image the background image
    */
-  public void addCar(Car car, Image image) {
+  public void addCar(Car car, Image image, int level) {
     // TODO camera that moves with scene (read this:
     // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
     root.getChildren().add(car);
@@ -511,9 +516,7 @@ public class DrivingAce extends Application {
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - lastNanoTime) / 1_000_000_000.0;
         lastNanoTime = currentNanoTime;
-        Bounds oldBounds = car.center.localToScene(car.center.getBoundsInLocal());
         car.move(t);
-        Background oldBackground = root.getBackground();
         if (input.contains("W") || input.contains("UP")) {
           car.accelerate();
         }
@@ -534,6 +537,13 @@ public class DrivingAce extends Application {
           if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if crashed
             car.move(-t);
             car.setVelocity(-car.getVelocity());
+
+            System.out.println(++collisionCount);
+            if(level == 2 && collisionCount >= 10) {
+              levelEnd(false, 2);
+              this.stop();
+              collisionCount = 0;
+            }
           }
         }
         for (Car c : cars) {
@@ -616,7 +626,6 @@ public class DrivingAce extends Application {
       y = bottomEdgeLimit;
     }
     car.move(-t);
-    car.translate(offsetX, offsetY);
     for (Car c : cars) {
       c.translate(-car.predictMoveX(t) + offsetX, -car.predictMoveY(t) + offsetY);
     }
@@ -630,6 +639,36 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
   }
 
+  
+  /**
+   * Outputs the screen corresponding to whether the user has passed the level or not.
+   * @param hasWon stores whether the user passed the level.
+   * @param level stores the level at which the user passed or failed.
+   */
+  public void levelEnd(boolean hasPassed, int level) {
+    root.getChildren().clear();
+    if(!hasPassed) {
+      Rectangle rect = new Rectangle(-100, -100, 1030, 930);
+      rect.setFill(Color.RED);
+      root.getChildren().add(rect);
+      
+      MenuButton tryBtn = new MenuButton("Try Again", 190, 49, 23);
+      tryBtn.setLayoutX(310);
+      tryBtn.setLayoutY(420);
+      root.getChildren().add(tryBtn);
+      tryBtn.setOnAction(e -> intros(level, "s"));
+    } else {
+      Rectangle rect = new Rectangle(-100, -100, 1030, 930);
+      rect.setFill(Color.BLUE);
+      root.getChildren().add(rect);
+    }
+    MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
+    menuBtn.setLayoutX(310);
+    menuBtn.setLayoutY(500);
+    root.getChildren().add(menuBtn);
+    menuBtn.setOnAction(e -> mainMenu());
+  }
+  
   /**
    * Driver method.
    * 
