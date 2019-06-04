@@ -132,12 +132,12 @@ public class Car extends Rectangle {
    center.setLayoutY(center.getLayoutY() + y);
   }
 
-  public void relocate(double x, double y) {
-   setLayoutX(x);
-   center.setLayoutX(x);
-   setLayoutY(y);
-   center.setLayoutY(y);
-  }
+//  public void relocate(double x, double y) {
+//   setLayoutX(x);
+//   center.setLayoutX(x);
+//   setLayoutY(y);
+//   center.setLayoutY(y);
+//  }
 
   /**
    * Accelerates car.

@@ -142,6 +142,7 @@ public class DrivingAce extends Application {
    * Main menu.
    */
   public void mainMenu() {
+    collisionCount = 0;
     root.getChildren().clear();
     obstacles = new Wall[0];
     if (animationTimer != null) {
@@ -457,7 +458,6 @@ public class DrivingAce extends Application {
       root.getChildren().add((Shape) o);
     }
     addMenuButton();
-   
   }
 
   /**
@@ -540,6 +540,8 @@ public class DrivingAce extends Application {
             System.out.println(++collisionCount);
             if(level == 2 && collisionCount >= 10) {
               levelEnd(false, 2);
+              this.stop();
+              collisionCount = 0;
             }
           }
         }
