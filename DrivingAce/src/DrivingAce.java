@@ -97,11 +97,11 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-     intro();
+   //  intro();
     // Key to Continue.");
    // mainMenu();
     //levelEnd(false);
-    // levelTwo();
+     levelTwo();
     // levelOne();
     // levelThree();
    // levelEnd(false, 1);
@@ -302,7 +302,7 @@ public class DrivingAce extends Application {
         levelOne();
       });
     } else if (l == 2) {
-      Image image = new Image("/resources/2.svg", 800, 615, false, true);
+      Image image = new Image("/resources/2.png", 800, 615, false, true);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -382,7 +382,7 @@ public class DrivingAce extends Application {
   public void levelTwo() {
     root.getChildren().clear();
 
-    Image image = new Image("/resources/2.svg", 800, 615, false, true);
+    Image image = new Image("/resources/2.png", 800, 615, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
