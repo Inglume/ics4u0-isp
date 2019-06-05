@@ -99,9 +99,9 @@ public class DrivingAce extends Application {
     primaryStage.setScene(scene);
    //  intro();
     // Key to Continue.");
-   // mainMenu();
+    mainMenu();
     //levelEnd(false);
-     levelTwo();
+   //  levelTwo();
     // levelOne();
     // levelThree();
    // levelEnd(false, 1);
@@ -152,7 +152,7 @@ public class DrivingAce extends Application {
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
 
-    FadeTransition ft = new FadeTransition(Duration.millis(4000), rect);
+    FadeTransition ft = new FadeTransition(Duration.millis(3000), rect);
     ft.setFromValue(2);
     ft.setToValue(0);
     ft.setAutoReverse(true);
