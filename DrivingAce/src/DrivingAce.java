@@ -454,8 +454,12 @@ public class DrivingAce extends Application {
     Wall o29 = new Wall(662, 560, 30, 68, "l");
     o29.getTransforms().add(new Rotate(71, o29.getX(), o29.getY()));
 
+    //start line
+    Wall o30 = new Wall(525, 510, 1, 80, "l");
+    Wall o31 = new Wall(542, 510, 1, 80, "l");
+    
     obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15,
-        o16, o17, o18, o19, o20, o21, o22, o24, o25, o26, o27, o28, o29};
+        o16, o17, o18, o19, o20, o21, o22, o24, o25, o26, o27, o28, o29, o30, o31};
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
@@ -536,16 +540,22 @@ public class DrivingAce extends Application {
           car.brake();
         }
         for (Obstacle o : obstacles) {
+          if(level == 2 && collisionCount < 10 && ((Path) Shape.intersect(car, (Shape) obstacles[obstacles.length-1])).getElements().size() > 0){
+            levelEnd(true,2);
+            collisionCount = 0;
+            this.stop();
+          }
           if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if crashed
             car.move(-t);
             car.setVelocity(-car.getVelocity());
-
+            
             System.out.println(++collisionCount);
             if(level == 2 && collisionCount >= 10) {
               levelEnd(false, 2);
               collisionCount = 0;
               this.stop();
             }
+
           }
         }
         for (Car c : cars) {
@@ -666,6 +676,14 @@ public class DrivingAce extends Application {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.BLUE);
       root.getChildren().add(rect);
+      
+      if(level != 3) {
+        MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
+        nextBtn.setLayoutX(310);
+        nextBtn.setLayoutY(420);
+        root.getChildren().add(nextBtn);
+        nextBtn.setOnAction(e -> intros(level + 1, "s"));
+      }
     }
     MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
     menuBtn.setLayoutX(310);
