@@ -101,9 +101,9 @@ public class DrivingAce extends Application {
     // Key to Continue.");
    // mainMenu();
     //levelEnd(false);
-     levelTwo();
-    // levelOne();
-    // levelThree();
+//     levelTwo();
+//     levelOne();
+     levelThree();
    // levelEnd(false, 1);
     primaryStage.show();
   }
@@ -366,13 +366,13 @@ public class DrivingAce extends Application {
       root.getChildren().add(c);
     }
 
-    Image image = new Image("/resources/1.png", 0, 1000, true, true);
+    Image image = new Image("/resources/1.png", 0, 1000, false, true);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
     addCar(new Car(500, 100, new Image("/resources/car_red_small_5.png"), 0), image, 1);
-    addMenuButton();
+//    addMenuButton();
   }
 
 
@@ -489,12 +489,11 @@ public class DrivingAce extends Application {
       root.getChildren().add(c);
     }
 
-    Image image = new Image("/resources/3.png", 800, 615, false, true);
+    Image image = new Image("/resources/3.jpg", 0, 800, true, false);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image, 3);
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image, 3);
     addMenuButton();
   }
@@ -541,8 +540,8 @@ public class DrivingAce extends Application {
             System.out.println(++collisionCount);
             if(level == 2 && collisionCount >= 10) {
               levelEnd(false, 2);
-              this.stop();
               collisionCount = 0;
+              this.stop();
             }
           }
         }
@@ -562,7 +561,9 @@ public class DrivingAce extends Application {
             c.center.setY(c.center.getY() + root.getHeight() + c.getHeight() + 20);
           }
         }
+        if (level != 2) {
          updateBackground(car, t);
+        }
       }
     };
     animationTimer.start();
@@ -626,6 +627,7 @@ public class DrivingAce extends Application {
       y = bottomEdgeLimit;
     }
     car.move(-t);
+    car.translate(offsetX, offsetY);
     for (Car c : cars) {
       c.translate(-car.predictMoveX(t) + offsetX, -car.predictMoveY(t) + offsetY);
     }
