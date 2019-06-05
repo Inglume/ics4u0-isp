@@ -537,7 +537,7 @@ public class DrivingAce extends Application {
             car.move(-t);
             car.setVelocity(-car.getVelocity());
 
-            System.out.println(++collisionCount);
+//            System.out.println(++collisionCount);
             if(level == 2 && collisionCount >= 10) {
               levelEnd(false, 2);
               collisionCount = 0;
@@ -603,31 +603,35 @@ public class DrivingAce extends Application {
   public void updateBackground(Car car, double t) {
     BackgroundPosition oldBackgroundPosition = root.getBackground().getImages().get(0).getPosition();
     Image image = root.getBackground().getImages().get(0).getImage();
+    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal());
     double x = oldBackgroundPosition.getHorizontalPosition() - car.predictMoveX(t);
     double y = oldBackgroundPosition.getVerticalPosition() - car.predictMoveY(t);
     double offsetX = 0;
     double offsetY = 0;
+    double rightEdgeLimit = -image.getWidth() + root.getWidth();
+    double bottomEdgeLimit = -image.getHeight() + root.getHeight();
+    int margin = 100;
 
-    if (x > 0) { // past left edge of background
+    if (x > 0 || (x < 0 && bounds.getMaxX() < margin)) { // past left edge of background
       offsetX = -x;
       x = 0;
-    }
-    double rightEdgeLimit = -image.getWidth() + root.getWidth();
-    if (x < rightEdgeLimit) { // past right edge of background
+    } else if (x < rightEdgeLimit || (x > rightEdgeLimit && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge of background
       offsetX = -x + rightEdgeLimit;
       x = rightEdgeLimit;
+//    } else if (bounds.getMaxX() > 300 && bounds.getMaxX() < 500) {
+//      car.move(t);
     }
-    if (y > 0) { // past top edge of background
+    if (y > 0 || (y < 0 && bounds.getMaxY() < margin)) { // past top edge of background
       offsetY = -y;
       y = 0;
-    }
-    double bottomEdgeLimit = -image.getHeight() + root.getHeight();
-    if (y < bottomEdgeLimit) { // past bottom edge of background
+//    } else if (bounds.getMaxY() > 200 && bounds.getMaxY() < 400) {
+//      car.move(t);
+    } else if (y < bottomEdgeLimit || (y > bottomEdgeLimit && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom edge of background
       offsetY = -y + bottomEdgeLimit;
       y = bottomEdgeLimit;
     }
-    car.move(-t);
     car.translate(offsetX, offsetY);
+    car.move(-t);
     for (Car c : cars) {
       c.translate(-car.predictMoveX(t) + offsetX, -car.predictMoveY(t) + offsetY);
     }
