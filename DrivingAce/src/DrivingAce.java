@@ -101,15 +101,12 @@ public class DrivingAce extends Application {
     // Key to Continue.");
     mainMenu();
     //levelEnd(false);
-<<<<<<< HEAD
    //  levelTwo();
     // levelOne();
     // levelThree();
-=======
 //     levelTwo();
 //     levelOne();
-     levelThree();
->>>>>>> refs/remotes/origin/master
+    // levelThree();
    // levelEnd(false, 1);
     primaryStage.show();
   }
