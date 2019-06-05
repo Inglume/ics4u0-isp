@@ -333,7 +333,7 @@ public class DrivingAce extends Application {
         levelTwo();
       });
     } else {
-      Image image = new Image("/resources/3.png", 800, 615, false, true);
+      Image image = new Image("/resources/3.jpg", 800, 615, false, true);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
