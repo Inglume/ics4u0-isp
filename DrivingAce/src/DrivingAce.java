@@ -82,13 +82,35 @@ public class DrivingAce extends Application {
    */
   private AnimationTimer animationTimer;
 
+  /**
+   * Stores the number of times the car collides with the walls.
+   */
   private int collisionCount;
+  
+  /**
+   * Stores the intro text for level 1.
+   */
+  private String intro1;
+  
+  /**
+   * Stores the intro text for level 2.
+   */
+  private String intro2;
+  
+  /**
+   * Stores the intro text for level 3.
+   */
+  private String intro3;
   
   /**
    * Runs everything.
    */
   @Override
   public void start(Stage primaryStage) {
+    intro1 = "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+    intro2 = "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+    intro3 = "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+    
     primaryStage.setResizable(false);
     root = new AnchorPane();
     root.setMinSize(800, 600);
@@ -99,7 +121,7 @@ public class DrivingAce extends Application {
     primaryStage.setScene(scene);
    //  intro();
     // Key to Continue.");
-    mainMenu();
+    levelSelect();
     //levelEnd(false);
    //  levelTwo();
     // levelOne();
@@ -266,22 +288,19 @@ public class DrivingAce extends Application {
     oneBtn.setLayoutX(300);
     oneBtn.setLayoutY(120);
     root.getChildren().add(oneBtn);
-    oneBtn.setOnAction(e -> intros(1,
-        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
+    oneBtn.setOnAction(e -> intros(1, intro1));
 
     MenuButton twoBtn = new MenuButton("Level Two", 190, 49, 23);
     twoBtn.setLayoutX(300);
     twoBtn.setLayoutY(260);
     root.getChildren().add(twoBtn);
-    twoBtn.setOnAction(e -> intros(2,
-        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
+    twoBtn.setOnAction(e -> intros(2, intro2));
 
     MenuButton threeBtn = new MenuButton("Level Three", 190, 49, 23);
     threeBtn.setLayoutX(300);
     threeBtn.setLayoutY(400);
     root.getChildren().add(threeBtn);
-    threeBtn.setOnAction(e -> intros(3,
-        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\nPress a Key to Continue."));
+    threeBtn.setOnAction(e -> intros(3, intro3));
   }
 
   /**
@@ -375,7 +394,7 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
 
     addCar(new Car(500, 100, new Image("/resources/car_red_small_5.png"), 0), image, 1);
-//    addMenuButton();
+    addMenuButton();
   }
 
 
@@ -392,71 +411,71 @@ public class DrivingAce extends Application {
 
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image, 2);
 
-    Wall o1 = new Wall(423, 582, 184, 20, "l"); // lower
-    Wall o2 = new Wall(473, 510, 118, 1, "l"); // upper
+    Wall o1 = new Wall(423, 582, 184, 20); // lower
+    Wall o2 = new Wall(473, 510, 118, 1); // upper
 
     // diagonal
-    Wall o3 = new Wall(386, 535, 154, 50, "l"); // lower
-    Wall o4 = new Wall(382, 454, 110, 1, "l"); // upper
+    Wall o3 = new Wall(386, 535, 154, 50); // lower
+    Wall o4 = new Wall(382, 454, 110, 1); // upper
     o3.getTransforms().add(new Rotate(28, o3.getX(), o3.getY()));
     o4.getTransforms().add(new Rotate(32, o4.getX(), o4.getY()));
 
-    Wall o5 = new Wall(134, 559, 260, 51, "l"); // lower
-    Wall o6 = new Wall(146, 480, 254, 1, "l"); // upper
+    Wall o5 = new Wall(134, 559, 260, 51); // lower
+    Wall o6 = new Wall(146, 480, 254, 1); // upper
     o5.getTransforms().add(new Rotate(355, o5.getX(), o5.getY()));
     o6.getTransforms().add(new Rotate(355, o6.getX(), o6.getY()));
 
     // straight
-    Wall o7 = new Wall(139, 252, 1, 223, "l"); // right
-    Wall o8 = new Wall(1, 202, 51, 398, "l"); // leftmost
+    Wall o7 = new Wall(139, 252, 1, 223); // right
+    Wall o8 = new Wall(1, 202, 51, 398); // leftmost
 
     // bottom left corner
-    Wall o9 = new Wall(16, 460, 31, 160, "l"); // upper
-    Wall o10 = new Wall(52, 505, 80, 21, "l"); // middle
-    Wall o11 = new Wall(90, 540, 60, 21, "l"); // lower
+    Wall o9 = new Wall(16, 460, 31, 160); // upper
+    Wall o10 = new Wall(52, 505, 80, 21); // middle
+    Wall o11 = new Wall(90, 540, 60, 21); // lower
     o9.getTransforms().add(new Rotate(344, o9.getX(), o9.getY()));
     o10.getTransforms().add(new Rotate(45, o10.getX(), o10.getY()));
     o11.getTransforms().add(new Rotate(20, o11.getX(), o11.getY()));
 
     // top left corner
-    Wall o12 = new Wall(8, 196, 61, 60, "l"); // lower
-    Wall o13 = new Wall(50, 210, 102, 1, "l"); // upper
+    Wall o12 = new Wall(8, 196, 61, 60); // lower
+    Wall o13 = new Wall(50, 210, 102, 1); // upper
     o12.getTransforms().add(new Rotate(20, o12.getX(), o12.getY()));
     o13.getTransforms().add(new Rotate(332, o13.getX(), o13.getY()));
 
     // top horizontal
-    Wall o14 = new Wall(112, 132, 284, 41, "l"); // upper
-    Wall o15 = new Wall(142, 244, 273, 214, "l"); // lower
+    Wall o14 = new Wall(112, 132, 284, 41); // upper
+    Wall o15 = new Wall(142, 244, 273, 214); // lower
 
     // top turns
-    Wall o16 = new Wall(10, 70, 388, 100, "l"); // upper
-    Wall o17 = new Wall(399, 73, 1, 57, "l"); // upper
+    Wall o16 = new Wall(10, 70, 388, 100); // upper
+    Wall o17 = new Wall(399, 73, 1, 57); // upper
     o17.getTransforms().add(new Rotate(225, o17.getX(), o17.getY()));
-    Wall o18 = new Wall(339, 3, 400, 31, "l"); // upper
-    Wall o19 = new Wall(609, 33, 65, 1, "l"); // upper
+    Wall o18 = new Wall(339, 3, 400, 31); // upper
+    Wall o19 = new Wall(609, 33, 65, 1); // upper
     o19.getTransforms().add(new Rotate(22, o19.getX(), o19.getY()));
-    Wall o20 = new Wall(666, 54, 45, 1, "l"); // upper
+    Wall o20 = new Wall(666, 54, 45, 1); // upper
     o20.getTransforms().add(new Rotate(60, o20.getX(), o20.getY()));
 
-    Wall o21 = new Wall(402, 244, 60, 100, "l"); // lower
+    Wall o21 = new Wall(402, 244, 60, 100); // lower
     o21.getTransforms().add(new Rotate(325, o21.getX(), o21.getY()));
-    Wall o22 = new Wall(445, 222, 50, 100, "l"); // lower
+    Wall o22 = new Wall(445, 222, 50, 100); // lower
     o22.getTransforms().add(new Rotate(290, o22.getX(), o22.getY()));
-    Wall o24 = new Wall(463, 97, 125, 410, "l"); // lower
+    Wall o24 = new Wall(463, 97, 125, 410); // lower
 
     // finishes inner
-    Wall o25 = new Wall(569, 97, 15, 30, "l");
+    Wall o25 = new Wall(569, 97, 15, 30);
     o25.getTransforms().add(new Rotate(58, o25.getX(), o25.getY()));
-    Wall o26 = new Wall(495, 110, 101, 392, "l");
-    Wall o27 = new Wall(690, 0, 100, 600, "l");
-    Wall o28 = new Wall(690, 517, 30, 53, "l");
+    Wall o26 = new Wall(495, 110, 101, 392);
+    Wall o27 = new Wall(690, 0, 100, 600);
+    Wall o28 = new Wall(690, 517, 30, 53);
     o28.getTransforms().add(new Rotate(31, o28.getX(), o28.getY()));
-    Wall o29 = new Wall(662, 560, 30, 68, "l");
+    Wall o29 = new Wall(662, 560, 30, 68);
     o29.getTransforms().add(new Rotate(71, o29.getX(), o29.getY()));
 
     //start line
-    Wall o30 = new Wall(525, 510, 1, 80, "l");
-    Wall o31 = new Wall(542, 510, 1, 80, "l");
+    Wall o30 = new Wall(525, 510, 1, 80);
+    Wall o31 = new Wall(542, 510, 1, 80);
     
     obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15,
         o16, o17, o18, o19, o20, o21, o22, o24, o25, o26, o27, o28, o29, o30, o31};
@@ -671,7 +690,14 @@ public class DrivingAce extends Application {
       tryBtn.setLayoutX(310);
       tryBtn.setLayoutY(420);
       root.getChildren().add(tryBtn);
-      tryBtn.setOnAction(e -> intros(level, "s"));
+      tryBtn.setOnAction(e -> {
+        if(level == 1)
+          intros(level, intro1);
+        else if(level == 2)
+          intros(level, intro2);
+        else
+          intros(level, intro3);
+      });
     } else {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.BLUE);
@@ -682,7 +708,12 @@ public class DrivingAce extends Application {
         nextBtn.setLayoutX(310);
         nextBtn.setLayoutY(420);
         root.getChildren().add(nextBtn);
-        nextBtn.setOnAction(e -> intros(level + 1, "s"));
+        nextBtn.setOnAction(e -> {
+          if(level + 1 == 2)
+            intros(level + 1, intro2);
+          else
+            intros(level + 1, intro3);
+        });
       }
     }
     MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
