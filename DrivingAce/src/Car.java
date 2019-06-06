@@ -98,7 +98,7 @@ public class Car extends Rectangle {
     setArcHeight(20);
     setArcWidth(20);
     center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
-    this.direction = direction;
+    this.setDirection(direction);
     accelerationRate = 4;
     steeringRate = 4;
     maxVelocity = 400;
@@ -239,5 +239,13 @@ public class Car extends Rectangle {
 
   public void setStartY(double startY) {
     this.startY = startY;
+  }
+
+  public double getDirection() {
+    return direction;
+  }
+
+  public void setDirection(double direction) {
+    this.direction = direction;
   }
 }

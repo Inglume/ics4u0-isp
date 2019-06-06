@@ -7,8 +7,7 @@ import javafx.scene.shape.Rectangle;
  * @version 3
  */
 public class Wall extends Rectangle implements Obstacle {
-  
-  
+
   /**
    * @param x x-coordinate
    * @param y y-coordinate
@@ -20,9 +19,5 @@ public class Wall extends Rectangle implements Obstacle {
     setFill(Color.TRANSPARENT);
     setFill(Color.BLACK);
   }
-  public Wall(double x, double y, double width, double height, String i) {
-    super(x, y, width, height);
-//    setFill(Color.TRANSPARENT);
-    setFill(Color.BLACK);
-  }
+
 }
