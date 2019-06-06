@@ -9,6 +9,7 @@ import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.StringProperty;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
@@ -234,6 +235,7 @@ public class DrivingAce extends Application {
     });
 
     MenuButton exitBtn = new MenuButton("Quit", 190, 49, 23);
+    exitBtn.setCancelButton(true);
     exitBtn.setLayoutX(90);
     exitBtn.setLayoutY(430);
     root.getChildren().add(exitBtn);
@@ -271,8 +273,15 @@ public class DrivingAce extends Application {
    */
   public void addMenuButton() {
     MenuButton menuBtn = new MenuButton("Main Menu", 125, 30, 15);
+    menuBtn.setDefaultButton(false);
+    menuBtn.setCancelButton(true);
     menuBtn.setLayoutX(674);
     menuBtn.setLayoutY(579);
+    menuBtn.addEventFilter(KeyEvent.KEY_PRESSED, k -> {
+      if (k.getCode().toString().equals("SPACE")) {
+        k.consume();
+      }
+    });
     root.getChildren().add(menuBtn);
     menuBtn.setOnAction(e -> mainMenu());
   }
@@ -724,7 +733,7 @@ public class DrivingAce extends Application {
       x = 0;
     } else if (x < rightEdgeLimit
         || (x > rightEdgeLimit && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge
-                                                                                  // of background
+      // of background
       offsetX = -x + rightEdgeLimit;
       x = rightEdgeLimit;
       System.out.println(offsetX);
@@ -734,8 +743,8 @@ public class DrivingAce extends Application {
       y = 0;
     } else if (y < bottomEdgeLimit
         || (y > bottomEdgeLimit && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom
-                                                                                    // edge of
-                                                                                    // background
+      // edge of
+      // background
       offsetY = -y + bottomEdgeLimit;
       y = bottomEdgeLimit;
       System.out.println(y + " " + offsetY + " " + bounds.getMaxY());
@@ -764,6 +773,11 @@ public class DrivingAce extends Application {
    * @param level stores the level at which the user passed or failed.
    */
   public void levelEnd(boolean hasPassed, int level) {
+    MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
+    menuBtn.setLayoutX(310);
+    menuBtn.setLayoutY(500);
+    menuBtn.setOnAction(e -> mainMenu());
+
     root.getChildren().clear();
     if (!hasPassed) {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -797,6 +811,7 @@ public class DrivingAce extends Application {
         else
           intros(level, intro3);
       });
+      root.getChildren().add(menuBtn);
     } else {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.BLUE);
@@ -824,9 +839,15 @@ public class DrivingAce extends Application {
       a.setFont(Font.font("open sans", 25));
       a.setTextFill(Color.web("#FFFFFF"));
       root.getChildren().add(a);
+      Label b = new Label("Your Score is : " + collisionCount * 100);
+      b.setLayoutX(130);
+      b.setLayoutY(420);
+      b.setFont(Font.font("open sans", 25));
+      b.setTextFill(Color.web("#FFFFFF"));
+      root.getChildren().add(b);
 
       TextField t = new TextField();
-      name = t.getText();
+      // name = t.getText();
       t.setLayoutX(260);
       t.setLayoutY(470);
       t.setMaxHeight(50);
@@ -836,13 +857,16 @@ public class DrivingAce extends Application {
       t.setFont(Font.font("open sans", 20));
       root.getChildren().add(t);
 
-      // fired by every text property changes
       t.textProperty().addListener((observable, oldValue, newValue) -> {
-        ((StringProperty) observable).setValue(newValue.toUpperCase());
-
-        char c = newValue.charAt(newValue.length() - 1);
-        if (c >= 65 && c <= 90) {
-          ((StringProperty) observable).setValue(oldValue);
+        if (newValue.length() > 0) {
+          char c = newValue.charAt(newValue.length() - 1);
+          if (!(c >= 65 && c <= 90) && !(c >= 97 && c <= 122)) {
+            ((StringProperty) observable).setValue(oldValue);
+          }
+          else {
+          ((StringProperty) observable).setValue(newValue);
+          }
+          t.positionCaret(observable.getValue().length() - 1);
         }
       });
 
@@ -851,27 +875,39 @@ public class DrivingAce extends Application {
       MenuButton m = new MenuButton("Submit", 190, 49, 23);
       m.setLayoutX(550);
       m.setLayoutY(470);
+      m.setOnAction(e -> {
+        name = t.getText();
+        root.getChildren().remove(m);
+        root.getChildren().remove(a);
+        root.getChildren().remove(b);
+        root.getChildren().remove(t);
+        root.getChildren().add(menuBtn);
+        if (level != 3) {
+          Label c = new Label("Your Score has been Recorded.");
+          c.setLayoutX(250);
+          c.setLayoutY(350);
+          c.setFont(Font.font("open sans", 25));
+          c.setTextFill(Color.web("#FFFFFF"));
+          root.getChildren().add(c);
+
+          MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
+          nextBtn.setLayoutX(310);
+          nextBtn.setLayoutY(420);
+          root.getChildren().add(nextBtn);
+
+          nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              if (level + 1 == 2)
+                intros(level + 1, intro2);
+              else
+                intros(level + 1, intro3);
+            }
+          });
+        }
+      });
       root.getChildren().add(m);
-
-
-      if (level != 3) {
-        MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
-        nextBtn.setLayoutX(310);
-        nextBtn.setLayoutY(420);
-        // root.getChildren().add(nextBtn);
-        nextBtn.setOnAction(e -> {
-          if (level + 1 == 2)
-            intros(level + 1, intro2);
-          else
-            intros(level + 1, intro3);
-        });
-      }
     }
-    MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
-    menuBtn.setLayoutX(310);
-    menuBtn.setLayoutY(500);
-    // root.getChildren().add(menuBtn);
-    menuBtn.setOnAction(e -> mainMenu());
   }
 
   /**
