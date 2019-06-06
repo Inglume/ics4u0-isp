@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
@@ -855,6 +860,17 @@ public class DrivingAce extends Application {
       m.setLayoutY(470);
       m.setOnAction(e -> {
         name = t.getText();
+        
+        try
+        {
+          PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter ("highscores.txt", true)));
+          output.println (name);
+          output.println (collisionCount);
+          output.close ();
+        }
+        catch (IOException n) { System.out.println("rip"); }
+        
+        
         root.getChildren().remove(m);
         root.getChildren().remove(a);
         root.getChildren().remove(b);
