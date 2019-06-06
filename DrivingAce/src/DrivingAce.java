@@ -12,6 +12,8 @@ import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,6 +25,7 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
@@ -103,6 +106,11 @@ public class DrivingAce extends Application {
   private String intro3;
 
   /**
+   * Stores the name of the user.
+   */
+  private String name;
+  
+  /**
    * Runs everything.
    */
   @Override
@@ -124,15 +132,12 @@ public class DrivingAce extends Application {
     primaryStage.setScene(scene);
     // intro();
     // Key to Continue.");
-    levelSelect();
-    // levelEnd(false);
-    // levelTwo();
+   // levelSelect();
+  levelEnd(true,2);
+   //  levelTwo();
     // levelOne();
     // levelThree();
-    // levelTwo();
-    // levelOne();
-    // levelThree();
-    // levelEnd(false, 1);
+    //levelEnd(false, 1);
     primaryStage.show();
   }
 
@@ -524,6 +529,13 @@ public class DrivingAce extends Application {
       root.getChildren().add((Shape) o);
     }
     addMenuButton();
+    Label l = new Label("Collisions Left");
+    
+    l.setFont(Font.font("Open Sans", 24));
+    //setting the position of the text
+    l.setLayoutX(13);
+    l.setLayoutY(6);
+    root.getChildren().add(l);
   }
 
   /**
@@ -600,6 +612,13 @@ public class DrivingAce extends Application {
         if (input.contains("SPACE")) {
           car.brake();
         }
+        if(collisionCount == 0 && level == 2) {
+          Label f = new Label("10");
+          f.setLayoutX(64);
+          f.setLayoutY(45);
+          f.setFont(Font.font("Open Sans", 32));
+          root.getChildren().add(f);
+        }
         for (Obstacle o : obstacles) {
           if (level == 2 && collisionCount < 10
               && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
@@ -608,16 +627,25 @@ public class DrivingAce extends Application {
             collisionCount = 0;
             this.stop();
           }
-          if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if crashed
+          else if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if crashed
             car.move(-t);
             car.setVelocity(-car.getVelocity());
-            System.out.println(++collisionCount);
-            if (level == 2 && collisionCount >= 10) {
-              levelEnd(false, 2);
-              collisionCount = 0;
-              this.stop();
+            
+            if(level ==2) {
+            Rectangle rect = new Rectangle(45, 50, 60, 40);
+            rect.setFill(Color.WHITE);
+            root.getChildren().add(rect);
+            Label l = new Label(String.valueOf(10- (++collisionCount)));
+            l.setLayoutX(74);
+            l.setLayoutY(43);
+            l.setFont(Font.font("Open Sans", 35));
+            root.getChildren().add(l);
+              if(collisionCount >= 10) {
+                levelEnd(false, 2);
+                collisionCount = 0;
+                this.stop();
+              }
             }
-
           }
         }
         for (Car c : cars) {
@@ -740,7 +768,22 @@ public class DrivingAce extends Application {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.RED);
       root.getChildren().add(rect);
+      // Setting the image view 1
+      ImageView i = new ImageView(new Image("/resources/YOU LOSE.png", 350, 500, false, true));
 
+      // Setting the position of the image
+      i.setX(180);
+      i.setY(200);
+
+      // setting the fit height and width of the image view
+      i.setFitHeight(100);
+      i.setFitWidth(480);
+      
+      i.setOnMouseEntered(e -> i.setEffect(new DropShadow()));
+      i.setOnMouseExited(e -> i.setEffect(null));
+      
+      root.getChildren().add(i);
+      
       MenuButton tryBtn = new MenuButton("Try Again", 190, 49, 23);
       tryBtn.setLayoutX(310);
       tryBtn.setLayoutY(420);
@@ -757,12 +800,53 @@ public class DrivingAce extends Application {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.BLUE);
       root.getChildren().add(rect);
+      
+      // Setting the image view 1
+      ImageView i = new ImageView(new Image("/resources/YOU WIN.png", 350, 500, false, true));
 
-      if (level != 3) {
+      // Setting the position of the image
+      i.setX(190);
+      i.setY(200);
+
+      // setting the fit height and width of the image view
+      i.setFitHeight(100);
+      i.setFitWidth(450);
+      
+      i.setOnMouseEntered(e -> i.setEffect(new DropShadow()));
+      i.setOnMouseExited(e -> i.setEffect(null));
+      
+      root.getChildren().add(i);
+
+      Label a = new Label("Username: ");
+      a.setLayoutX(130);
+      a.setLayoutY(475);
+      a.setFont(Font.font("open sans", 25));
+      a.setTextFill(Color.web("#FFFFFF"));
+      root.getChildren().add(a);
+      
+      TextField t = new TextField();
+      name = t.getText();
+      t.setLayoutX(260);
+      t.setLayoutY(470);
+      t.setMaxHeight(50);
+      t.setMinHeight(50);
+      t.setMaxWidth(250);
+      t.setMinWidth(250);    
+      t.setFont(Font.font("open sans", 20));
+      root.getChildren().add(t);
+
+      
+      MenuButton m = new MenuButton("Submit", 190, 49, 23);
+      m.setLayoutX(550);
+      m.setLayoutY(470);
+      root.getChildren().add(m);
+      
+      
+      if(level != 3) {
         MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
         nextBtn.setLayoutX(310);
         nextBtn.setLayoutY(420);
-        root.getChildren().add(nextBtn);
+      //  root.getChildren().add(nextBtn);
         nextBtn.setOnAction(e -> {
           if (level + 1 == 2)
             intros(level + 1, intro2);
@@ -774,7 +858,7 @@ public class DrivingAce extends Application {
     MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
     menuBtn.setLayoutX(310);
     menuBtn.setLayoutY(500);
-    root.getChildren().add(menuBtn);
+  //  root.getChildren().add(menuBtn);
     menuBtn.setOnAction(e -> mainMenu());
   }
 
