@@ -71,12 +71,12 @@ public class DrivingAce extends Application {
   /**
    * Array of objects in a level.
    */
-  private Obstacle[] obstacles;
+  private ArrayList<Obstacle> obstacles = new ArrayList<Obstacle>();
 
   /**
    * Array of cars in a level.
    */
-  private Car[] cars = new Car[0];
+  private ArrayList<Car> cars = new ArrayList<Car>();
 
   /**
    * AnimationTimer in a level.
@@ -170,7 +170,6 @@ public class DrivingAce extends Application {
   public void mainMenu() {
     collisionCount = 0;
     root.getChildren().clear();
-    obstacles = new Wall[0];
     if (animationTimer != null) {
       animationTimer.stop();
     }
@@ -275,16 +274,9 @@ public class DrivingAce extends Application {
    * Level selection menu.
    */
   public void levelSelect() {
-    collisionCount = 0;
+    Image image = new Image("/resources/menubackground.jpg", 200, 615, false, true);
+    resetLevel(image, true);
     
-    root.getChildren().clear();
-
-    BackgroundImage background = new BackgroundImage(
-        new Image("/resources/menubackground.jpg", 200, 615, false, true), BackgroundRepeat.REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    root.setBackground(new Background(background));
-
-
     MenuButton oneBtn = new MenuButton("Level One", 190, 49, 23);
     oneBtn.setLayoutX(300);
     oneBtn.setLayoutY(120);
@@ -362,24 +354,54 @@ public class DrivingAce extends Application {
     timeline.play();
     root.getChildren().add(text);
   }
+  
+  public void resetLevel(Image image) {
+    root.getChildren().clear();
+    obstacles = new ArrayList<Obstacle>();
+    cars = new ArrayList<Car>();
+    collisionCount = 0;
+
+    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
+  }
+
+  public void resetLevel(Image image, boolean repeat) {
+    root.getChildren().clear();
+    obstacles = new ArrayList<Obstacle>();
+    cars = new ArrayList<Car>();
+    collisionCount = 0;
+
+    if (repeat) {
+    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
+    }
+    else {
+    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
+    }
+  }
 
   /**
    * Level one of the game.
    */
   public void levelOne() {
-    root.getChildren().clear();
+    Image image = new Image("/resources/1.png", 0, 1000, false, true);
+    resetLevel(image);
 
     Car car1 = new Car(600, 120, new Image("/resources/car_red_small_5.png"));
     car1.setVelocity(100);
+    cars.add(car1);
 
     Car car2 = new Car(220, 120, new Image("/resources/car_red_small_5.png"), 180);
     car2.setVelocity(100);
+    cars.add(car2);
 
-    cars = new Car[] {car1, car2};
 //    Wall leftWall = new Wall(0, 0, 415, 615);
 //    Wall rightWall = new Wall(688, 0, 100, 615);
 //    obstacles = new Obstacle[] {leftWall, rightWall};
-    obstacles = new Obstacle[] {};
 
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
@@ -388,11 +410,6 @@ public class DrivingAce extends Application {
     for (Car c : cars) {
       root.getChildren().add(c);
     }
-
-    Image image = new Image("/resources/1.png", 0, 1000, false, true);
-    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    root.setBackground(new Background(background));
 
     addCar(new Car(500, 100, new Image("/resources/car_red_small_5.png"), 0), image, 1);
     addMenuButton();
@@ -403,83 +420,106 @@ public class DrivingAce extends Application {
    * Level two.
    */
   public void levelTwo() {
-    root.getChildren().clear();
-
     Image image = new Image("/resources/2.png", 800, 615, false, true);
-    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    root.setBackground(new Background(background));
-
+    resetLevel(image);
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image, 2);
 
     Wall o1 = new Wall(423, 582, 184, 20); // lower
+    obstacles.add(o1);
     Wall o2 = new Wall(473, 510, 118, 1); // upper
+    obstacles.add(o2);
 
     // diagonal
     Wall o3 = new Wall(386, 535, 154, 50); // lower
-    Wall o4 = new Wall(382, 454, 110, 1); // upper
     o3.getTransforms().add(new Rotate(28, o3.getX(), o3.getY()));
+    obstacles.add(o3);
+    Wall o4 = new Wall(382, 454, 110, 1); // upper
     o4.getTransforms().add(new Rotate(32, o4.getX(), o4.getY()));
+    obstacles.add(o4);
 
     Wall o5 = new Wall(134, 559, 260, 51); // lower
-    Wall o6 = new Wall(146, 480, 254, 1); // upper
     o5.getTransforms().add(new Rotate(355, o5.getX(), o5.getY()));
+    obstacles.add(o5);
+    Wall o6 = new Wall(146, 480, 254, 1); // upper
     o6.getTransforms().add(new Rotate(355, o6.getX(), o6.getY()));
+    obstacles.add(o6);
 
     // straight
     Wall o7 = new Wall(139, 252, 1, 223); // right
+    obstacles.add(o7);
     Wall o8 = new Wall(1, 202, 51, 398); // leftmost
+    obstacles.add(o8);
 
     // bottom left corner
     Wall o9 = new Wall(16, 460, 31, 160); // upper
-    Wall o10 = new Wall(52, 505, 80, 21); // middle
-    Wall o11 = new Wall(90, 540, 60, 21); // lower
     o9.getTransforms().add(new Rotate(344, o9.getX(), o9.getY()));
+    obstacles.add(o9);
+    Wall o10 = new Wall(52, 505, 80, 21); // middle
     o10.getTransforms().add(new Rotate(45, o10.getX(), o10.getY()));
+    obstacles.add(o10);
+    Wall o11 = new Wall(90, 540, 60, 21); // lower
     o11.getTransforms().add(new Rotate(20, o11.getX(), o11.getY()));
+    obstacles.add(o11);
 
     // top left corner
     Wall o12 = new Wall(8, 196, 61, 60); // lower
-    Wall o13 = new Wall(50, 210, 102, 1); // upper
     o12.getTransforms().add(new Rotate(20, o12.getX(), o12.getY()));
+    obstacles.add(o12);
+    Wall o13 = new Wall(50, 210, 102, 1); // upper
     o13.getTransforms().add(new Rotate(332, o13.getX(), o13.getY()));
+    obstacles.add(o13);
 
     // top horizontal
     Wall o14 = new Wall(112, 132, 284, 41); // upper
+    obstacles.add(o14);
     Wall o15 = new Wall(142, 244, 273, 214); // lower
+    obstacles.add(o15);
 
     // top turns
     Wall o16 = new Wall(10, 70, 388, 100); // upper
+    obstacles.add(o16);
     Wall o17 = new Wall(399, 73, 1, 57); // upper
     o17.getTransforms().add(new Rotate(225, o17.getX(), o17.getY()));
+    obstacles.add(o17);
     Wall o18 = new Wall(339, 3, 400, 31); // upper
+    obstacles.add(o18);
     Wall o19 = new Wall(609, 33, 65, 1); // upper
     o19.getTransforms().add(new Rotate(22, o19.getX(), o19.getY()));
+    obstacles.add(o19);
     Wall o20 = new Wall(666, 54, 45, 1); // upper
     o20.getTransforms().add(new Rotate(60, o20.getX(), o20.getY()));
+    obstacles.add(o20);
 
     Wall o21 = new Wall(402, 244, 60, 100); // lower
     o21.getTransforms().add(new Rotate(325, o21.getX(), o21.getY()));
+    obstacles.add(o21);
     Wall o22 = new Wall(445, 222, 50, 100); // lower
     o22.getTransforms().add(new Rotate(290, o22.getX(), o22.getY()));
+    obstacles.add(o22);
     Wall o24 = new Wall(463, 97, 125, 410); // lower
+    obstacles.add(o24);
 
     // finishes inner
     Wall o25 = new Wall(569, 97, 15, 30);
     o25.getTransforms().add(new Rotate(58, o25.getX(), o25.getY()));
+    obstacles.add(o25);
     Wall o26 = new Wall(495, 110, 101, 392);
+    obstacles.add(o26);
     Wall o27 = new Wall(690, 0, 100, 600);
+    obstacles.add(o27);
     Wall o28 = new Wall(690, 517, 30, 53);
     o28.getTransforms().add(new Rotate(31, o28.getX(), o28.getY()));
+    obstacles.add(o28);
     Wall o29 = new Wall(662, 560, 30, 68);
     o29.getTransforms().add(new Rotate(71, o29.getX(), o29.getY()));
+    obstacles.add(o29);
 
     //start line
     Wall o30 = new Wall(525, 510, 1, 80);
+    obstacles.add(o30);
     Wall o31 = new Wall(542, 510, 1, 80);
+    obstacles.add(o31);
     
-    obstacles = new Obstacle[] {o1, o2, o3, o4, o5, o6, o7, o8, o9, o10, o11, o12, o13, o14, o15,
-        o16, o17, o18, o19, o20, o21, o22, o24, o25, o26, o27, o28, o29, o30, o31};
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
@@ -497,24 +537,31 @@ public class DrivingAce extends Application {
    * Level three.
    */
   public void levelThree() {
-    root.getChildren().clear();
+    Image image = new Image("/resources/3.jpg", 0, 800, true, false);
+    resetLevel(image);
 
     Car car1 = new Car(600, 120, new Image("/resources/car_red_small_5.png"));
     car1.setVelocity(100);
-    cars = new Car[] {car1};
+    cars.add(car1);
     Wall topL = new Wall(-1, 0, 240, 109);
+    obstacles.add(topL);
     Wall topL2 = new Wall(239, 0, 20, 99);
+    obstacles.add(topL2);
 
     Wall topR = new Wall(578, 0, 233, 105);
+    obstacles.add(topR);
     Wall topR2 = new Wall(558, 0, 20, 95);
+    obstacles.add(topR2);
 
     Wall botL = new Wall(0, 465, 252, 150);
+    obstacles.add(botL);
     Wall botL2 = new Wall(252, 475, 15, 140);
+    obstacles.add(botL2);
 
     Wall botR = new Wall(578, 465, 233, 150);
+    obstacles.add(botR);
     Wall botR2 = new Wall(553, 478, 25, 140);
-
-    obstacles = new Obstacle[] {topL, topL2, topR, topR2, botL, botL2, botR, botR2};
+    obstacles.add(botR2);
 
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
@@ -522,11 +569,6 @@ public class DrivingAce extends Application {
     for (Car c : cars) {
       root.getChildren().add(c);
     }
-
-    Image image = new Image("/resources/3.jpg", 0, 800, true, false);
-    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    root.setBackground(new Background(background));
 
     addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image, 3);
     addMenuButton();
@@ -573,7 +615,7 @@ public class DrivingAce extends Application {
           root.getChildren().add(f);
         }
         for (Obstacle o : obstacles) {
-          if(level == 2 && collisionCount < 10 && ((Path) Shape.intersect(car, (Shape) obstacles[obstacles.length-1])).getElements().size() > 0){
+          if(level == 2 && collisionCount < 10 && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1))).getElements().size() > 0){
             levelEnd(true,2);
             collisionCount = 0;
             this.stop();
