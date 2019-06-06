@@ -86,31 +86,34 @@ public class DrivingAce extends Application {
    * Stores the number of times the car collides with the walls.
    */
   private int collisionCount;
-  
+
   /**
    * Stores the intro text for level 1.
    */
   private String intro1;
-  
+
   /**
    * Stores the intro text for level 2.
    */
   private String intro2;
-  
+
   /**
    * Stores the intro text for level 3.
    */
   private String intro3;
-  
+
   /**
    * Runs everything.
    */
   @Override
   public void start(Stage primaryStage) {
-    intro1 = "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
-    intro2 = "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
-    intro3 = "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
-    
+    intro1 =
+        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+    intro2 =
+        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+    intro3 =
+        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+
     primaryStage.setResizable(false);
     root = new AnchorPane();
     root.setMinSize(800, 600);
@@ -119,20 +122,19 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-   //  intro();
+    // intro();
     // Key to Continue.");
     levelSelect();
-    //levelEnd(false);
-   //  levelTwo();
+    // levelEnd(false);
+    // levelTwo();
     // levelOne();
     // levelThree();
-//     levelTwo();
-//     levelOne();
+    // levelTwo();
+    // levelOne();
     // levelThree();
-   // levelEnd(false, 1);
+    // levelEnd(false, 1);
     primaryStage.show();
   }
-
 
   /**
    * Splash screen to program.
@@ -257,7 +259,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(logo);
   }
 
-  
+
   /**
    * Adds the menu button into the screens of the levels.
    */
@@ -268,14 +270,14 @@ public class DrivingAce extends Application {
     root.getChildren().add(menuBtn);
     menuBtn.setOnAction(e -> mainMenu());
   }
-  
+
   /**
    * Level selection menu.
    */
   public void levelSelect() {
     Image image = new Image("/resources/menubackground.jpg", 200, 615, false, true);
     resetLevel(image, true);
-    
+
     MenuButton oneBtn = new MenuButton("Level One", 190, 49, 23);
     oneBtn.setLayoutX(300);
     oneBtn.setLayoutY(120);
@@ -353,7 +355,7 @@ public class DrivingAce extends Application {
     timeline.play();
     root.getChildren().add(text);
   }
-  
+
   public void resetLevel(Image image) {
     root.getChildren().clear();
     obstacles = new ArrayList<Obstacle>();
@@ -372,14 +374,13 @@ public class DrivingAce extends Application {
     collisionCount = 0;
 
     if (repeat) {
-    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    root.setBackground(new Background(background));
-    }
-    else {
-    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
-    root.setBackground(new Background(background));
+      BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.REPEAT,
+          BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+      root.setBackground(new Background(background));
+    } else {
+      BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+          BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+      root.setBackground(new Background(background));
     }
   }
 
@@ -398,9 +399,9 @@ public class DrivingAce extends Application {
     car2.setVelocity(100);
     cars.add(car2);
 
-//    Wall leftWall = new Wall(0, 0, 415, 615);
-//    Wall rightWall = new Wall(688, 0, 100, 615);
-//    obstacles = new Obstacle[] {leftWall, rightWall};
+    // Wall leftWall = new Wall(0, 0, 415, 615);
+    // Wall rightWall = new Wall(688, 0, 100, 615);
+    // obstacles = new Obstacle[] {leftWall, rightWall};
 
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
@@ -513,12 +514,12 @@ public class DrivingAce extends Application {
     o29.getTransforms().add(new Rotate(71, o29.getX(), o29.getY()));
     obstacles.add(o29);
 
-    //start line
+    // start line
     Wall o30 = new Wall(525, 510, 1, 80);
     obstacles.add(o30);
     Wall o31 = new Wall(542, 510, 1, 80);
     obstacles.add(o31);
-    
+
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
@@ -600,8 +601,10 @@ public class DrivingAce extends Application {
           car.brake();
         }
         for (Obstacle o : obstacles) {
-          if(level == 2 && collisionCount < 10 && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1))).getElements().size() > 0){
-            levelEnd(true,2);
+          if (level == 2 && collisionCount < 10
+              && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
+                  .getElements().size() > 0) {
+            levelEnd(true, 2);
             collisionCount = 0;
             this.stop();
           }
@@ -609,7 +612,7 @@ public class DrivingAce extends Application {
             car.move(-t);
             car.setVelocity(-car.getVelocity());
             System.out.println(++collisionCount);
-            if(level == 2 && collisionCount >= 10) {
+            if (level == 2 && collisionCount >= 10) {
               levelEnd(false, 2);
               collisionCount = 0;
               this.stop();
@@ -624,17 +627,19 @@ public class DrivingAce extends Application {
           }
           c.move(t, 0);
           Bounds bounds = c.localToScene(c.getBoundsInLocal());
-          if ((c.getDirection() == 90 && bounds.getMinX() > root.getWidth() + 20 || c.getDirection() == -90 && bounds.getMaxX() < -20)) {
+          if ((c.getDirection() == 90 && bounds.getMinX() > root.getWidth() + 20
+              || c.getDirection() == -90 && bounds.getMaxX() < -20)) {
             c.setY(c.getY() + root.getWidth() + c.getWidth() + 20);
             c.center.setY(c.center.getY() + root.getWidth() + c.getWidth() + 20);
           }
-          if ((c.getDirection() == 0 && bounds.getMaxY() < -20 || c.getDirection() == 180 && bounds.getMinY() > root.getHeight() + 20)) {
+          if ((c.getDirection() == 0 && bounds.getMaxY() < -20
+              || c.getDirection() == 180 && bounds.getMinY() > root.getHeight() + 20)) {
             c.setY(c.getY() + root.getHeight() + c.getHeight() + 20);
             c.center.setY(c.center.getY() + root.getHeight() + c.getHeight() + 20);
           }
         }
         if (level != 2) {
-         updateBackground(car, t);
+          updateBackground(car, t);
         }
       }
     };
@@ -673,7 +678,8 @@ public class DrivingAce extends Application {
    * This method is a work-in-progress, ignore this.
    */
   public void updateBackground(Car car, double t) {
-    BackgroundPosition oldBackgroundPosition = root.getBackground().getImages().get(0).getPosition();
+    BackgroundPosition oldBackgroundPosition =
+        root.getBackground().getImages().get(0).getPosition();
     Image image = root.getBackground().getImages().get(0).getImage();
     Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal());
     double x = oldBackgroundPosition.getHorizontalPosition() - car.predictMoveX(t);
@@ -687,7 +693,9 @@ public class DrivingAce extends Application {
     if (x > 0 || (x < 0 && bounds.getMaxX() < margin)) { // past left edge of background
       offsetX = -x;
       x = 0;
-    } else if (x < rightEdgeLimit || (x > rightEdgeLimit && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge of background
+    } else if (x < rightEdgeLimit
+        || (x > rightEdgeLimit && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge
+                                                                                  // of background
       offsetX = -x + rightEdgeLimit;
       x = rightEdgeLimit;
       System.out.println(offsetX);
@@ -695,12 +703,15 @@ public class DrivingAce extends Application {
     if (y > 0 || (y < 0 && bounds.getMaxY() < margin)) { // past top edge of background
       offsetY = -y;
       y = 0;
-    } else if (y < bottomEdgeLimit || (y > bottomEdgeLimit && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom edge of background
+    } else if (y < bottomEdgeLimit
+        || (y > bottomEdgeLimit && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom
+                                                                                    // edge of
+                                                                                    // background
       offsetY = -y + bottomEdgeLimit;
       y = bottomEdgeLimit;
       System.out.println(y + " " + offsetY + " " + bounds.getMaxY());
     }
-//    System.out.println(offsetX + " " + offsetY);
+    // System.out.println(offsetX + " " + offsetY);
     car.translate(offsetX, offsetY);
     car.move(-t);
     for (Car c : cars) {
@@ -708,7 +719,7 @@ public class DrivingAce extends Application {
     }
     for (Obstacle o : obstacles) {
       ((Shape) o).setLayoutX(((Shape) o).getLayoutX() - car.predictMoveX(t) + offsetX);
-      ((Shape) o).setLayoutY(((Shape) o).getLayoutY() -car.predictMoveY(t) + offsetY);
+      ((Shape) o).setLayoutY(((Shape) o).getLayoutY() - car.predictMoveY(t) + offsetY);
     }
     BackgroundPosition bp = new BackgroundPosition(Side.LEFT, x, false, Side.TOP, y, false);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
@@ -716,27 +727,28 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
   }
 
-  
+
   /**
    * Outputs the screen corresponding to whether the user has passed the level or not.
+   * 
    * @param hasWon stores whether the user passed the level.
    * @param level stores the level at which the user passed or failed.
    */
   public void levelEnd(boolean hasPassed, int level) {
     root.getChildren().clear();
-    if(!hasPassed) {
+    if (!hasPassed) {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.RED);
       root.getChildren().add(rect);
-      
+
       MenuButton tryBtn = new MenuButton("Try Again", 190, 49, 23);
       tryBtn.setLayoutX(310);
       tryBtn.setLayoutY(420);
       root.getChildren().add(tryBtn);
       tryBtn.setOnAction(e -> {
-        if(level == 1)
+        if (level == 1)
           intros(level, intro1);
-        else if(level == 2)
+        else if (level == 2)
           intros(level, intro2);
         else
           intros(level, intro3);
@@ -745,14 +757,14 @@ public class DrivingAce extends Application {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.BLUE);
       root.getChildren().add(rect);
-      
-      if(level != 3) {
+
+      if (level != 3) {
         MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
         nextBtn.setLayoutX(310);
         nextBtn.setLayoutY(420);
         root.getChildren().add(nextBtn);
         nextBtn.setOnAction(e -> {
-          if(level + 1 == 2)
+          if (level + 1 == 2)
             intros(level + 1, intro2);
           else
             intros(level + 1, intro3);
@@ -765,7 +777,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(menuBtn);
     menuBtn.setOnAction(e -> mainMenu());
   }
-  
+
   /**
    * Driver method.
    * 

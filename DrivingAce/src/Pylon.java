@@ -4,12 +4,16 @@ import javafx.scene.shape.Rectangle;
 
 
 /**
+ * The Pylon class.
+ * 
  * @author Nicholas Glenn
  * @version 3
  */
 public class Pylon extends Rectangle implements Obstacle {
 
   /**
+   * Constructor.
+   * 
    * @param x x-coordinate
    * @param y y-coordinate
    */

@@ -4,6 +4,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.input.*;
 import javafx.scene.text.Font;
 
+
 /**
  * The MenuButton class.
  * 
@@ -11,28 +12,27 @@ import javafx.scene.text.Font;
  * @version 3
  */
 public class MenuButton extends Button {
-  
+
   /**
    * Stores the style of the pressed button.
    */
   private final String BTN_PRESSED_STYLE =
-      "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button01.png'); -fx-background-repeat: no-repeat;"; 
-  
-  
+      "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button01.png'); -fx-background-repeat: no-repeat;";
+
   /**
    * Stores the style of the non-pressed button.
    */
   private final String BTN_FREE_STYLE =
-      "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button00.png'); -fx-background-repeat: no-repeat;"; 
-  
-  
+      "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button00.png'); -fx-background-repeat: no-repeat;";
+
   /**
    * Stores the height of the button.
    */
   private int height;
-  
-  
+
   /**
+   * Constructor.
+   * 
    * @param text the text in the button.
    * @param w width of the button.
    * @param h height of the button.
@@ -49,7 +49,6 @@ public class MenuButton extends Button {
     setStyle(BTN_FREE_STYLE);
     listeners();
   }
-  
 
   /**
    * Sets the style of the pressed button.
@@ -59,7 +58,7 @@ public class MenuButton extends Button {
     setPrefHeight(height - 4);
     setLayoutY(getLayoutY() + 4);
   }
-  
+
   /**
    * Sets the style of the free button.
    */
@@ -69,7 +68,6 @@ public class MenuButton extends Button {
     setLayoutY(getLayoutY() - 4);
   }
 
-  
   /**
    * Adds the listener objects to the button.
    */
@@ -104,4 +102,5 @@ public class MenuButton extends Button {
       }
     });
   }
+
 }
