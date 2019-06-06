@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
@@ -109,7 +110,7 @@ public class DrivingAce extends Application {
    * Stores the name of the user.
    */
   private String name;
-  
+
   /**
    * Runs everything.
    */
@@ -132,9 +133,9 @@ public class DrivingAce extends Application {
     primaryStage.setScene(scene);
     // intro();
     // Key to Continue.");
-   // levelSelect();
-  levelEnd(true,2);
-   //  levelTwo();
+    // levelSelect();
+    levelEnd(true,2);
+    //  levelTwo();
     // levelOne();
     // levelThree();
     //levelEnd(false, 1);
@@ -530,7 +531,7 @@ public class DrivingAce extends Application {
     }
     addMenuButton();
     Label l = new Label("Collisions Left");
-    
+
     l.setFont(Font.font("Open Sans", 24));
     //setting the position of the text
     l.setLayoutX(13);
@@ -622,7 +623,7 @@ public class DrivingAce extends Application {
         for (Obstacle o : obstacles) {
           if (level == 2 && collisionCount < 10
               && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
-                  .getElements().size() > 0) {
+              .getElements().size() > 0) {
             levelEnd(true, 2);
             collisionCount = 0;
             this.stop();
@@ -630,16 +631,16 @@ public class DrivingAce extends Application {
           else if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if crashed
             car.move(-t);
             car.setVelocity(-car.getVelocity());
-            
+
             if(level ==2) {
-            Rectangle rect = new Rectangle(45, 50, 60, 40);
-            rect.setFill(Color.WHITE);
-            root.getChildren().add(rect);
-            Label l = new Label(String.valueOf(10- (++collisionCount)));
-            l.setLayoutX(74);
-            l.setLayoutY(43);
-            l.setFont(Font.font("Open Sans", 35));
-            root.getChildren().add(l);
+              Rectangle rect = new Rectangle(45, 50, 60, 40);
+              rect.setFill(Color.WHITE);
+              root.getChildren().add(rect);
+              Label l = new Label(String.valueOf(10- (++collisionCount)));
+              l.setLayoutX(74);
+              l.setLayoutY(43);
+              l.setFont(Font.font("Open Sans", 35));
+              root.getChildren().add(l);
               if(collisionCount >= 10) {
                 levelEnd(false, 2);
                 collisionCount = 0;
@@ -723,7 +724,7 @@ public class DrivingAce extends Application {
       x = 0;
     } else if (x < rightEdgeLimit
         || (x > rightEdgeLimit && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge
-                                                                                  // of background
+      // of background
       offsetX = -x + rightEdgeLimit;
       x = rightEdgeLimit;
       System.out.println(offsetX);
@@ -733,8 +734,8 @@ public class DrivingAce extends Application {
       y = 0;
     } else if (y < bottomEdgeLimit
         || (y > bottomEdgeLimit && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom
-                                                                                    // edge of
-                                                                                    // background
+      // edge of
+      // background
       offsetY = -y + bottomEdgeLimit;
       y = bottomEdgeLimit;
       System.out.println(y + " " + offsetY + " " + bounds.getMaxY());
@@ -763,6 +764,11 @@ public class DrivingAce extends Application {
    * @param level stores the level at which the user passed or failed.
    */
   public void levelEnd(boolean hasPassed, int level) {
+    MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
+    menuBtn.setLayoutX(310);
+    menuBtn.setLayoutY(500);
+    menuBtn.setOnAction(e -> mainMenu());
+    
     root.getChildren().clear();
     if (!hasPassed) {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
@@ -778,12 +784,12 @@ public class DrivingAce extends Application {
       // setting the fit height and width of the image view
       i.setFitHeight(100);
       i.setFitWidth(480);
-      
+
       i.setOnMouseEntered(e -> i.setEffect(new DropShadow()));
       i.setOnMouseExited(e -> i.setEffect(null));
-      
+
       root.getChildren().add(i);
-      
+
       MenuButton tryBtn = new MenuButton("Try Again", 190, 49, 23);
       tryBtn.setLayoutX(310);
       tryBtn.setLayoutY(420);
@@ -796,11 +802,12 @@ public class DrivingAce extends Application {
         else
           intros(level, intro3);
       });
+      root.getChildren().add(menuBtn);
     } else {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.BLUE);
       root.getChildren().add(rect);
-      
+
       // Setting the image view 1
       ImageView i = new ImageView(new Image("/resources/YOU WIN.png", 350, 500, false, true));
 
@@ -811,10 +818,10 @@ public class DrivingAce extends Application {
       // setting the fit height and width of the image view
       i.setFitHeight(100);
       i.setFitWidth(450);
-      
+
       i.setOnMouseEntered(e -> i.setEffect(new DropShadow()));
       i.setOnMouseExited(e -> i.setEffect(null));
-      
+
       root.getChildren().add(i);
 
       Label a = new Label("Username: ");
@@ -824,8 +831,15 @@ public class DrivingAce extends Application {
       a.setTextFill(Color.web("#FFFFFF"));
       root.getChildren().add(a);
       
+      Label b = new Label("Your Score is : " + collisionCount*100);
+      b.setLayoutX(130);
+      b.setLayoutY(420);
+      b.setFont(Font.font("open sans", 25));
+      b.setTextFill(Color.web("#FFFFFF"));
+      root.getChildren().add(b);
+      
       TextField t = new TextField();
-      name = t.getText();
+      // name = t.getText();
       t.setLayoutX(260);
       t.setLayoutY(470);
       t.setMaxHeight(50);
@@ -835,39 +849,50 @@ public class DrivingAce extends Application {
       t.setFont(Font.font("open sans", 20));
       root.getChildren().add(t);
 
-      
+
       MenuButton m = new MenuButton("Submit", 190, 49, 23);
       m.setLayoutX(550);
       m.setLayoutY(470);
+      m.setOnAction(e -> {
+        name = t.getText();
+        root.getChildren().remove(m);
+        root.getChildren().remove(a);
+        root.getChildren().remove(b);
+        root.getChildren().remove(t);
+        root.getChildren().add(menuBtn);
+        if(level != 3) {
+          Label c = new Label("Your Score has been Recorded.");
+          c.setLayoutX(250);
+          c.setLayoutY(350);
+          c.setFont(Font.font("open sans", 25));
+          c.setTextFill(Color.web("#FFFFFF"));
+          root.getChildren().add(c);
+          
+          MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
+          nextBtn.setLayoutX(310);
+          nextBtn.setLayoutY(420);
+          root.getChildren().add(nextBtn);
+
+          nextBtn.setOnAction(new EventHandler<ActionEvent>(){
+            @Override
+            public void handle(ActionEvent event) {
+              if (level + 1 == 2)
+                intros(level + 1, intro2);
+              else
+                intros(level + 1, intro3);
+            }
+          });
+        }});
       root.getChildren().add(m);
-      
-      
-      if(level != 3) {
-        MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
-        nextBtn.setLayoutX(310);
-        nextBtn.setLayoutY(420);
-      //  root.getChildren().add(nextBtn);
-        nextBtn.setOnAction(e -> {
-          if (level + 1 == 2)
-            intros(level + 1, intro2);
-          else
-            intros(level + 1, intro3);
-        });
-      }
     }
-    MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
-    menuBtn.setLayoutX(310);
-    menuBtn.setLayoutY(500);
-  //  root.getChildren().add(menuBtn);
-    menuBtn.setOnAction(e -> mainMenu());
   }
 
-  /**
-   * Driver method.
-   * 
-   * @param args command-line arguments
-   */
-  public static void main(String[] args) {
-    launch(args);
+    /**
+     * Driver method.
+     * 
+     * @param args command-line arguments
+     */
+    public static void main(String[] args) {
+      launch(args);
+    }
   }
-}
