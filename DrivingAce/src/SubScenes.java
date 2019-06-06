@@ -1,4 +1,5 @@
 import java.io.*;
+import java.lang.reflect.Array;
 import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;
 import javafx.scene.control.Label;
@@ -75,7 +76,7 @@ public class SubScenes extends SubScene{
       {
         try
         {
-          input = new BufferedReader (new FileReader ("highscores.txt"));
+          input = new BufferedReader (new FileReader ("/resources/highscores.txt"));
 
           //loop for as long as there is data in the file
           while (line != null)
@@ -86,18 +87,17 @@ public class SubScenes extends SubScene{
           input.close (); //closes the stream
           break;
         }
-        catch (IOException e){ System.out.println("rip"); }
+        catch (IOException e){ System.out.println("f"); }
       }
-
+      
       String[] linesFile = new String [numberOfLine - 1]; //create array with size to match number of lines in file
-      String[] names = new String [(numberOfLine - 1) / 3];
-      String[] level = new String [(numberOfLine - 1) / 3];
-      int[] scoresArray = new int [(numberOfLine - 1) / 3]; //creates an array to store the converted string array
+      String[] names = new String [(numberOfLine - 1) / 2];
+      int[] scores = new int [(numberOfLine - 1) / 2]; //creates an array to store the converted string array
 
       try
       {
         //open the same file again
-        BufferedReader a = new BufferedReader (new FileReader ("highscores.txt")); // reset the buffer
+        BufferedReader a = new BufferedReader (new FileReader ("/src/resources/highscores.txt")); // reset the buffer
         int x = 0;
 
         while (x < linesFile.length) //loop until end of file is reached
@@ -107,15 +107,17 @@ public class SubScenes extends SubScene{
         }
 
         //stores the names into the string array
-        for (int p = 0 ; p < linesFile.length ; p = p + 3)
+        for (int p = 0 ; p < linesFile.length ; p+=2)
         {
-          names [p / 3] = linesFile [p];
-          level [p / 3] = linesFile [p + 1];
-          scoresArray [p / 3] = Integer.parseInt (linesFile [p + 2]);
+          names [p / 2] = linesFile [p];
+          scores [p / 2] = Integer.parseInt (linesFile [p + 1]);
         }
         a.close (); //close data file
       }
-      catch (IOException e) { System.out.println("rip"); }
+      catch (IOException e) { System.out.println("fuck"); }
+      for(int o : scores) {
+        System.out.println(o);
+      }
     }
     r.getChildren().add(l);
   }
