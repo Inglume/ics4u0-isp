@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.StringProperty;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.geometry.Side;
@@ -109,7 +110,7 @@ public class DrivingAce extends Application {
    * Stores the name of the user.
    */
   private String name;
-  
+
   /**
    * Runs everything.
    */
@@ -132,12 +133,12 @@ public class DrivingAce extends Application {
     primaryStage.setScene(scene);
     // intro();
     // Key to Continue.");
-   // levelSelect();
-  levelEnd(true,2);
-   //  levelTwo();
+    // levelSelect();
+    levelEnd(true, 2);
+    // levelTwo();
     // levelOne();
     // levelThree();
-    //levelEnd(false, 1);
+    // levelEnd(false, 1);
     primaryStage.show();
   }
 
@@ -530,9 +531,9 @@ public class DrivingAce extends Application {
     }
     addMenuButton();
     Label l = new Label("Collisions Left");
-    
+
     l.setFont(Font.font("Open Sans", 24));
-    //setting the position of the text
+    // setting the position of the text
     l.setLayoutX(13);
     l.setLayoutY(6);
     root.getChildren().add(l);
@@ -612,7 +613,7 @@ public class DrivingAce extends Application {
         if (input.contains("SPACE")) {
           car.brake();
         }
-        if(collisionCount == 0 && level == 2) {
+        if (collisionCount == 0 && level == 2) {
           Label f = new Label("10");
           f.setLayoutX(64);
           f.setLayoutY(45);
@@ -626,21 +627,21 @@ public class DrivingAce extends Application {
             levelEnd(true, 2);
             collisionCount = 0;
             this.stop();
-          }
-          else if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if crashed
+          } else if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if
+                                                                                          // crashed
             car.move(-t);
             car.setVelocity(-car.getVelocity());
-            
-            if(level ==2) {
-            Rectangle rect = new Rectangle(45, 50, 60, 40);
-            rect.setFill(Color.WHITE);
-            root.getChildren().add(rect);
-            Label l = new Label(String.valueOf(10- (++collisionCount)));
-            l.setLayoutX(74);
-            l.setLayoutY(43);
-            l.setFont(Font.font("Open Sans", 35));
-            root.getChildren().add(l);
-              if(collisionCount >= 10) {
+
+            if (level == 2) {
+              Rectangle rect = new Rectangle(45, 50, 60, 40);
+              rect.setFill(Color.WHITE);
+              root.getChildren().add(rect);
+              Label l = new Label(String.valueOf(10 - (++collisionCount)));
+              l.setLayoutX(74);
+              l.setLayoutY(43);
+              l.setFont(Font.font("Open Sans", 35));
+              root.getChildren().add(l);
+              if (collisionCount >= 10) {
                 levelEnd(false, 2);
                 collisionCount = 0;
                 this.stop();
@@ -778,12 +779,12 @@ public class DrivingAce extends Application {
       // setting the fit height and width of the image view
       i.setFitHeight(100);
       i.setFitWidth(480);
-      
+
       i.setOnMouseEntered(e -> i.setEffect(new DropShadow()));
       i.setOnMouseExited(e -> i.setEffect(null));
-      
+
       root.getChildren().add(i);
-      
+
       MenuButton tryBtn = new MenuButton("Try Again", 190, 49, 23);
       tryBtn.setLayoutX(310);
       tryBtn.setLayoutY(420);
@@ -800,7 +801,7 @@ public class DrivingAce extends Application {
       Rectangle rect = new Rectangle(-100, -100, 1030, 930);
       rect.setFill(Color.BLUE);
       root.getChildren().add(rect);
-      
+
       // Setting the image view 1
       ImageView i = new ImageView(new Image("/resources/YOU WIN.png", 350, 500, false, true));
 
@@ -811,10 +812,10 @@ public class DrivingAce extends Application {
       // setting the fit height and width of the image view
       i.setFitHeight(100);
       i.setFitWidth(450);
-      
+
       i.setOnMouseEntered(e -> i.setEffect(new DropShadow()));
       i.setOnMouseExited(e -> i.setEffect(null));
-      
+
       root.getChildren().add(i);
 
       Label a = new Label("Username: ");
@@ -823,7 +824,7 @@ public class DrivingAce extends Application {
       a.setFont(Font.font("open sans", 25));
       a.setTextFill(Color.web("#FFFFFF"));
       root.getChildren().add(a);
-      
+
       TextField t = new TextField();
       name = t.getText();
       t.setLayoutX(260);
@@ -831,22 +832,33 @@ public class DrivingAce extends Application {
       t.setMaxHeight(50);
       t.setMinHeight(50);
       t.setMaxWidth(250);
-      t.setMinWidth(250);    
+      t.setMinWidth(250);
       t.setFont(Font.font("open sans", 20));
       root.getChildren().add(t);
 
-      
+      // fired by every text property changes
+      t.textProperty().addListener((observable, oldValue, newValue) -> {
+        ((StringProperty) observable).setValue(newValue.toUpperCase());
+
+        char c = newValue.charAt(newValue.length() - 1);
+        if (c >= 65 && c <= 90) {
+          ((StringProperty) observable).setValue(oldValue);
+        }
+      });
+
+      // System.getProperty("user.home");
+
       MenuButton m = new MenuButton("Submit", 190, 49, 23);
       m.setLayoutX(550);
       m.setLayoutY(470);
       root.getChildren().add(m);
-      
-      
-      if(level != 3) {
+
+
+      if (level != 3) {
         MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
         nextBtn.setLayoutX(310);
         nextBtn.setLayoutY(420);
-      //  root.getChildren().add(nextBtn);
+        // root.getChildren().add(nextBtn);
         nextBtn.setOnAction(e -> {
           if (level + 1 == 2)
             intros(level + 1, intro2);
@@ -858,7 +870,7 @@ public class DrivingAce extends Application {
     MenuButton menuBtn = new MenuButton("Main Menu", 190, 49, 23);
     menuBtn.setLayoutX(310);
     menuBtn.setLayoutY(500);
-  //  root.getChildren().add(menuBtn);
+    // root.getChildren().add(menuBtn);
     menuBtn.setOnAction(e -> mainMenu());
   }
 
