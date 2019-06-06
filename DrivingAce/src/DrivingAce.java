@@ -524,7 +524,6 @@ public class DrivingAce extends Application {
         }
         if (input.contains("S") || input.contains("DOWN")) {
           car.reverse();
-          System.out.println(car.getLayoutX() + " " + car.getLayoutY());
         }
         if (input.contains("D") || input.contains("RIGHT")) {
           car.steerRight();
@@ -610,7 +609,7 @@ public class DrivingAce extends Application {
     double offsetY = 0;
     double rightEdgeLimit = -image.getWidth() + root.getWidth();
     double bottomEdgeLimit = -image.getHeight() + root.getHeight();
-    int margin = 100;
+    double margin = 100;
 
     if (x > 0 || (x < 0 && bounds.getMaxX() < margin)) { // past left edge of background
       offsetX = -x;
@@ -618,18 +617,17 @@ public class DrivingAce extends Application {
     } else if (x < rightEdgeLimit || (x > rightEdgeLimit && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge of background
       offsetX = -x + rightEdgeLimit;
       x = rightEdgeLimit;
-//    } else if (bounds.getMaxX() > 300 && bounds.getMaxX() < 500) {
-//      car.move(t);
+      System.out.println(offsetX);
     }
     if (y > 0 || (y < 0 && bounds.getMaxY() < margin)) { // past top edge of background
       offsetY = -y;
       y = 0;
-//    } else if (bounds.getMaxY() > 200 && bounds.getMaxY() < 400) {
-//      car.move(t);
     } else if (y < bottomEdgeLimit || (y > bottomEdgeLimit && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom edge of background
       offsetY = -y + bottomEdgeLimit;
       y = bottomEdgeLimit;
+      System.out.println(y + " " + offsetY + " " + bounds.getMaxY());
     }
+//    System.out.println(offsetX + " " + offsetY);
     car.translate(offsetX, offsetY);
     car.move(-t);
     for (Car c : cars) {
