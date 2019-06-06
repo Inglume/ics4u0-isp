@@ -863,7 +863,7 @@ public class DrivingAce extends Application {
         
         try
         {
-          PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter ("highscores.txt", true)));
+          PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter ("src/resources/highscores.txt", true)));
           output.println (name);
           output.println (collisionCount);
           output.close ();
