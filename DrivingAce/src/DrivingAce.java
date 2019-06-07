@@ -1,4 +1,3 @@
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -370,6 +369,10 @@ public class DrivingAce extends Application {
     root.getChildren().add(text);
   }
 
+  /**
+   * Resets the program after a level is finished.
+   * @param image stores the new background image.
+   */
   public void resetLevel(Image image) {
     root.getChildren().clear();
     obstacles = new ArrayList<Obstacle>();
@@ -381,6 +384,11 @@ public class DrivingAce extends Application {
     root.setBackground(new Background(background));
   }
 
+  /**
+   * Resets the program after a level is finished.
+   * @param image stores the new background image.
+   * @param repeat stores whether the user repeats the level.
+   */
   public void resetLevel(Image image, boolean repeat) {
     root.getChildren().clear();
     obstacles = new ArrayList<Obstacle>();
@@ -433,9 +441,9 @@ public class DrivingAce extends Application {
     car7.setVelocity(100);
     cars.add(car7);
 
-    // Wall leftWall = new Wall(0, 0, 415, 615);
-    // Wall rightWall = new Wall(688, 0, 100, 615);
-    // obstacles = new Obstacle[] {leftWall, rightWall};
+    //Wall leftWall = new Wall(0, 0, 415, 615);
+    Wall rightWall = new Wall(700, 0, 100, 3900);
+    obstacles.add(rightWall);
 
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
@@ -445,7 +453,7 @@ public class DrivingAce extends Application {
       root.getChildren().add(c);
     }
 
-    addCar(new Car(500, 100, new Image("/resources/car_red_small_5.png"), 0), image, 1);
+    addCar(new Car(500, 3800, new Image("/resources/car_red_small_5.png"), 0), image, 1);
     addMenuButton();
   }
 
@@ -867,6 +875,7 @@ public class DrivingAce extends Application {
 
       t.textProperty().addListener((observable, oldValue, newValue) -> {
         if (newValue.length() > 0) {
+          //TODO limit length of username
           char c = newValue.charAt(newValue.length() - 1);
           if (!(c >= 65 && c <= 90) && !(c >= 97 && c <= 122)) {
             ((StringProperty) observable).setValue(oldValue);
