@@ -55,8 +55,8 @@ public class SubScenes extends SubScene{
           + "Level 3 tests your ability to drive safely.\n\n"
           + "Use 'WASD' or Arrow Keys to control the car.";
       l = new Label(h);
-      l.setStyle("-fx-font-weight: bold");
-      l.setFont(Font.font("helvetica", 19));
+    //  l.setStyle("-fx-font-weight: bold");
+      l.setFont(Font.font("helvetica", 18));
      // l.setTextFill(Color.web("#FFFFFF"));
       //setting the position of the text
       l.setLayoutX(20);
