@@ -26,7 +26,6 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -122,12 +121,13 @@ public class DrivingAce extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
+    //TODO
     intro1 =
-        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+        "Objective: Navigate the highway.\nTry not to crash into another car.\n\nPress a Key to Continue.";
     intro2 =
-        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+        "Objective: Complete the Obstacle Course.\nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
     intro3 =
-        "Objective: Complete the Obstacle Course. \nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+        "Objective: Complete the Obstacle Course.\nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
 
     primaryStage.setResizable(false);
     root = new AnchorPane();
@@ -137,17 +137,17 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    mainMenu();
+//    mainMenu();
     // intro();
     // Key to Continue.");
     // levelSelect();
 //    levelEnd(true, 2);
     // levelTwo();
-    // levelOne();
+//     levelOne();
   //  levelEnd(true,2);
    //   levelTwo();
     // levelOne();
-    // levelThree();
+     levelThree();
     // levelEnd(false, 1);
     primaryStage.show();
   }
@@ -582,17 +582,17 @@ public class DrivingAce extends Application {
     Wall topL2 = new Wall(239, 0, 20, 99);
     obstacles.add(topL2);
 
-    Wall topR = new Wall(578, 0, 233, 105);
+    Wall topR = new Wall(800, 0, 800, 105);
     obstacles.add(topR);
     Wall topR2 = new Wall(558, 0, 20, 95);
     obstacles.add(topR2);
 
-    Wall botL = new Wall(0, 465, 252, 150);
+    Wall botL = new Wall(0, 636, 420, 164);
     obstacles.add(botL);
     Wall botL2 = new Wall(252, 475, 15, 140);
     obstacles.add(botL2);
 
-    Wall botR = new Wall(578, 465, 233, 150);
+    Wall botR = new Wall(800, 650, 800, 150);
     obstacles.add(botR);
     Wall botR2 = new Wall(553, 478, 25, 140);
     obstacles.add(botR2);
@@ -615,8 +615,6 @@ public class DrivingAce extends Application {
    * @param image the background image
    */
   public void addCar(Car car, Image image, int level) {
-    // TODO camera that moves with scene (read this:
-    // https://stackoverflow.com/questions/47879463/2d-camera-in-javafx)
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
     lastNanoTime = System.nanoTime();
