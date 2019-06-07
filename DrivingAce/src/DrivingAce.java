@@ -254,19 +254,9 @@ public class DrivingAce extends Application {
     // setting the fit height and width of the image view
     logo.setFitHeight(100);
     logo.setFitWidth(350);
-    logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        logo.setEffect(new DropShadow());
-      }
-    });
+    logo.setOnMouseEntered(e->logo.setEffect(new DropShadow()));
 
-    logo.setOnMouseExited(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        logo.setEffect(null);
-      }
-    });
+    logo.setOnMouseExited(e-> logo.setEffect(null));
     root.getChildren().add(logo);
   }
 
