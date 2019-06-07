@@ -857,8 +857,7 @@ public class DrivingAce extends Application {
           output.println ((10-collisionCount)*100);
           output.close ();
         }
-        catch (IOException n) { System.out.println("rip"); }
-        
+        catch (IOException n) { n.printStackTrace(); }
         
         root.getChildren().remove(m);
         root.getChildren().remove(a);
