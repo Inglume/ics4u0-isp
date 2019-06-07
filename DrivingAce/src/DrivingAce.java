@@ -136,12 +136,16 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
+    mainMenu();
     // intro();
     // Key to Continue.");
     // levelSelect();
 //    levelEnd(true, 2);
     // levelTwo();
      levelOne();
+  //  levelEnd(true,2);
+   //   levelTwo();
+    // levelOne();
     // levelThree();
     // levelEnd(false, 1);
     primaryStage.show();
@@ -255,19 +259,9 @@ public class DrivingAce extends Application {
     // setting the fit height and width of the image view
     logo.setFitHeight(100);
     logo.setFitWidth(350);
-    logo.setOnMouseEntered(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        logo.setEffect(new DropShadow());
-      }
-    });
+    logo.setOnMouseEntered(e->logo.setEffect(new DropShadow()));
 
-    logo.setOnMouseExited(new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent event) {
-        logo.setEffect(null);
-      }
-    });
+    logo.setOnMouseExited(e-> logo.setEffect(null));
     root.getChildren().add(logo);
   }
 
@@ -658,7 +652,6 @@ public class DrivingAce extends Application {
               && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
                   .getElements().size() > 0) {
             levelEnd(true, 2);
-            collisionCount = 0;
             this.stop();
           } else if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if
                                                                                           // crashed
@@ -863,7 +856,8 @@ public class DrivingAce extends Application {
       a.setFont(Font.font("open sans", 25));
       a.setTextFill(Color.web("#FFFFFF"));
       root.getChildren().add(a);
-      Label b = new Label("Your Score is : " + collisionCount * 100);
+      
+      Label b = new Label("Your Score is : " + (10-collisionCount)*100);
       b.setLayoutX(130);
       b.setLayoutY(420);
       b.setFont(Font.font("open sans", 25));
@@ -871,7 +865,7 @@ public class DrivingAce extends Application {
       root.getChildren().add(b);
 
       TextField t = new TextField();
-      // name = t.getText();
+      t.setText(null);
       t.setLayoutX(260);
       t.setLayoutY(470);
       t.setMaxHeight(50);
@@ -906,11 +900,10 @@ public class DrivingAce extends Application {
         {
           PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter ("src/resources/highscores.txt", true)));
           output.println (name);
-          output.println (collisionCount);
+          output.println ((10-collisionCount)*100);
           output.close ();
         }
-        catch (IOException n) { System.out.println("rip"); }
-        
+        catch (IOException n) {n.printStackTrace();}
         
         root.getChildren().remove(m);
         root.getChildren().remove(a);
