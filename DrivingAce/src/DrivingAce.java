@@ -136,11 +136,12 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
+    mainMenu();
     // intro();
     // Key to Continue.");
     // levelSelect();
   //  levelEnd(true,2);
-      levelTwo();
+   //   levelTwo();
     // levelOne();
     // levelThree();
     //levelEnd(false, 1);
@@ -833,7 +834,7 @@ public class DrivingAce extends Application {
       root.getChildren().add(b);
       
       TextField t = new TextField();
-      // name = t.getText();
+      t.setText(null);
       t.setLayoutX(260);
       t.setLayoutY(470);
       t.setMaxHeight(50);

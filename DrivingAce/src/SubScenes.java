@@ -5,6 +5,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
@@ -54,8 +55,9 @@ public class SubScenes extends SubScene{
           + "Level 3 tests your ability to drive safely.\n\n"
           + "Use 'WASD' or Arrow Keys to control the car.";
       l = new Label(h);
-
-      l.setFont(Font.font("calibri", 20));
+      l.setStyle("-fx-font-weight: bold");
+      l.setFont(Font.font("helvetica", 19));
+     // l.setTextFill(Color.web("#FFFFFF"));
       //setting the position of the text
       l.setLayoutX(20);
       l.setLayoutY(15);
