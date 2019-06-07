@@ -60,8 +60,8 @@ public class SubScenes extends SubScene{
       l.setLayoutX(20);
       l.setLayoutY(15);
     }else {
-      File file = new File(System.getProperty("user.home")+ "/DrivingAce/highscores.txt");
-    //  file.mkdirs();
+          new File(System.getProperty("user.home")+ "/DrivingAce/").mkdirs();
+          File file = new File(System.getProperty("user.home")+ "/DrivingAce/highscores.txt");
       
       l = new Label("High Scores");
 

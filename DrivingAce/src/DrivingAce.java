@@ -720,16 +720,6 @@ public class DrivingAce extends Application {
     });
   }
 
-  public double clamp(double n, double min, double max) {
-    if (n < min) {
-      return min;
-    }
-    if (n > max) {
-      return max;
-    }
-    return n;
-  }
-
   /**
    * This method is a work-in-progress, ignore this.
    */
@@ -899,7 +889,8 @@ public class DrivingAce extends Application {
         
         try
         {
-          File file = new File(System.getProperty("user.home")+ "highscores.txt");
+          new File(System.getProperty("user.home")+ "/DrivingAce/").mkdirs();
+          File file = new File(System.getProperty("user.home")+ "/DrivingAce/highscores.txt");
           file.createNewFile();
           PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter (file)));
           output.println (name);
