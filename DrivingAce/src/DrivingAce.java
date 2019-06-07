@@ -1,5 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -142,7 +143,7 @@ public class DrivingAce extends Application {
     // levelSelect();
 //    levelEnd(true, 2);
     // levelTwo();
-     levelOne();
+    // levelOne();
   //  levelEnd(true,2);
    //   levelTwo();
     // levelOne();
@@ -898,7 +899,9 @@ public class DrivingAce extends Application {
         
         try
         {
-          PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter ("src/resources/highscores.txt", true)));
+          File file = new File(System.getProperty("user.home")+ "highscores.txt");
+          file.createNewFile();
+          PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter (file)));
           output.println (name);
           output.println ((10-collisionCount)*100);
           output.close ();

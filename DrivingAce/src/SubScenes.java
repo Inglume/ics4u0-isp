@@ -55,16 +55,17 @@ public class SubScenes extends SubScene{
           + "Level 3 tests your ability to drive safely.\n\n"
           + "Use 'WASD' or Arrow Keys to control the car.";
       l = new Label(h);
-    //  l.setStyle("-fx-font-weight: bold");
       l.setFont(Font.font("helvetica", 18));
-     // l.setTextFill(Color.web("#FFFFFF"));
       //setting the position of the text
       l.setLayoutX(20);
       l.setLayoutY(15);
     }else {
+      File file = new File(System.getProperty("user.home")+ "/DrivingAce/highscores.txt");
+    //  file.mkdirs();
+      
       l = new Label("High Scores");
 
-      l.setFont(Font.font("calibri", 25));
+      l.setFont(Font.font("helvetica", 23));
       //setting the position of the text
       l.setLayoutX(135);
       l.setLayoutY(15);
@@ -78,7 +79,9 @@ public class SubScenes extends SubScene{
       {
         try
         {
-          input = new BufferedReader (new FileReader ("src/resources/highscores.txt"));
+          file.createNewFile();
+
+          input = new BufferedReader (new FileReader (file));
 
           //loop for as long as there is data in the file
           while (line != null)
@@ -99,7 +102,7 @@ public class SubScenes extends SubScene{
       try
       {
         //open the same file again
-        BufferedReader a = new BufferedReader (new FileReader ("src/resources/highscores.txt")); // reset the buffer
+        BufferedReader a = new BufferedReader (new FileReader (file)); // reset the buffer
         int x = 0;
 
         while (x < linesFile.length) //loop until end of file is reached
@@ -143,7 +146,7 @@ public class SubScenes extends SubScene{
         Label first = new Label(names[x]);
         first.setLayoutX(100);
         first.setLayoutY(80 + x*30);
-        first.setFont(Font.font("Calibri", 25));
+        first.setFont(Font.font("Helvetica", 25));
         r.getChildren().add(first);
 
         Label second = new Label(String.valueOf(scores[x]));
