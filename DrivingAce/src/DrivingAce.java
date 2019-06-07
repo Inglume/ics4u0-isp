@@ -139,8 +139,8 @@ public class DrivingAce extends Application {
     // intro();
     // Key to Continue.");
     // levelSelect();
-    levelEnd(true,2);
-    //  levelTwo();
+  //  levelEnd(true,2);
+      levelTwo();
     // levelOne();
     // levelThree();
     //levelEnd(false, 1);
@@ -630,7 +630,6 @@ public class DrivingAce extends Application {
               && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
               .getElements().size() > 0) {
             levelEnd(true, 2);
-            collisionCount = 0;
             this.stop();
           }
           else if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if crashed
@@ -836,7 +835,7 @@ public class DrivingAce extends Application {
       a.setTextFill(Color.web("#FFFFFF"));
       root.getChildren().add(a);
       
-      Label b = new Label("Your Score is : " + collisionCount*100);
+      Label b = new Label("Your Score is : " + (10-collisionCount)*100);
       b.setLayoutX(130);
       b.setLayoutY(420);
       b.setFont(Font.font("open sans", 25));
@@ -865,7 +864,7 @@ public class DrivingAce extends Application {
         {
           PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter ("src/resources/highscores.txt", true)));
           output.println (name);
-          output.println (collisionCount);
+          output.println ((10-collisionCount)*100);
           output.close ();
         }
         catch (IOException n) { System.out.println("rip"); }

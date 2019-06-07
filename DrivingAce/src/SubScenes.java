@@ -66,7 +66,7 @@ public class SubScenes extends SubScene{
       //setting the position of the text
       l.setLayoutX(135);
       l.setLayoutY(15);
-      
+
       BufferedReader input;
       String line = "";
       int numberOfLine = 0;
@@ -76,7 +76,7 @@ public class SubScenes extends SubScene{
       {
         try
         {
-          input = new BufferedReader (new FileReader ("/resources/highscores.txt"));
+          input = new BufferedReader (new FileReader ("src/resources/highscores.txt"));
 
           //loop for as long as there is data in the file
           while (line != null)
@@ -87,9 +87,9 @@ public class SubScenes extends SubScene{
           input.close (); //closes the stream
           break;
         }
-        catch (IOException e){ System.out.println("f"); }
+        catch (IOException e){ System.out.println("f");e.printStackTrace(); }
       }
-      
+
       String[] linesFile = new String [numberOfLine - 1]; //create array with size to match number of lines in file
       String[] names = new String [(numberOfLine - 1) / 2];
       int[] scores = new int [(numberOfLine - 1) / 2]; //creates an array to store the converted string array
@@ -97,7 +97,7 @@ public class SubScenes extends SubScene{
       try
       {
         //open the same file again
-        BufferedReader a = new BufferedReader (new FileReader ("/src/resources/highscores.txt")); // reset the buffer
+        BufferedReader a = new BufferedReader (new FileReader ("src/resources/highscores.txt")); // reset the buffer
         int x = 0;
 
         while (x < linesFile.length) //loop until end of file is reached
@@ -114,11 +114,43 @@ public class SubScenes extends SubScene{
         }
         a.close (); //close data file
       }
-      catch (IOException e) { System.out.println("fuck"); }
-      for(int o : scores) {
-        System.out.println(o);
+      catch (IOException e) { e.printStackTrace(); }
+
+      
+      //insertion sort
+      for(int x = 0; x < scores.length; x++) {
+        int temp = scores[x], pos = x;
+        String temp1 = names[x];
+        
+        while(pos > 0 && temp > scores[pos-1]) {
+          scores[pos] = scores[pos-1];
+          names[pos] = names[pos-1];
+          pos--;
+        }
+        scores[pos] = temp;
+        names[pos] = temp1;
       }
-    }
+      
+      int t = 0; 
+      if(linesFile.length <= 10)
+        t = linesFile.length;
+      else
+        t = 10;
+      for (int x = 0 ; x < t/2; x++)
+      {
+        Label first = new Label(names[x]);
+        first.setLayoutX(100);
+        first.setLayoutY(80 + x*30);
+        first.setFont(Font.font("Calibri", 25));
+        r.getChildren().add(first);
+
+        Label second = new Label(String.valueOf(scores[x]));
+        second.setLayoutX(300);
+        second.setLayoutY(80 + x*30);
+        second.setFont(Font.font("Calibri", 25));
+        r.getChildren().add(second);
+      }
+    } 
     r.getChildren().add(l);
   }
 
