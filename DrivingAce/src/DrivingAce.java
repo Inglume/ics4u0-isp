@@ -32,7 +32,6 @@ import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
@@ -140,9 +139,9 @@ public class DrivingAce extends Application {
     // intro();
     // Key to Continue.");
     // levelSelect();
-    levelEnd(true, 2);
+//    levelEnd(true, 2);
     // levelTwo();
-    // levelOne();
+     levelOne();
     // levelThree();
     // levelEnd(false, 1);
     primaryStage.show();
@@ -408,16 +407,36 @@ public class DrivingAce extends Application {
    * Level one of the game.
    */
   public void levelOne() {
-    Image image = new Image("/resources/1.png", 0, 1000, false, true);
+    Image image = new Image("/resources/1.png", 0, 0, false, true);
     resetLevel(image);
 
-    Car car1 = new Car(600, 120, new Image("/resources/car_red_small_5.png"));
+    Car car1 = new Car(510, 120, new Image("/resources/car_red_small_5.png"));
     car1.setVelocity(100);
     cars.add(car1);
 
-    Car car2 = new Car(220, 120, new Image("/resources/car_red_small_5.png"), 180);
+    Car car2 = new Car(370, 100, new Image("/resources/car_red_small_5.png"), 180);
     car2.setVelocity(100);
     cars.add(car2);
+
+    Car car3 = new Car(440, 20, new Image("/resources/car_red_small_5.png"));
+    car3.setVelocity(100);
+    cars.add(car3);
+
+    Car car4 = new Car(570, 80, new Image("/resources/car_red_small_5.png"));
+    car4.setVelocity(100);
+    cars.add(car4);
+
+    Car car5 = new Car(630, 70, new Image("/resources/car_red_small_5.png"));
+    car5.setVelocity(100);
+    cars.add(car5);
+
+    Car car6 = new Car(190, 420, new Image("/resources/car_red_small_5.png"), 180);
+    car6.setVelocity(100);
+    cars.add(car6);
+
+    Car car7 = new Car(250, 320, new Image("/resources/car_red_small_5.png"), 180);
+    car7.setVelocity(100);
+    cars.add(car7);
 
     // Wall leftWall = new Wall(0, 0, 415, 615);
     // Wall rightWall = new Wall(688, 0, 100, 615);
