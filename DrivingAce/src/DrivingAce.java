@@ -136,18 +136,7 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-//    mainMenu();
-     intro();
-    // Key to Continue.");
-    // levelSelect();
-//    levelEnd(true, 2);
-    // levelTwo();
-//     levelOne();
-  //  levelEnd(true,2);
-   //   levelTwo();
-    // levelOne();
-//     levelThree();
-    // levelEnd(false, 1);
+    intro();
     primaryStage.show();
   }
 
@@ -444,7 +433,8 @@ public class DrivingAce extends Application {
     //Wall leftWall = new Wall(0, 0, 415, 615);
     Wall rightWall = new Wall(700, 0, 100, 3900);
     obstacles.add(rightWall);
-
+    Wall leftWall = new Wall(0, 0, 137, 3900);
+    obstacles.add(leftWall);
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
