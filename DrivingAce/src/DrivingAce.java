@@ -121,13 +121,13 @@ public class DrivingAce extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
-    //TODO
+    //TODO edit descriptions
     intro1 =
         "Objective: Navigate the highway.\nTry not to crash into another car.\n\nPress a Key to Continue.";
     intro2 =
         "Objective: Complete the Obstacle Course.\nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
     intro3 =
-        "Objective: Complete the Obstacle Course.\nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+        "Objective: Drive through a neighbourhood using the new driving skills you've learned throughout the game.\n\nPress a Key to Continue.";
 
     primaryStage.setResizable(false);
     root = new AnchorPane();
@@ -138,7 +138,7 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
 //    mainMenu();
-    // intro();
+     intro();
     // Key to Continue.");
     // levelSelect();
 //    levelEnd(true, 2);
@@ -147,7 +147,7 @@ public class DrivingAce extends Application {
   //  levelEnd(true,2);
    //   levelTwo();
     // levelOne();
-     levelThree();
+//     levelThree();
     // levelEnd(false, 1);
     primaryStage.show();
   }
@@ -571,13 +571,14 @@ public class DrivingAce extends Application {
    * Level three.
    */
   public void levelThree() {
+    //TODO edit obstacles
     Image image = new Image("/resources/3.jpg", 0, 800, true, false);
     resetLevel(image);
 
     Car car1 = new Car(600, 120, new Image("/resources/car_red_small_5.png"));
     car1.setVelocity(100);
     cars.add(car1);
-    Wall topL = new Wall(-1, 0, 240, 109);
+    Wall topL = new Wall(0, 0, 420, 164);
     obstacles.add(topL);
     Wall topL2 = new Wall(239, 0, 20, 99);
     obstacles.add(topL2);
