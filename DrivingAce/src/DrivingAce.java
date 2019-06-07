@@ -127,7 +127,7 @@ public class DrivingAce extends Application {
     intro2 =
         "Objective: Complete the Obstacle Course.\nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
     intro3 =
-        "Objective: Complete the Obstacle Course.\nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+        "Objective: Drive Safely and Follow the Rules.\n\nPress a Key to Continue.";
 
     primaryStage.setResizable(false);
     root = new AnchorPane();
