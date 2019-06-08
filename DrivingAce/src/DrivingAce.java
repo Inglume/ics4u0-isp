@@ -136,7 +136,8 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-    intro();
+//    intro();
+    levelOne();
     primaryStage.show();
   }
 
@@ -402,34 +403,20 @@ public class DrivingAce extends Application {
     Image image = new Image("/resources/1.png", 0, 0, false, true);
     resetLevel(image);
 
-    Car car1 = new Car(510, 120, new Image("/resources/car_red_small_5.png"));
-    car1.setVelocity(100);
-    cars.add(car1);
+    cars.add(new Car(190, 420, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(190, 120, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(250, 10, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(250, 500, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(310, 320, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(310, 720, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(370, 100, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(370, 600, new Image("/resources/car_red_small_5.png"), 180));
 
-    Car car2 = new Car(370, 100, new Image("/resources/car_red_small_5.png"), 180);
-    car2.setVelocity(100);
-    cars.add(car2);
-
-    Car car3 = new Car(440, 20, new Image("/resources/car_red_small_5.png"));
-    car3.setVelocity(100);
-    cars.add(car3);
-
-    Car car4 = new Car(570, 80, new Image("/resources/car_red_small_5.png"));
-    car4.setVelocity(100);
-    cars.add(car4);
-
-    Car car5 = new Car(630, 70, new Image("/resources/car_red_small_5.png"));
-    car5.setVelocity(100);
-    cars.add(car5);
-
-    Car car6 = new Car(190, 420, new Image("/resources/car_red_small_5.png"), 180);
-    car6.setVelocity(100);
-    cars.add(car6);
-
-    Car car7 = new Car(250, 320, new Image("/resources/car_red_small_5.png"), 180);
-    car7.setVelocity(100);
-    cars.add(car7);
-
+    cars.add(new Car(440, 220, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(510, 20, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(570, 380, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(630, 270, new Image("/resources/car_red_small_5.png")));
+    
     //Wall leftWall = new Wall(0, 0, 415, 615);
     Wall rightWall = new Wall(700, 0, 100, 3900);
     obstacles.add(rightWall);
@@ -440,10 +427,11 @@ public class DrivingAce extends Application {
     }
 
     for (Car c : cars) {
+      c.setVelocity(100);
       root.getChildren().add(c);
     }
 
-    addCar(new Car(500, 3800, new Image("/resources/car_red_small_5.png"), 0), image, 1);
+    addCar(new Car(200, 100, new Image("/resources/car_red_small_5.png"), 180), image, 1);
     addMenuButton();
   }
 
@@ -618,6 +606,7 @@ public class DrivingAce extends Application {
     ArrayList<String> input = new ArrayList<String>();
     lastNanoTime = System.nanoTime();
     animationTimer = new AnimationTimer() {
+      boolean passed = false;
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - lastNanoTime) / 1_000_000_000.0;
@@ -637,6 +626,24 @@ public class DrivingAce extends Application {
         }
         if (input.contains("SPACE")) {
           car.brake();
+        }
+        if (level == 1 && root.getBackground().getImages().get(0).getPosition().getVerticalPosition() < -3000 && !passed) { // whoa very long if statement
+          System.out.println(root.getBackground().getImages().get(0).getPosition().getVerticalPosition());
+          System.out.println(-root.getBackground().getImages().get(0).getSize().getHeight());
+          passed = true;
+          int oldSize = cars.size();
+    cars.add(new Car(170, 600, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(230, 600, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(290, 600, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(350, 600, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(420, 600, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(490, 600, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(550, 600, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(610, 600, new Image("/resources/car_red_small_5.png")));
+    for (int i = oldSize; i < cars.size(); i++) {
+      cars.get(i).setVelocity(100);
+      root.getChildren().add(cars.get(i));
+    }
         }
         if (collisionCount == 0 && level == 2) {
           Label f = new Label("10");
@@ -675,6 +682,8 @@ public class DrivingAce extends Application {
         }
         for (Car c : cars) {
           if (((Path) Shape.intersect(car, (Shape) c)).getElements().size() > 0) { // if crashed
+            // TODO: you lose screen with different description based on level. If it's level one make it have stuff that explains why following the rules is so important.
+            // can use passed boolean variable to change type of ending screen
             car.move(-t);
             car.setVelocity(-car.getVelocity());
           }
@@ -718,7 +727,7 @@ public class DrivingAce extends Application {
   }
 
   /**
-   * This method is a work-in-progress, ignore this.
+   * Moves background depending on where the car is in location to the screen.
    */
   public void updateBackground(Car car, double t) {
     BackgroundPosition oldBackgroundPosition =
@@ -733,21 +742,22 @@ public class DrivingAce extends Application {
     double bottomEdgeLimit = -image.getHeight() + root.getHeight();
     double margin = 100;
 
-    if (x > 0 || (x < 0 && bounds.getMaxX() < margin)) { // past left edge of background
+    if (x > 0 || (x < -root.getWidth() / 2 && bounds.getMaxX() < margin)) { // past left edge of background
       offsetX = -x;
       x = 0;
+//      System.out.println(x + " " + offsetX + " " + bounds.getMaxX());
     } else if (x < rightEdgeLimit
-        || (x > rightEdgeLimit && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge
-      // of background
+        || (x > rightEdgeLimit + root.getWidth() / 2 && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge
       offsetX = -x + rightEdgeLimit;
       x = rightEdgeLimit;
-      System.out.println(offsetX);
+//      System.out.println(x + " " + offsetX + " " + bounds.getMaxX());
     }
-    if (y > 0 || (y < 0 && bounds.getMaxY() < margin)) { // past top edge of background
+    if (y > 0 || (y > -root.getHeight() / 2 && bounds.getMaxY() < margin)) { // past top edge of background
       offsetY = -y;
       y = 0;
+      System.out.println(y + " " + offsetY + " " + bounds.getMaxY());
     } else if (y < bottomEdgeLimit
-        || (y > bottomEdgeLimit && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom
+        || (y < bottomEdgeLimit + root.getHeight() / 2 && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom
       // edge of
       // background
       offsetY = -y + bottomEdgeLimit;

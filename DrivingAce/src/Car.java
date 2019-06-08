@@ -98,11 +98,12 @@ public class Car extends Rectangle {
     setArcHeight(20);
     setArcWidth(20);
     center = new Rectangle(x + width / 2, y + length / 2, 0, 0);
-    this.setDirection(direction);
-    accelerationRate = 4;
-    steeringRate = 4;
+    this.direction = direction;
+    accelerationRate = 3;
+    steeringRate = 3;
     maxVelocity = 400;
     getTransforms().add(new Rotate(direction, center.getX(), center.getY()));
+    center.getTransforms().add(new Rotate(direction, center.getX(), center.getY()));
   }
   
   public double predictMoveX(double t) {
