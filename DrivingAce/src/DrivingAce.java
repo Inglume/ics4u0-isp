@@ -122,11 +122,11 @@ public class DrivingAce extends Application {
   public void start(Stage primaryStage) {
     // TODO edit descriptions
     intro1 =
-        "Objective: Navigate the highway.\nTry not to crash into another car.\n\nPress a Key to Continue.";
+        "Objective: Navigate the highway.\nYou fail if you crash into another car.\n\nPress a Key to Continue...";
     intro2 =
-        "Objective: Complete the Obstacle Course.\nYou Fail After 5 Collisions.\n\nPress a Key to Continue.";
+        "Objective: Complete the Obstacle Course.\nYou Fail After 10 Collisions.\n\nPress a Key to Continue...";
     intro3 =
-        "Objective: Drive through a neighbourhood using the new driving skills you've learned throughout the game.\n\nPress a Key to Continue.";
+        "Objective: Drive through a neighbourhood using the \nnew driving skills you've learned throughout the game.\n\nPress a Key to Continue...";
 
     primaryStage.setResizable(false);
     root = new AnchorPane();
@@ -137,9 +137,10 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
 //    intro();
-//     levelOne();
-     levelTwo();
-//     levelThree();
+    mainMenu();
+//    levelOne();
+//    levelTwo();
+  //  levelThree();
     primaryStage.show();
   }
 
@@ -185,7 +186,7 @@ public class DrivingAce extends Application {
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
 
-    FadeTransition ft = new FadeTransition(Duration.millis(3000), rect);
+    FadeTransition ft = new FadeTransition(Duration.millis(2000), rect);
     ft.setFromValue(2);
     ft.setToValue(0);
     ft.setAutoReverse(true);
@@ -348,7 +349,7 @@ public class DrivingAce extends Application {
     text.setLayoutY(250);
     text.setFont(Font.font("verdana", 20));
     final IntegerProperty i = new SimpleIntegerProperty(0);
-    KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.04), event -> {
+    KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.05), event -> {
       if (i.get() > str.length()) {
         timeline.stop();
       } else {
