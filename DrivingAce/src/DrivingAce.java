@@ -43,7 +43,8 @@ import javafx.util.Duration;
 
 
 /**
- * The DrivingAce class.
+ * The DrivingAce class. It is the main class that has all of the output and screens of the game.
+ * 
  * 
  * @author Nicholas Glenn and Jerry Zhu
  * @version 3
