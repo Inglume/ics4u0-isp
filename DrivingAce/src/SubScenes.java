@@ -65,7 +65,7 @@ public class SubScenes extends SubScene{
       
       l = new Label("High Scores");
 
-      l.setFont(Font.font("helvetica", 23));
+      l.setFont(Font.font("helvetica", 30));
       //setting the position of the text
       l.setLayoutX(135);
       l.setLayoutY(15);
@@ -141,18 +141,23 @@ public class SubScenes extends SubScene{
         t = linesFile.length;
       else
         t = 10;
+      Label titles = new Label("Username               Score");
+      titles.setLayoutX(60);
+      titles.setLayoutY(80);
+      titles.setFont(Font.font("Helvetica", 25));
+      r.getChildren().add(titles);
       for (int x = 0 ; x < t/2; x++)
       {
         Label first = new Label(names[x]);
-        first.setLayoutX(100);
-        first.setLayoutY(80 + x*30);
-        first.setFont(Font.font("Helvetica", 25));
+        first.setLayoutX(60);
+        first.setLayoutY(125 + x*30);
+        first.setFont(Font.font("Helvetica", 23));
         r.getChildren().add(first);
 
         Label second = new Label(String.valueOf(scores[x]));
-        second.setLayoutX(300);
-        second.setLayoutY(80 + x*30);
-        second.setFont(Font.font("Calibri", 25));
+        second.setLayoutX(275);
+        second.setLayoutY(125 + x*30);
+        second.setFont(Font.font("Helvetica", 23));
         r.getChildren().add(second);
       }
     } 
