@@ -136,11 +136,11 @@ public class DrivingAce extends Application {
 
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
-//    intro();
+    intro();
    // mainMenu();
 //    levelOne();
 //    levelTwo();
-    levelThree();
+//    levelThree();
     primaryStage.show();
   }
 
