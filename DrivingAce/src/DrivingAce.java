@@ -137,7 +137,9 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
 //    intro();
-    levelOne();
+//    levelOne();
+//    levelTwo();
+    levelThree();
     primaryStage.show();
   }
 
@@ -427,7 +429,7 @@ public class DrivingAce extends Application {
     }
 
     for (Car c : cars) {
-      c.setVelocity(100);
+      c.setVelocity(200);
       root.getChildren().add(c);
     }
 
@@ -558,40 +560,54 @@ public class DrivingAce extends Application {
    */
   public void levelThree() {
     //TODO edit obstacles
-    Image image = new Image("/resources/3.jpg", 0, 800, true, false);
+    Image image = new Image("/resources/3.png", 0, 800, true, false);
     resetLevel(image);
 
-    Car car1 = new Car(600, 120, new Image("/resources/car_red_small_5.png"));
-    car1.setVelocity(100);
-    cars.add(car1);
-    Wall topL = new Wall(0, 0, 420, 164);
+    cars.add(new Car(360, 100, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(360, 340, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(440, 220, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(440, 380, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(520, 120, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(520, 200, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(520, 360, new Image("/resources/car_red_small_5.png")));
+
+    cars.add(new Car(1560, 100, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(1560, 340, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(1640, 220, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(1640, 380, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(1720, 120, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(1720, 200, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(1720, 360, new Image("/resources/car_red_small_5.png")));
+
+    Wall topL = new Wall(0, 0, 326, 240);
     obstacles.add(topL);
-    Wall topL2 = new Wall(239, 0, 20, 99);
-    obstacles.add(topL2);
-
-    Wall topR = new Wall(800, 0, 800, 105);
-    obstacles.add(topR);
-    Wall topR2 = new Wall(558, 0, 20, 95);
-    obstacles.add(topR2);
-
-    Wall botL = new Wall(0, 636, 420, 164);
+    Wall botL = new Wall(0, 636, 326, 240);
     obstacles.add(botL);
-    Wall botL2 = new Wall(252, 475, 15, 140);
-    obstacles.add(botL2);
 
-    Wall botR = new Wall(800, 650, 800, 150);
+    Wall topM = new Wall(648, 0, 890, 240);
+    obstacles.add(topM);
+    Wall botM = new Wall(648, 636, 890, 240);
+    obstacles.add(botM);
+
+    Wall topR = new Wall(1856, 0, 450, 240);
+    obstacles.add(topR);
+    Wall botR = new Wall(1856, 636, 450, 240);
     obstacles.add(botR);
-    Wall botR2 = new Wall(553, 478, 25, 140);
-    obstacles.add(botR2);
+    
+    Wall goal = new Wall(1600, 0, 500, 240);
+    obstacles.add(goal);
 
     for (Obstacle o : obstacles) {
+      ((Rectangle) o).setArcWidth(60);
+      ((Rectangle) o).setArcHeight(60);
       root.getChildren().add((Shape) o);
     }
     for (Car c : cars) {
+      c.setVelocity(100);
       root.getChildren().add(c);
     }
 
-    addCar(new Car(488, 535, new Image("/resources/car_red_small_5.png")), image, 3);
+    addCar(new Car(600, 750, new Image("/resources/car_red_small_5.png")), image, 3);
     addMenuButton();
   }
 
@@ -652,13 +668,19 @@ public class DrivingAce extends Application {
           f.setFont(Font.font("Open Sans", 32));
           root.getChildren().add(f);
         }
-        for (Obstacle o : obstacles) {
           if (level == 2 && collisionCount < 10
               && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
                   .getElements().size() > 0) {
             levelEnd(true, 2);
             this.stop();
-          } else if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if
+          }
+          if (level == 3 && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
+                  .getElements().size() > 0) {
+            levelEnd(true, 3);
+            this.stop();
+          }
+        for (Obstacle o : obstacles) {
+          if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if
                                                                                           // crashed
             car.move(-t);
             car.setVelocity(-car.getVelocity());
@@ -745,28 +767,23 @@ public class DrivingAce extends Application {
     if (x > 0 || (x < -root.getWidth() / 2 && bounds.getMaxX() < margin)) { // past left edge of background
       offsetX = -x;
       x = 0;
-//      System.out.println(x + " " + offsetX + " " + bounds.getMaxX());
     } else if (x < rightEdgeLimit
         || (x > rightEdgeLimit + root.getWidth() / 2 && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge
       offsetX = -x + rightEdgeLimit;
       x = rightEdgeLimit;
-//      System.out.println(x + " " + offsetX + " " + bounds.getMaxX());
     }
     if (y > 0 || (y > -root.getHeight() / 2 && bounds.getMaxY() < margin)) { // past top edge of background
       offsetY = -y;
       y = 0;
-      System.out.println(y + " " + offsetY + " " + bounds.getMaxY());
     } else if (y < bottomEdgeLimit
         || (y < bottomEdgeLimit + root.getHeight() / 2 && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom
       // edge of
       // background
       offsetY = -y + bottomEdgeLimit;
       y = bottomEdgeLimit;
-      System.out.println(y + " " + offsetY + " " + bounds.getMaxY());
     }
-    // System.out.println(offsetX + " " + offsetY);
     car.translate(offsetX, offsetY);
-    car.move(-t);
+    car.move(-t, 0);
     for (Car c : cars) {
       c.translate(-car.predictMoveX(t) + offsetX, -car.predictMoveY(t) + offsetY);
     }
@@ -848,6 +865,7 @@ public class DrivingAce extends Application {
 
       root.getChildren().add(i);
 
+      if (level == 2) {
       Label a = new Label("Username: ");
       a.setLayoutX(130);
       a.setLayoutY(475);
@@ -912,7 +930,6 @@ public class DrivingAce extends Application {
         root.getChildren().remove(b);
         root.getChildren().remove(t);
         root.getChildren().add(menuBtn);
-        if (level != 3) {
           Label c = new Label("Your Score has been Recorded.");
           c.setLayoutX(250);
           c.setLayoutY(350);
@@ -934,9 +951,38 @@ public class DrivingAce extends Application {
                 intros(level + 1, intro3);
             }
           });
-        }
       });
       root.getChildren().add(m);
+      } else if (level == 1) {
+          MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
+          nextBtn.setLayoutX(310);
+          nextBtn.setLayoutY(420);
+          root.getChildren().add(nextBtn);
+          nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              if (level + 1 == 2)
+                intros(level + 1, intro2);
+              else
+                intros(level + 1, intro3);
+            }
+          });
+      } else if (level == 3) {
+        // TODO: make this go to main menu instead of 'next level'
+          MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
+          nextBtn.setLayoutX(310);
+          nextBtn.setLayoutY(420);
+          root.getChildren().add(nextBtn);
+          nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+              if (level + 1 == 2)
+                intros(level + 1, intro2);
+              else
+                intros(level + 1, intro3);
+            }
+          });
+      }
     }
   }
 
