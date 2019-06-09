@@ -122,7 +122,7 @@ public class DrivingAce extends Application {
   public void start(Stage primaryStage) {
     // TODO edit descriptions
     intro1 =
-        "Objective: Navigate the highway.\nYou fail if you crash into another car.\n\nPress a Key to Continue...";
+        "Objective: Navigate the highway and drive to the end of the road.\nYou fail if you crash into another car.\n\nPress a Key to Continue...";
     intro2 =
         "Objective: Complete the Obstacle Course.\nYou Fail After 10 Collisions.\n\nPress a Key to Continue...";
     intro3 =
