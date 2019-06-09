@@ -137,10 +137,10 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
 //    intro();
-    mainMenu();
+//    mainMenu();
 //    levelOne();
 //    levelTwo();
-  //  levelThree();
+    levelThree();
     primaryStage.show();
   }
 
@@ -409,10 +409,10 @@ public class DrivingAce extends Application {
     Image image = new Image("/resources/1.png", 0, 0, false, true);
     resetLevel(image);
 
-    cars.add(new Car(190, 420, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(190, 420, new Image("/resources/car_yellow_small_3.png"), 180));
     cars.add(new Car(190, 120, new Image("/resources/car_black_small_1.png"), 180));
     cars.add(new Car(250, 10, new Image("/resources/car_green_small_2.png"), 180));
-    cars.add(new Car(250, 500, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(250, 500, new Image("/resources/car_black_small_1.png"), 180));
     cars.add(new Car(310, 320, new Image("/resources/car_yellow_small_3.png"), 180));
     cars.add(new Car(310, 720, new Image("/resources/car_black_small_1.png"), 180));
     cars.add(new Car(370, 100, new Image("/resources/car_green_small_2.png"), 180));
@@ -574,18 +574,23 @@ public class DrivingAce extends Application {
     cars.add(new Car(-40, 100, new Image("/resources/car_black_small_1.png"), 180));
     cars.add(new Car(-40, 340, new Image("/resources/car_blue_small_4.png"), 180));
     cars.add(new Car(40, 220, new Image("/resources/car_green_small_2.png"), 180));
-    cars.add(new Car(40, 380, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(40, 380, new Image("/resources/car_yellow_small_3.png"), 180));
     cars.add(new Car(120, 120, new Image("/resources/car_yellow_small_3.png")));
-    cars.add(new Car(120, 200, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(120, 200, new Image("/resources/car_green_small_2.png")));
     cars.add(new Car(120, 360, new Image("/resources/car_blue_small_4.png")));
 
     cars.add(new Car(1160, 100, new Image("/resources/car_black_small_1.png"), 180));
-    cars.add(new Car(1160, 340, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(1160, 340, new Image("/resources/car_blue_small_4.png"), 180));
     cars.add(new Car(1240, 220, new Image("/resources/car_green_small_2.png"), 180));
     cars.add(new Car(1240, 380, new Image("/resources/car_yellow_small_3.png"), 180));
     cars.add(new Car(1320, 120, new Image("/resources/car_green_small_2.png")));
     cars.add(new Car(1320, 200, new Image("/resources/car_blue_small_4.png")));
     cars.add(new Car(1320, 360, new Image("/resources/car_yellow_small_3.png")));
+
+    cars.add(new Car(70, 50, new Image("/resources/car_yellow_small_3.png"), -90));
+    cars.add(new Car(180, 140, new Image("/resources/car_blue_small_4.png"), -90));
+    cars.add(new Car(500, 296, new Image("/resources/car_black_small_1.png"), 90));
+    cars.add(new Car(340, 380, new Image("/resources/car_yellow_small_3.png"), 90));
 
     Wall topL = new Wall(-400, -200, 326, 240);
     obstacles.add(topL);
@@ -658,14 +663,14 @@ public class DrivingAce extends Application {
             && !passed) { // whoa very long if statement
           passed = true;
           int oldSize = cars.size();
-          cars.add(new Car(170, 600, new Image("/resources/car_red_small_5.png")));
-          cars.add(new Car(230, 600, new Image("/resources/car_red_small_5.png")));
-          cars.add(new Car(290, 600, new Image("/resources/car_red_small_5.png")));
-          cars.add(new Car(350, 600, new Image("/resources/car_red_small_5.png")));
-          cars.add(new Car(420, 600, new Image("/resources/car_red_small_5.png")));
-          cars.add(new Car(490, 600, new Image("/resources/car_red_small_5.png")));
-          cars.add(new Car(550, 600, new Image("/resources/car_red_small_5.png")));
-          cars.add(new Car(610, 600, new Image("/resources/car_red_small_5.png")));
+          cars.add(new Car(170, 600, new Image("/resources/car_black_small_1.png")));
+          cars.add(new Car(230, 600, new Image("/resources/car_black_small_1.png")));
+          cars.add(new Car(290, 600, new Image("/resources/car_black_small_1.png")));
+          cars.add(new Car(350, 600, new Image("/resources/car_black_small_1.png")));
+          cars.add(new Car(420, 600, new Image("/resources/car_black_small_1.png")));
+          cars.add(new Car(490, 600, new Image("/resources/car_black_small_1.png")));
+          cars.add(new Car(550, 600, new Image("/resources/car_black_small_1.png")));
+          cars.add(new Car(610, 600, new Image("/resources/car_black_small_1.png")));
           for (int i = oldSize; i < cars.size(); i++) {
             cars.get(i).setVelocity(200);
             root.getChildren().add(cars.get(i));
@@ -923,11 +928,8 @@ public class DrivingAce extends Application {
             } else {
               ((StringProperty) observable).setValue(newValue);
             }
-//            t.positionCaret(observable.getValue().length() - 1);
           }
         });
-
-        // System.getProperty("user.home");
 
         MenuButton m = new MenuButton("Submit", 190, 49, 23);
         m.setLayoutX(550);
@@ -989,19 +991,8 @@ public class DrivingAce extends Application {
               intros(level + 1, intro3);
           }
         });
-      } else if (level == 3) {
-        // TODO: make this go to main menu instead of 'next level'
-        MenuButton nextBtn = new MenuButton("Main Menu", 190, 49, 23);
-        nextBtn.setLayoutX(310);
-        nextBtn.setLayoutY(420);
-        root.getChildren().add(nextBtn);
-        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            mainMenu();
-          }
-        });
       }
+      root.getChildren().add(menuBtn);
     }
   }
 
