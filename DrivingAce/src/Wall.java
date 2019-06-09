@@ -1,7 +1,6 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-
 /**
  * The Wall class.
  * 
@@ -11,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 public class Wall extends Rectangle implements Obstacle {
 
   /**
-   * Constructor.
+   * Constructor of the Wall class.
    * 
    * @param x x-coordinate
    * @param y y-coordinate
@@ -22,5 +21,4 @@ public class Wall extends Rectangle implements Obstacle {
     super(x, y, width, height);
     setFill(Color.TRANSPARENT);
   }
-
 }

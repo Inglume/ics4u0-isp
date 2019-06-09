@@ -43,8 +43,13 @@ import javafx.util.Duration;
 
 
 /**
- * The DrivingAce class. It is the main class that has all of the output and screens of the game.
- * 
+ * The DrivingAce class. It is the main class that has all of the output and screens of Driving Ace,
+ * a game that teaches users how to drive safer on the road.
+ * It has a menu and three levels.
+ * In level one, the driver lands in an inevitable crash that teaches a lesson about driving.
+ * In level two, the driver completes an obstacle course to learn how to drive better.
+ * In level three, the driver drives in a neighbourhood to learn to drive safely in a real-world
+ * situation.
  * 
  * @author Nicholas Glenn and Jerry Zhu
  * @version 3
@@ -117,7 +122,7 @@ public class DrivingAce extends Application {
   private String name;
 
   /**
-   * Starts program.
+   * Starts the program.
    */
   @Override
   public void start(Stage primaryStage) {
@@ -157,7 +162,6 @@ public class DrivingAce extends Application {
     imageView1.setFitHeight(250);
     imageView1.setFitWidth(250);
 
-
     root.getChildren().add(imageView1);
 
     FadeTransition ft = new FadeTransition(Duration.millis(4000), imageView1);
@@ -170,7 +174,7 @@ public class DrivingAce extends Application {
   }
 
   /**
-   * Main menu.
+   * The main menu screen of the game.
    */
   public void mainMenu() {
     collisionCount = 0;
@@ -300,7 +304,7 @@ public class DrivingAce extends Application {
   }
 
   /**
-   * Introduces level.
+   * The introduction screen for each level that contains the instructions.
    * 
    * @param l the level to open
    * @param str message included on introduction to level
@@ -439,7 +443,7 @@ public class DrivingAce extends Application {
 
 
   /**
-   * Level two.
+   * Level two of the game.
    */
   public void levelTwo() {
     Image image = new Image("/resources/2.png", 800, 615, false, true);
@@ -556,7 +560,7 @@ public class DrivingAce extends Application {
   }
 
   /**
-   * Level three.
+   * Level three of the game.
    */
   public void levelThree() {
     Image image = new Image("/resources/3.png", 0, 800, true, false);
@@ -648,7 +652,7 @@ public class DrivingAce extends Application {
   }
 
   /**
-   * Adds car to stage.
+   * Adds a user-controlled car to the screen.
    * 
    * @param car the car to add
    * @param image the background image

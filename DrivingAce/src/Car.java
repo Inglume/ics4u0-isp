@@ -63,7 +63,7 @@ public class Car extends Rectangle {
   private static final double width = 24;
 
   /**
-   * Constructor.
+   * Constructor of the car class.
    * 
    * @param x x coordinate
    * @param y y coordinate
@@ -106,6 +106,12 @@ public class Car extends Rectangle {
     center.getTransforms().add(new Rotate(direction, center.getX(), center.getY()));
   }
   
+  /**
+   * Predicts the x-coordinate of the car after movement.
+   * 
+   * @param t
+   * @return 
+   */
   public double predictMoveX(double t) {
     Bounds oldBounds = center.localToScene(center.getBoundsInLocal());
     move(t, 0);

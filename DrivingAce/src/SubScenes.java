@@ -1,11 +1,9 @@
 import java.io.*;
-import java.lang.reflect.Array;
 import javafx.animation.TranslateTransition;
 import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 
@@ -27,8 +25,7 @@ public class SubScenes extends SubScene {
   /**
    * SubsScenes constructor.
    * 
-   * @param i an int that stores whether the subscene is the Instructions screen or High Scores
-   *        Screen.
+   * @param i an int that stores whether the subscene is the Instructions screen or High Scores Screen.
    */
   public SubScenes(int i) {
     super(new AnchorPane(), 400, 330);
@@ -166,7 +163,7 @@ public class SubScenes extends SubScene {
 
 
   /**
-   * Moves the subscene.
+   * Moves the subscene into the main screen.
    */
   public void moveIn() {
     TranslateTransition trans = new TranslateTransition();
@@ -181,6 +178,10 @@ public class SubScenes extends SubScene {
     isVisible = !isVisible;
   }
 
+  /**
+   * Get method for the getVisible instance variable.
+   * @return isVisible boolean that stores whether the subscene is visible or not.
+   */
   public boolean getVisible() {
     return isVisible;
   }

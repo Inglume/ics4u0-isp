@@ -6,7 +6,7 @@ import javafx.scene.text.Font;
 
 
 /**
- * The MenuButton class.
+ * The MenuButton class, a custom button that is used numerous times in the game.
  * 
  * @author Jerry Zhu
  * @version 3
@@ -102,5 +102,4 @@ public class MenuButton extends Button {
       }
     });
   }
-
 }
