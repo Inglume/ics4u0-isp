@@ -116,11 +116,11 @@ public class DrivingAce extends Application {
   private String name;
 
   /**
-   * Runs everything.
+   * Starts program.
    */
   @Override
   public void start(Stage primaryStage) {
-    //TODO edit descriptions
+    // TODO edit descriptions
     intro1 =
         "Objective: Navigate the highway.\nYou fail if you crash into another car.\n\nPress a Key to Continue...";
     intro2 =
@@ -252,9 +252,9 @@ public class DrivingAce extends Application {
     // setting the fit height and width of the image view
     logo.setFitHeight(100);
     logo.setFitWidth(350);
-    logo.setOnMouseEntered(e->logo.setEffect(new DropShadow()));
+    logo.setOnMouseEntered(e -> logo.setEffect(new DropShadow()));
 
-    logo.setOnMouseExited(e-> logo.setEffect(null));
+    logo.setOnMouseExited(e -> logo.setEffect(null));
     root.getChildren().add(logo);
   }
 
@@ -317,7 +317,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(rect);
 
     if (l == 1) {
-      Image image = new Image("/resources/1.png", 800, 615, false, true);
+      Image image = new Image("/resources/1.png", 0, 0, false, true);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -333,9 +333,10 @@ public class DrivingAce extends Application {
         levelTwo();
       });
     } else {
-      Image image = new Image("/resources/3.jpg", 800, 615, false, true);
+      Image image = new Image("/resources/3.png", 0, 800, false, true);
+      BackgroundPosition bp = new BackgroundPosition(Side.LEFT, -400, false, Side.TOP, -200, false);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-          BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+          BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
       root.getScene().setOnKeyPressed(e -> {
         levelThree();
@@ -364,6 +365,7 @@ public class DrivingAce extends Application {
 
   /**
    * Resets the program after a level is finished.
+   * 
    * @param image stores the new background image.
    */
   public void resetLevel(Image image) {
@@ -379,6 +381,7 @@ public class DrivingAce extends Application {
 
   /**
    * Resets the program after a level is finished.
+   * 
    * @param image stores the new background image.
    * @param repeat stores whether the user repeats the level.
    */
@@ -420,21 +423,21 @@ public class DrivingAce extends Application {
     cars.add(new Car(570, 380, new Image("/resources/car_green_small_2.png")));
     cars.add(new Car(630, 270, new Image("/resources/car_yellow_small_3.png")));
     
-    //Wall leftWall = new Wall(0, 0, 415, 615);
-    Wall rightWall = new Wall(700, 0, 100, 3900);
-    obstacles.add(rightWall);
+    
     Wall leftWall = new Wall(0, 0, 137, 3900);
     obstacles.add(leftWall);
+    Wall rightWall = new Wall(700, 0, 100, 3900);
+    obstacles.add(rightWall);
+
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
-
     for (Car c : cars) {
-      c.setVelocity(200);
+      c.setVelocity(150);
       root.getChildren().add(c);
     }
 
-    addCar(new Car(200, 100, new Image("/resources/car_red_small_5.png"), 180), image, 1);
+    addCar(new Car(150, 100, new Image("/resources/car_red_small_5.png"), 180), image, 1);
     addMenuButton();
   }
 
@@ -560,42 +563,46 @@ public class DrivingAce extends Application {
    * Level three.
    */
   public void levelThree() {
-    //TODO edit obstacles
     Image image = new Image("/resources/3.png", 0, 800, true, false);
     resetLevel(image);
+    
+    BackgroundPosition bp = new BackgroundPosition(Side.LEFT, -400, false, Side.TOP, -200, false);
+    BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
+        BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);
+    root.setBackground(new Background(background));
+    
+    cars.add(new Car(-40, 100, new Image("/resources/car_black_small_1.png"), 180));
+    cars.add(new Car(-40, 340, new Image("/resources/car_blue_small_4.png"), 180));
+    cars.add(new Car(40, 220, new Image("/resources/car_green_small_2.png"), 180));
+    cars.add(new Car(40, 380, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(120, 120, new Image("/resources/car_yellow_small_3.png")));
+    cars.add(new Car(120, 200, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(120, 360, new Image("/resources/car_blue_small_4.png")));
 
-    cars.add(new Car(360, 100, new Image("/resources/car_black_small_1.png"), 180));
-    cars.add(new Car(360, 340, new Image("/resources/car_blue_small_4.png"), 180));
-    cars.add(new Car(440, 220, new Image("/resources/car_green_small_2.png"), 180));
-    cars.add(new Car(440, 380, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(520, 120, new Image("/resources/car_yellow_small_3.png")));
-    cars.add(new Car(520, 200, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(520, 360, new Image("/resources/car_blue_small_4.png")));
+    cars.add(new Car(1160, 100, new Image("/resources/car_black_small_1.png"), 180));
+    cars.add(new Car(1160, 340, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(1240, 220, new Image("/resources/car_green_small_2.png"), 180));
+    cars.add(new Car(1240, 380, new Image("/resources/car_yellow_small_3.png"), 180));
+    cars.add(new Car(1320, 120, new Image("/resources/car_green_small_2.png")));
+    cars.add(new Car(1320, 200, new Image("/resources/car_blue_small_4.png")));
+    cars.add(new Car(1320, 360, new Image("/resources/car_yellow_small_3.png")));
 
-    cars.add(new Car(1560, 100, new Image("/resources/car_black_small_1.png"), 180));
-    cars.add(new Car(1560, 340, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(1640, 220, new Image("/resources/car_green_small_2.png"), 180));
-    cars.add(new Car(1640, 380, new Image("/resources/car_yellow_small_3.png"), 180));
-    cars.add(new Car(1720, 120, new Image("/resources/car_green_small_2.png")));
-    cars.add(new Car(1720, 200, new Image("/resources/car_blue_small_4.png")));
-    cars.add(new Car(1720, 360, new Image("/resources/car_yellow_small_3.png")));
-
-    Wall topL = new Wall(0, 0, 326, 240);
+    Wall topL = new Wall(-400, -200, 326, 240);
     obstacles.add(topL);
-    Wall botL = new Wall(0, 636, 326, 240);
+    Wall botL = new Wall(-400, 436, 326, 240);
     obstacles.add(botL);
 
-    Wall topM = new Wall(648, 0, 890, 240);
+    Wall topM = new Wall(248, -200, 890, 240);
     obstacles.add(topM);
-    Wall botM = new Wall(648, 636, 890, 240);
+    Wall botM = new Wall(248, 436, 890, 240);
     obstacles.add(botM);
 
-    Wall topR = new Wall(1856, 0, 450, 240);
+    Wall topR = new Wall(1456, -200, 450, 240);
     obstacles.add(topR);
-    Wall botR = new Wall(1856, 636, 450, 240);
+    Wall botR = new Wall(1456, 436, 450, 240);
     obstacles.add(botR);
-    
-    Wall goal = new Wall(1600, 0, 500, 240);
+
+    Wall goal = new Wall(1300, -200, 500, 100);
     obstacles.add(goal);
 
     for (Obstacle o : obstacles) {
@@ -608,7 +615,7 @@ public class DrivingAce extends Application {
       root.getChildren().add(c);
     }
 
-    addCar(new Car(600, 750, new Image("/resources/car_red_small_5.png")), image, 3);
+    addCar(new Car(200, 550, new Image("/resources/car_red_small_5.png")), image, 3);
     addMenuButton();
   }
 
@@ -617,13 +624,15 @@ public class DrivingAce extends Application {
    * 
    * @param car the car to add
    * @param image the background image
+   * @param level the level the car will be added to
    */
   public void addCar(Car car, Image image, int level) {
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
     lastNanoTime = System.nanoTime();
     animationTimer = new AnimationTimer() {
-      boolean passed = false;
+    boolean passed = false;
+
       @Override
       public void handle(long currentNanoTime) {
         double t = (currentNanoTime - lastNanoTime) / 1_000_000_000.0;
@@ -644,23 +653,23 @@ public class DrivingAce extends Application {
         if (input.contains("SPACE")) {
           car.brake();
         }
-        if (level == 1 && root.getBackground().getImages().get(0).getPosition().getVerticalPosition() < -3000 && !passed) { // whoa very long if statement
-          System.out.println(root.getBackground().getImages().get(0).getPosition().getVerticalPosition());
-          System.out.println(-root.getBackground().getImages().get(0).getSize().getHeight());
+        if (level == 1
+            && root.getBackground().getImages().get(0).getPosition().getVerticalPosition() < -3000
+            && !passed) { // whoa very long if statement
           passed = true;
           int oldSize = cars.size();
-    cars.add(new Car(170, 600, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(230, 600, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(290, 600, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(350, 600, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(420, 600, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(490, 600, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(550, 600, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(610, 600, new Image("/resources/car_red_small_5.png")));
-    for (int i = oldSize; i < cars.size(); i++) {
-      cars.get(i).setVelocity(100);
-      root.getChildren().add(cars.get(i));
-    }
+          cars.add(new Car(170, 600, new Image("/resources/car_red_small_5.png")));
+          cars.add(new Car(230, 600, new Image("/resources/car_red_small_5.png")));
+          cars.add(new Car(290, 600, new Image("/resources/car_red_small_5.png")));
+          cars.add(new Car(350, 600, new Image("/resources/car_red_small_5.png")));
+          cars.add(new Car(420, 600, new Image("/resources/car_red_small_5.png")));
+          cars.add(new Car(490, 600, new Image("/resources/car_red_small_5.png")));
+          cars.add(new Car(550, 600, new Image("/resources/car_red_small_5.png")));
+          cars.add(new Car(610, 600, new Image("/resources/car_red_small_5.png")));
+          for (int i = oldSize; i < cars.size(); i++) {
+            cars.get(i).setVelocity(200);
+            root.getChildren().add(cars.get(i));
+          }
         }
         if (collisionCount == 0 && level == 2) {
           Label f = new Label("10");
@@ -669,20 +678,20 @@ public class DrivingAce extends Application {
           f.setFont(Font.font("Open Sans", 32));
           root.getChildren().add(f);
         }
-          if (level == 2 && collisionCount < 10
-              && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
-                  .getElements().size() > 0) {
-            levelEnd(true, 2);
-            this.stop();
-          }
-          if (level == 3 && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
-                  .getElements().size() > 0) {
-            levelEnd(true, 3);
-            this.stop();
-          }
+        if (level == 2 && collisionCount < 10
+            && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
+                .getElements().size() > 0) {
+          levelEnd(true, 2);
+          this.stop();
+        }
+        if (level == 3 && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
+            .getElements().size() > 0) {
+          levelEnd(true, 3);
+          this.stop();
+        }
         for (Obstacle o : obstacles) {
           if (((Path) Shape.intersect(car, (Shape) o)).getElements().size() > 0) { // if
-                                                                                          // crashed
+                                                                                   // crashed
             car.move(-t);
             car.setVelocity(-car.getVelocity());
 
@@ -705,10 +714,12 @@ public class DrivingAce extends Application {
         }
         for (Car c : cars) {
           if (((Path) Shape.intersect(car, (Shape) c)).getElements().size() > 0) { // if crashed
-            // TODO: you lose screen with different description based on level. If it's level one make it have stuff that explains why following the rules is so important.
-            // can use passed boolean variable to change type of ending screen
-            car.move(-t);
-            car.setVelocity(-car.getVelocity());
+            // TODO: you lose screen with different description based on level.
+            if (level == 1) {
+              levelEnd(passed, 1);
+            }
+//            car.move(-t);
+//            car.setVelocity(-car.getVelocity());
           }
           c.move(t, 0);
           Bounds bounds = c.localToScene(c.getBoundsInLocal());
@@ -751,12 +762,16 @@ public class DrivingAce extends Application {
 
   /**
    * Moves background depending on where the car is in location to the screen.
+   * 
+   * @param car the car the player controls
+   * @param t time elapsed
    */
   public void updateBackground(Car car, double t) {
     BackgroundPosition oldBackgroundPosition =
         root.getBackground().getImages().get(0).getPosition();
     Image image = root.getBackground().getImages().get(0).getImage();
-    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal());
+
+    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal()); // Taken from {} https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
     double x = oldBackgroundPosition.getHorizontalPosition() - car.predictMoveX(t);
     double y = oldBackgroundPosition.getVerticalPosition() - car.predictMoveY(t);
     double offsetX = 0;
@@ -765,19 +780,21 @@ public class DrivingAce extends Application {
     double bottomEdgeLimit = -image.getHeight() + root.getHeight();
     double margin = 100;
 
-    if (x > 0 || (x < -root.getWidth() / 2 && bounds.getMaxX() < margin)) { // past left edge of background
+    if (x > 0 || (x < -root.getWidth() / 2 && bounds.getMaxX() < margin)) { // past left edge of
+                                                                            // background
       offsetX = -x;
       x = 0;
-    } else if (x < rightEdgeLimit
-        || (x > rightEdgeLimit + root.getWidth() / 2 && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge
+    } else if (x < rightEdgeLimit || (x > rightEdgeLimit + root.getWidth() / 2
+        && bounds.getMaxX() > root.getWidth() - margin)) { // past right edge
       offsetX = -x + rightEdgeLimit;
       x = rightEdgeLimit;
     }
-    if (y > 0 || (y > -root.getHeight() / 2 && bounds.getMaxY() < margin)) { // past top edge of background
+    if (y > 0 || (y > -root.getHeight() / 2 && bounds.getMaxY() < margin)) { // past top edge of
+                                                                             // background
       offsetY = -y;
       y = 0;
-    } else if (y < bottomEdgeLimit
-        || (y < bottomEdgeLimit + root.getHeight() / 2 && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom
+    } else if (y < bottomEdgeLimit || (y < bottomEdgeLimit + root.getHeight() / 2
+        && bounds.getMaxY() > root.getHeight() - margin)) { // past bottom
       // edge of
       // background
       offsetY = -y + bottomEdgeLimit;
@@ -867,70 +884,71 @@ public class DrivingAce extends Application {
       root.getChildren().add(i);
 
       if (level == 2) {
-      Label a = new Label("Username: ");
-      a.setLayoutX(130);
-      a.setLayoutY(475);
-      a.setFont(Font.font("open sans", 25));
-      a.setTextFill(Color.web("#FFFFFF"));
-      root.getChildren().add(a);
-      
-      Label b = new Label("Your Score is : " + (10-collisionCount)*100);
-      b.setLayoutX(130);
-      b.setLayoutY(420);
-      b.setFont(Font.font("open sans", 25));
-      b.setTextFill(Color.web("#FFFFFF"));
-      root.getChildren().add(b);
+        Label a = new Label("Username: ");
+        a.setLayoutX(130);
+        a.setLayoutY(475);
+        a.setFont(Font.font("open sans", 25));
+        a.setTextFill(Color.web("#FFFFFF"));
+        root.getChildren().add(a);
 
-      TextField t = new TextField();
-      t.setText(null);
-      t.setLayoutX(260);
-      t.setLayoutY(470);
-      t.setMaxHeight(50);
-      t.setMinHeight(50);
-      t.setMaxWidth(250);
-      t.setMinWidth(250);
-      t.setFont(Font.font("open sans", 20));
-      root.getChildren().add(t);
+        Label b = new Label("Your Score is : " + (10 - collisionCount) * 100);
+        b.setLayoutX(130);
+        b.setLayoutY(420);
+        b.setFont(Font.font("open sans", 25));
+        b.setTextFill(Color.web("#FFFFFF"));
+        root.getChildren().add(b);
 
-      t.textProperty().addListener((observable, oldValue, newValue) -> {
-        if (newValue.length() > 0) {
-          //TODO limit length of username
-          char c = newValue.charAt(newValue.length() - 1);
-          if (!(c >= 65 && c <= 90) && !(c >= 97 && c <= 122)) {
-            ((StringProperty) observable).setValue(oldValue);
+        TextField t = new TextField();
+        t.setText(null);
+        t.setLayoutX(260);
+        t.setLayoutY(470);
+        t.setMaxHeight(50);
+        t.setMinHeight(50);
+        t.setMaxWidth(250);
+        t.setMinWidth(250);
+        t.setFont(Font.font("open sans", 20));
+        root.getChildren().add(t);
+
+        t.textProperty().addListener((observable, oldValue, newValue) -> {
+          if (newValue.length() > 0) {
+            // TODO limit length of username
+            char c = newValue.charAt(newValue.length() - 1);
+            if (!(c >= 65 && c <= 90) && !(c >= 97 && c <= 122)) {
+              ((StringProperty) observable).setValue(oldValue);
+            } else if (newValue.length() > 8) {
+              ((StringProperty) observable).setValue(oldValue);
+            } else {
+              ((StringProperty) observable).setValue(newValue);
+            }
+            t.positionCaret(observable.getValue().length() - 1);
           }
-          else {
-          ((StringProperty) observable).setValue(newValue);
+        });
+
+        // System.getProperty("user.home");
+
+        MenuButton m = new MenuButton("Submit", 190, 49, 23);
+        m.setLayoutX(550);
+        m.setLayoutY(470);
+        m.setOnAction(e -> {
+          name = t.getText();
+
+          try {
+            new File(System.getProperty("user.home") + "/DrivingAce/").mkdirs();
+            File file = new File(System.getProperty("user.home") + "/DrivingAce/highscores.txt");
+            file.createNewFile();
+            PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+            output.println(name);
+            output.println((10 - collisionCount) * 100);
+            output.close();
+          } catch (IOException n) {
+            n.printStackTrace();
           }
-          t.positionCaret(observable.getValue().length() - 1);
-        }
-      });
 
-      // System.getProperty("user.home");
-
-      MenuButton m = new MenuButton("Submit", 190, 49, 23);
-      m.setLayoutX(550);
-      m.setLayoutY(470);
-      m.setOnAction(e -> {
-        name = t.getText();
-        
-        try
-        {
-          new File(System.getProperty("user.home")+ "/DrivingAce/").mkdirs();
-          File file = new File(System.getProperty("user.home")+ "/DrivingAce/highscores.txt");
-          file.createNewFile();
-          PrintWriter output = new PrintWriter (new BufferedWriter (new FileWriter (file)));
-          output.println (name);
-          output.println ((10-collisionCount)*100);
-          output.close ();
-        }
-        catch (IOException n) {n.printStackTrace();}
-        
-        root.getChildren().remove(m);
-        root.getChildren().remove(a);
-        root.getChildren().remove(b);
-        root.getChildren().remove(t);
-        root.getChildren().add(menuBtn);
+          root.getChildren().remove(m);
+          root.getChildren().remove(a);
+          root.getChildren().remove(b);
+          root.getChildren().remove(t);
+          root.getChildren().add(menuBtn);
           Label c = new Label("Your Score has been Recorded.");
           c.setLayoutX(250);
           c.setLayoutY(350);
@@ -952,37 +970,34 @@ public class DrivingAce extends Application {
                 intros(level + 1, intro3);
             }
           });
-      });
-      root.getChildren().add(m);
+        });
+        root.getChildren().add(m);
       } else if (level == 1) {
-          MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
-          nextBtn.setLayoutX(310);
-          nextBtn.setLayoutY(420);
-          root.getChildren().add(nextBtn);
-          nextBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-              if (level + 1 == 2)
-                intros(level + 1, intro2);
-              else
-                intros(level + 1, intro3);
-            }
-          });
+        MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
+        nextBtn.setLayoutX(310);
+        nextBtn.setLayoutY(420);
+        root.getChildren().add(nextBtn);
+        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            if (level + 1 == 2)
+              intros(level + 1, intro2);
+            else
+              intros(level + 1, intro3);
+          }
+        });
       } else if (level == 3) {
         // TODO: make this go to main menu instead of 'next level'
-          MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
-          nextBtn.setLayoutX(310);
-          nextBtn.setLayoutY(420);
-          root.getChildren().add(nextBtn);
-          nextBtn.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-              if (level + 1 == 2)
-                intros(level + 1, intro2);
-              else
-                intros(level + 1, intro3);
-            }
-          });
+        MenuButton nextBtn = new MenuButton("Main Menu", 190, 49, 23);
+        nextBtn.setLayoutX(310);
+        nextBtn.setLayoutY(420);
+        root.getChildren().add(nextBtn);
+        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            mainMenu();
+          }
+        });
       }
     }
   }
