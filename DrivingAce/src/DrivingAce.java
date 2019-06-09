@@ -407,18 +407,18 @@ public class DrivingAce extends Application {
     resetLevel(image);
 
     cars.add(new Car(190, 420, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(190, 120, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(250, 10, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(190, 120, new Image("/resources/car_black_small_1.png"), 180));
+    cars.add(new Car(250, 10, new Image("/resources/car_green_small_2.png"), 180));
     cars.add(new Car(250, 500, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(310, 320, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(310, 720, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(370, 100, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(370, 600, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(310, 320, new Image("/resources/car_yellow_small_3.png"), 180));
+    cars.add(new Car(310, 720, new Image("/resources/car_black_small_1.png"), 180));
+    cars.add(new Car(370, 100, new Image("/resources/car_green_small_2.png"), 180));
+    cars.add(new Car(370, 600, new Image("/resources/car_blue_small_4.png"), 180));
 
-    cars.add(new Car(440, 220, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(510, 20, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(570, 380, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(630, 270, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(440, 220, new Image("/resources/car_black_small_1.png")));
+    cars.add(new Car(510, 20, new Image("/resources/car_blue_small_4.png")));
+    cars.add(new Car(570, 380, new Image("/resources/car_green_small_2.png")));
+    cars.add(new Car(630, 270, new Image("/resources/car_yellow_small_3.png")));
     
     //Wall leftWall = new Wall(0, 0, 415, 615);
     Wall rightWall = new Wall(700, 0, 100, 3900);
@@ -564,21 +564,21 @@ public class DrivingAce extends Application {
     Image image = new Image("/resources/3.png", 0, 800, true, false);
     resetLevel(image);
 
-    cars.add(new Car(360, 100, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(360, 340, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(440, 220, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(360, 100, new Image("/resources/car_black_small_1.png"), 180));
+    cars.add(new Car(360, 340, new Image("/resources/car_blue_small_4.png"), 180));
+    cars.add(new Car(440, 220, new Image("/resources/car_green_small_2.png"), 180));
     cars.add(new Car(440, 380, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(520, 120, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(520, 120, new Image("/resources/car_yellow_small_3.png")));
     cars.add(new Car(520, 200, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(520, 360, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(520, 360, new Image("/resources/car_blue_small_4.png")));
 
-    cars.add(new Car(1560, 100, new Image("/resources/car_red_small_5.png"), 180));
+    cars.add(new Car(1560, 100, new Image("/resources/car_black_small_1.png"), 180));
     cars.add(new Car(1560, 340, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(1640, 220, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(1640, 380, new Image("/resources/car_red_small_5.png"), 180));
-    cars.add(new Car(1720, 120, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(1720, 200, new Image("/resources/car_red_small_5.png")));
-    cars.add(new Car(1720, 360, new Image("/resources/car_red_small_5.png")));
+    cars.add(new Car(1640, 220, new Image("/resources/car_green_small_2.png"), 180));
+    cars.add(new Car(1640, 380, new Image("/resources/car_yellow_small_3.png"), 180));
+    cars.add(new Car(1720, 120, new Image("/resources/car_green_small_2.png")));
+    cars.add(new Car(1720, 200, new Image("/resources/car_blue_small_4.png")));
+    cars.add(new Car(1720, 360, new Image("/resources/car_yellow_small_3.png")));
 
     Wall topL = new Wall(0, 0, 326, 240);
     obstacles.add(topL);
