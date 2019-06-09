@@ -716,6 +716,10 @@ public class DrivingAce extends Application {
             // TODO: you lose screen with different description based on level.
             if (level == 1) {
               levelEnd(passed, 1);
+                this.stop();
+            } else {
+              levelEnd(false, 3);
+                this.stop();
             }
 //            car.move(-t);
 //            car.setVelocity(-car.getVelocity());
@@ -910,7 +914,6 @@ public class DrivingAce extends Application {
 
         t.textProperty().addListener((observable, oldValue, newValue) -> {
           if (newValue.length() > 0) {
-            // TODO limit length of username
             char c = newValue.charAt(newValue.length() - 1);
             if (!(c >= 65 && c <= 90) && !(c >= 97 && c <= 122)) {
               ((StringProperty) observable).setValue(oldValue);
@@ -919,7 +922,7 @@ public class DrivingAce extends Application {
             } else {
               ((StringProperty) observable).setValue(newValue);
             }
-            t.positionCaret(observable.getValue().length() - 1);
+//            t.positionCaret(observable.getValue().length() - 1);
           }
         });
 
