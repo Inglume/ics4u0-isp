@@ -121,7 +121,6 @@ public class DrivingAce extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
-    // TODO edit descriptions
     intro1 =
         "Objective: Navigate the highway and drive to the end\nof the road.\nYou fail if you crash into another car.\n\nPress a Key to Continue...";
     intro2 =
@@ -138,10 +137,6 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
     intro();
-   // mainMenu();
-//    levelOne();
-//    levelTwo();
-//    levelThree();
     primaryStage.show();
   }
 
@@ -423,8 +418,8 @@ public class DrivingAce extends Application {
     cars.add(new Car(510, 20, new Image("/resources/car_blue_small_4.png")));
     cars.add(new Car(570, 380, new Image("/resources/car_green_small_2.png")));
     cars.add(new Car(630, 270, new Image("/resources/car_yellow_small_3.png")));
-    
-    
+
+
     Wall leftWall = new Wall(0, 0, 137, 3900);
     obstacles.add(leftWall);
     Wall rightWall = new Wall(700, 0, 100, 3900);
@@ -566,12 +561,12 @@ public class DrivingAce extends Application {
   public void levelThree() {
     Image image = new Image("/resources/3.png", 0, 800, true, false);
     resetLevel(image);
-    
+
     BackgroundPosition bp = new BackgroundPosition(Side.LEFT, -400, false, Side.TOP, -200, false);
     BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
         BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);
     root.setBackground(new Background(background));
-    
+
     cars.add(new Car(-40, 100, new Image("/resources/car_black_small_1.png"), 180));
     cars.add(new Car(-40, 340, new Image("/resources/car_blue_small_4.png"), 180));
     cars.add(new Car(40, 220, new Image("/resources/car_green_small_2.png"), 180));
@@ -610,34 +605,34 @@ public class DrivingAce extends Application {
 
     Wall left = new Wall(-399, 40, 485, 500);
     obstacles.add(left);
-    
-    Wall right = new Wall(1460, 35, 2, 510); //rightmost
+
+    Wall right = new Wall(1460, 35, 2, 510); // rightmost
     obstacles.add(right);
-    
+
     Wall leftBot = new Wall(100, 600, 380, 2);
     obstacles.add(leftBot);
     Wall bot = new Wall(-75, 465, 160, 240);
     obstacles.add(bot);
     Wall rightBot = new Wall(1100, 465, 380, 240);
     obstacles.add(rightBot);
-    
+
     Wall top = new Wall(-75, -200, 325, 240);
     obstacles.add(top);
-    
+
     Wall mid = new Wall(85, 40, 500, 240);
     obstacles.add(mid);
     Wall mid2 = new Wall(586, 0, 180, 240);
     obstacles.add(mid2);
     Wall mid3 = new Wall(767, -40, 350, 240);
     obstacles.add(mid3);
-    
+
     Wall beside = new Wall(1100, -200, 198, 216);
     obstacles.add(beside);
-    
+
     Wall goal = new Wall(1300, -200, 500, 100);
     obstacles.add(goal);
-    
-    
+
+
     for (Obstacle o : obstacles) {
       ((Rectangle) o).setArcWidth(60);
       ((Rectangle) o).setArcHeight(60);
@@ -664,7 +659,7 @@ public class DrivingAce extends Application {
     ArrayList<String> input = new ArrayList<String>();
     lastNanoTime = System.nanoTime();
     animationTimer = new AnimationTimer() {
-    boolean passed = false;
+      boolean passed = false;
 
       @Override
       public void handle(long currentNanoTime) {
@@ -714,6 +709,7 @@ public class DrivingAce extends Application {
         if (level == 2 && collisionCount < 10
             && ((Path) Shape.intersect(car, (Shape) obstacles.get(obstacles.size() - 1)))
                 .getElements().size() > 0) {
+          passed = true;
           levelEnd(true, 2);
           this.stop();
         }
@@ -728,7 +724,7 @@ public class DrivingAce extends Application {
             car.move(-t);
             car.setVelocity(-car.getVelocity());
 
-            if (level == 2) {
+            if (level == 2 && !passed) {
               Rectangle rect = new Rectangle(45, 50, 60, 40);
               rect.setFill(Color.WHITE);
               root.getChildren().add(rect);
@@ -747,16 +743,13 @@ public class DrivingAce extends Application {
         }
         for (Car c : cars) {
           if (((Path) Shape.intersect(car, (Shape) c)).getElements().size() > 0) { // if crashed
-            // TODO: you lose screen with different description based on level.
             if (level == 1) {
               levelEnd(passed, 1);
-                this.stop();
+              this.stop();
             } else {
               levelEnd(false, 3);
-                this.stop();
+              this.stop();
             }
-//            car.move(-t);
-//            car.setVelocity(-car.getVelocity());
           }
           c.move(t, 0);
           Bounds bounds = c.localToScene(c.getBoundsInLocal());
@@ -808,7 +801,8 @@ public class DrivingAce extends Application {
         root.getBackground().getImages().get(0).getPosition();
     Image image = root.getBackground().getImages().get(0).getImage();
 
-    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal()); // Taken from {} https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
+    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal()); // Taken from {}
+                                                                            // https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
     double x = oldBackgroundPosition.getHorizontalPosition() - car.predictMoveX(t);
     double y = oldBackgroundPosition.getVerticalPosition() - car.predictMoveY(t);
     double offsetX = 0;
@@ -920,7 +914,34 @@ public class DrivingAce extends Application {
 
       root.getChildren().add(i);
 
-      if (level == 2) {
+      if (level == 1) {
+        i.setY(50);
+        Label a = new Label("What happened at the end was that numerous cars crashed into you\n"
+            + "and both of you died. Incidentally, those drivers were young drivers\n"
+            + "just like you who suffer from road rage and ODD. You did a great job\n"
+            + "following the rules but they didn't. They saw fit to disobey the rules. It\n"
+            + "demonstrates that unsound driving is extremely dangerous for both you\n"
+            + "and those around you, making it especially important for you to be a\n"
+            + "cautious driver and to follow the rules.");
+        a.setLayoutX(120);
+        a.setLayoutY(180);
+        a.setFont(Font.font("open sans", 18));
+        a.setTextFill(Color.web("#FFFFFF"));
+        root.getChildren().add(a);
+        MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
+        nextBtn.setLayoutX(310);
+        nextBtn.setLayoutY(420);
+        root.getChildren().add(nextBtn);
+        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            if (level + 1 == 2)
+              intros(level + 1, intro2);
+            else
+              intros(level + 1, intro3);
+          }
+        });
+      } else if (level == 2) {
         Label a = new Label("Username: ");
         a.setLayoutX(130);
         a.setLayoutY(475);
@@ -1005,22 +1026,10 @@ public class DrivingAce extends Application {
           });
         });
         root.getChildren().add(m);
-      } else if (level == 1) {
-        MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
-        nextBtn.setLayoutX(310);
-        nextBtn.setLayoutY(420);
-        root.getChildren().add(nextBtn);
-        nextBtn.setOnAction(new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            if (level + 1 == 2)
-              intros(level + 1, intro2);
-            else
-              intros(level + 1, intro3);
-          }
-        });
       }
-      root.getChildren().add(menuBtn);
+      if (level != 2) {
+        root.getChildren().add(menuBtn);
+      }
     }
   }
 
