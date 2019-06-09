@@ -116,7 +116,7 @@ public class DrivingAce extends Application {
   private String name;
 
   /**
-   * Runs everything.
+   * Starts program.
    */
   @Override
   public void start(Stage primaryStage) {
@@ -137,9 +137,9 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
 //    intro();
-    // levelOne();
-    // levelTwo();
-     levelThree();
+//     levelOne();
+     levelTwo();
+//     levelThree();
     primaryStage.show();
   }
 
@@ -316,7 +316,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(rect);
 
     if (l == 1) {
-      Image image = new Image("/resources/1.png", 800, 615, false, true);
+      Image image = new Image("/resources/1.png", 0, 0, false, true);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -332,9 +332,10 @@ public class DrivingAce extends Application {
         levelTwo();
       });
     } else {
-      Image image = new Image("/resources/3.jpg", 800, 615, false, true);
+      Image image = new Image("/resources/3.png", 0, 800, false, true);
+      BackgroundPosition bp = new BackgroundPosition(Side.LEFT, -400, false, Side.TOP, -200, false);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
-          BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+          BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
       root.getScene().setOnKeyPressed(e -> {
         levelThree();
@@ -421,21 +422,20 @@ public class DrivingAce extends Application {
     cars.add(new Car(570, 380, new Image("/resources/car_red_small_5.png")));
     cars.add(new Car(630, 270, new Image("/resources/car_red_small_5.png")));
 
-    // Wall leftWall = new Wall(0, 0, 415, 615);
-    Wall rightWall = new Wall(700, 0, 100, 3900);
-    obstacles.add(rightWall);
     Wall leftWall = new Wall(0, 0, 137, 3900);
     obstacles.add(leftWall);
+    Wall rightWall = new Wall(700, 0, 100, 3900);
+    obstacles.add(rightWall);
+
     for (Obstacle o : obstacles) {
       root.getChildren().add((Shape) o);
     }
-
     for (Car c : cars) {
       c.setVelocity(150);
       root.getChildren().add(c);
     }
 
-    addCar(new Car(200, 100, new Image("/resources/car_red_small_5.png"), 180), image, 1);
+    addCar(new Car(150, 100, new Image("/resources/car_red_small_5.png"), 180), image, 1);
     addMenuButton();
   }
 
@@ -622,13 +622,14 @@ public class DrivingAce extends Application {
    * 
    * @param car the car to add
    * @param image the background image
+   * @param level the level the car will be added to
    */
   public void addCar(Car car, Image image, int level) {
     root.getChildren().add(car);
     ArrayList<String> input = new ArrayList<String>();
     lastNanoTime = System.nanoTime();
     animationTimer = new AnimationTimer() {
-      boolean passed = false;
+    boolean passed = false;
 
       @Override
       public void handle(long currentNanoTime) {
@@ -711,11 +712,12 @@ public class DrivingAce extends Application {
         }
         for (Car c : cars) {
           if (((Path) Shape.intersect(car, (Shape) c)).getElements().size() > 0) { // if crashed
-            // TODO: you lose screen with different description based on level. If it's level one
-            // make it have stuff that explains why following the rules is so important.
-            // can use passed boolean variable to change type of ending screen
-            car.move(-t);
-            car.setVelocity(-car.getVelocity());
+            // TODO: you lose screen with different description based on level.
+            if (level == 1) {
+              levelEnd(passed, 1);
+            }
+//            car.move(-t);
+//            car.setVelocity(-car.getVelocity());
           }
           c.move(t, 0);
           Bounds bounds = c.localToScene(c.getBoundsInLocal());
@@ -758,12 +760,16 @@ public class DrivingAce extends Application {
 
   /**
    * Moves background depending on where the car is in location to the screen.
+   * 
+   * @param car the car the player controls
+   * @param t time elapsed
    */
   public void updateBackground(Car car, double t) {
     BackgroundPosition oldBackgroundPosition =
         root.getBackground().getImages().get(0).getPosition();
     Image image = root.getBackground().getImages().get(0).getImage();
-    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal());
+
+    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal()); // Taken from {} https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
     double x = oldBackgroundPosition.getHorizontalPosition() - car.predictMoveX(t);
     double y = oldBackgroundPosition.getVerticalPosition() - car.predictMoveY(t);
     double offsetX = 0;
@@ -907,6 +913,8 @@ public class DrivingAce extends Application {
             char c = newValue.charAt(newValue.length() - 1);
             if (!(c >= 65 && c <= 90) && !(c >= 97 && c <= 122)) {
               ((StringProperty) observable).setValue(oldValue);
+            } else if (newValue.length() > 8) {
+              ((StringProperty) observable).setValue(oldValue);
             } else {
               ((StringProperty) observable).setValue(newValue);
             }
@@ -978,17 +986,14 @@ public class DrivingAce extends Application {
         });
       } else if (level == 3) {
         // TODO: make this go to main menu instead of 'next level'
-        MenuButton nextBtn = new MenuButton("Next Level", 190, 49, 23);
+        MenuButton nextBtn = new MenuButton("Main Menu", 190, 49, 23);
         nextBtn.setLayoutX(310);
         nextBtn.setLayoutY(420);
         root.getChildren().add(nextBtn);
         nextBtn.setOnAction(new EventHandler<ActionEvent>() {
           @Override
           public void handle(ActionEvent event) {
-            if (level + 1 == 2)
-              intros(level + 1, intro2);
-            else
-              intros(level + 1, intro3);
+            mainMenu();
           }
         });
       }
