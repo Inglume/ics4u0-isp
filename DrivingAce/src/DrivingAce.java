@@ -122,7 +122,7 @@ public class DrivingAce extends Application {
   public void start(Stage primaryStage) {
     // TODO edit descriptions
     intro1 =
-        "Objective: Navigate the highway.\nYou fail if you crash into another car.\n\nPress a Key to Continue...";
+        "Objective: Navigate the highway and drive to the end\nof the road.\nYou fail if you crash into another car.\n\nPress a Key to Continue...";
     intro2 =
         "Objective: Complete the Obstacle Course.\nYou Fail After 10 Collisions.\n\nPress a Key to Continue...";
     intro3 =
@@ -137,7 +137,7 @@ public class DrivingAce extends Application {
     primaryStage.setTitle("Driving Ace");
     primaryStage.setScene(scene);
 //    intro();
-//    mainMenu();
+   // mainMenu();
 //    levelOne();
 //    levelTwo();
     levelThree();
@@ -607,9 +607,36 @@ public class DrivingAce extends Application {
     Wall botR = new Wall(1456, 436, 450, 240);
     obstacles.add(botR);
 
+    Wall left = new Wall(-399, 40, 485, 500);
+    obstacles.add(left);
+    
+    Wall right = new Wall(1460, 35, 2, 510); //rightmost
+    obstacles.add(right);
+    
+    Wall leftBot = new Wall(100, 600, 380, 2);
+    obstacles.add(leftBot);
+    Wall bot = new Wall(-75, 465, 160, 240);
+    obstacles.add(bot);
+    Wall rightBot = new Wall(1100, 465, 380, 240);
+    obstacles.add(rightBot);
+    
+    Wall top = new Wall(-75, -200, 325, 240);
+    obstacles.add(top);
+    
+    Wall mid = new Wall(85, 40, 500, 240);
+    obstacles.add(mid);
+    Wall mid2 = new Wall(586, 0, 180, 240);
+    obstacles.add(mid2);
+    Wall mid3 = new Wall(767, -40, 350, 240);
+    obstacles.add(mid3);
+    
+    Wall beside = new Wall(1100, -200, 198, 216);
+    obstacles.add(beside);
+    
     Wall goal = new Wall(1300, -200, 500, 100);
     obstacles.add(goal);
-
+    
+    
     for (Obstacle o : obstacles) {
       ((Rectangle) o).setArcWidth(60);
       ((Rectangle) o).setArcHeight(60);
