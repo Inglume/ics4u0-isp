@@ -1,11 +1,12 @@
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+
 /**
- * The Wall class.
+ * The Wall class represents a wall that the car can collide with.
  * 
  * @author Nicholas Glenn
- * @version 3
+ * @version 4
  */
 public class Wall extends Rectangle implements Obstacle {
 

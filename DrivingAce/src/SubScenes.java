@@ -12,7 +12,7 @@ import javafx.util.Duration;
  * The SubScenes class.
  * 
  * @author Jerry Zhu
- * @version 3
+ * @version 4
  */
 public class SubScenes extends SubScene {
 

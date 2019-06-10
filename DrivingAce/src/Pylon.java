@@ -4,10 +4,10 @@ import javafx.scene.shape.Rectangle;
 
 
 /**
- * The Pylon class.
+ * The Pylon class represents a pylon that the car can collide with.
  * 
  * @author Nicholas Glenn
- * @version 3
+ * @version 4
  */
 public class Pylon extends Rectangle implements Obstacle {
 
@@ -21,5 +21,4 @@ public class Pylon extends Rectangle implements Obstacle {
     super(x, y, 20, 20);
     setFill(new ImagePattern(new Image("/resources/cone_straight.png")));
   }
-
 }

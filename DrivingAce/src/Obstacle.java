@@ -1,8 +1,8 @@
 /**
- * The Obstacle interface.
+ * The Obstacle class represents an obstacle that the car can collide with.
  * 
  * @author Nicholas Glenn
- * @version 3
+ * @version 4
  */
 public interface Obstacle {
 

@@ -43,16 +43,14 @@ import javafx.util.Duration;
 
 
 /**
- * The DrivingAce class. It is the main class that has all of the output and screens of Driving Ace,
- * a game that teaches users how to drive safer on the road.
- * It has a menu and three levels.
- * In level one, the driver lands in an inevitable crash that teaches a lesson about driving.
- * In level two, the driver completes an obstacle course to learn how to drive better.
- * In level three, the driver drives in a neighbourhood to learn to drive safely in a real-world
- * situation.
+ * The DrivingAce class is the main class that has all of the output and screens of Driving Ace, a
+ * game that teaches users how to drive safer on the road. It has a menu and three levels. In level
+ * one, the driver lands in an inevitable crash that teaches a lesson about driving. In level two,
+ * the driver completes an obstacle course to learn how to drive better. In level three, the driver
+ * drives in a neighbourhood to learn to drive safely in a real-world situation.
  * 
  * @author Nicholas Glenn and Jerry Zhu
- * @version 3
+ * @version 4
  */
 public class DrivingAce extends Application {
 
@@ -805,7 +803,7 @@ public class DrivingAce extends Application {
         root.getBackground().getImages().get(0).getPosition();
     Image image = root.getBackground().getImages().get(0).getImage();
 
-    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal()); // Taken from {}
+    Bounds bounds = car.center.localToScene(car.center.getBoundsInLocal()); // Taken from
                                                                             // https://stackoverflow.com/questions/31148690/get-real-position-of-a-node-in-javafx
     double x = oldBackgroundPosition.getHorizontalPosition() - car.predictMoveX(t);
     double y = oldBackgroundPosition.getVerticalPosition() - car.predictMoveY(t);
@@ -854,7 +852,7 @@ public class DrivingAce extends Application {
   /**
    * Outputs the screen corresponding to whether the user has passed the level or not.
    * 
-   * @param hasWon stores whether the user passed the level.
+   * @param hasPassed stores whether the user passed the level.
    * @param level stores the level at which the user passed or failed.
    */
   public void levelEnd(boolean hasPassed, int level) {

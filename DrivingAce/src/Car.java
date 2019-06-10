@@ -4,25 +4,16 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
+
 /**
- * The Car class.
+ * The Car class represents a car that can drive.
  * 
  * @author Nicholas Glenn
- * @version 3
+ * @version 4
  */
 public class Car extends Rectangle {
 
-  /**
-   * Starting x-coordinate
-   */
-  private double startX;
-
-  /**
-   * Starting y-coordinate
-   */
-  private double startY;
-  
-  /**
+  /**   
    * Center of car.
    */
   public Rectangle center;
@@ -65,14 +56,12 @@ public class Car extends Rectangle {
   /**
    * Constructor of the car class.
    * 
-   * @param x x coordinate
-   * @param y y coordinate
+   * @param x x-coordinate
+   * @param y y-coordinate
    * @param i image fill of car
    */
   public Car(double x, double y, Image i) {
     super(x, y, width, length);
-    startX = x;
-    startY = y;
     setFill(new ImagePattern(i));
     setArcHeight(20);
     setArcWidth(20);
@@ -85,15 +74,13 @@ public class Car extends Rectangle {
   /**
    * Constructor with direction.
    * 
-   * @param x x coordinate
-   * @param y y coordinate
+   * @param x x-coordinate
+   * @param y y-coordinate
    * @param i image fill of car
    * @param direction direction of car
    */
   public Car(double x, double y, Image i, double direction) {
     super(x, y, width, length);
-    startX = x;
-    startY = y;
     setFill(new ImagePattern(i));
     setArcHeight(20);
     setArcWidth(20);
@@ -107,10 +94,10 @@ public class Car extends Rectangle {
   }
   
   /**
-   * Predicts the x-coordinate of the car after movement.
+   * Predicts the x-coordinate of the car after time.
    * 
-   * @param t
-   * @return 
+   * @param t time elapsed
+   * @return change in x-coordinate
    */
   public double predictMoveX(double t) {
     Bounds oldBounds = center.localToScene(center.getBoundsInLocal());
@@ -120,6 +107,12 @@ public class Car extends Rectangle {
     return newBounds.getMaxX() - oldBounds.getMaxX();
   }
 
+  /**
+   * Predicts the y-coordinate of the car after time.
+   * 
+   * @param t time elapsed
+   * @return change in y-coordinate
+   */
   public double predictMoveY(double t) {
     Bounds oldBounds = center.localToScene(center.getBoundsInLocal());
     move(t, 0);
@@ -148,6 +141,12 @@ public class Car extends Rectangle {
     center.setY(center.getY() - cool);
   }
   
+  /**
+   * Translates car by specified amount.
+   * 
+   * @param x change in x
+   * @param y change in y
+   */
   public void translate(double x, double y) {
    setLayoutX(getLayoutX() + x);
    center.setLayoutX(center.getLayoutX() + x);
@@ -155,6 +154,12 @@ public class Car extends Rectangle {
    center.setLayoutY(center.getLayoutY() + y);
   }
 
+  /**
+   * Repositions car to a point.
+   * 
+   * @param x x-coordinate to move to
+   * @param y y-coordinate to move to
+   */
   public void reposition(double x, double y) {
    Bounds bounds = center.localToScene(center.getBoundsInLocal());
    setLayoutX(getLayoutX() + x - bounds.getMaxX());
@@ -224,34 +229,38 @@ public class Car extends Rectangle {
     center.getTransforms().add(new Rotate(rotate, center.getX(), center.getY()));
   }
 
+  /**
+   * Gets velocity.
+   * 
+   * @return velocity
+   */
   public double getVelocity() {
     return velocity;
   }
 
+  /**
+   * Sets velocity.
+   * 
+   * @param velocity velocity
+   */
   public void setVelocity(double velocity) {
     this.velocity = velocity;
   }
 
-  public double getStartX() {
-    return startX;
-  }
-
-  public void setStartX(double startX) {
-    this.startX = startX;
-  }
-
-  public double getStartY() {
-    return startY;
-  }
-
-  public void setStartY(double startY) {
-    this.startY = startY;
-  }
-
+  /**
+   * Gets direction.
+   * 
+   * @return direction
+   */
   public double getDirection() {
     return direction;
   }
 
+  /**
+   * Sets direction
+   * 
+   * @param direction direction
+   */
   public void setDirection(double direction) {
     this.direction = direction;
   }
