@@ -991,7 +991,7 @@ public class DrivingAce extends Application {
           try {
             new File(System.getProperty("user.home") + "/DrivingAce/").mkdirs();
             File file = new File(System.getProperty("user.home") + "/DrivingAce/highscores.txt");
-//            file.createNewFile();
+            file.createNewFile();
             PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(file)));
             output.println(name);
             output.println((10 - collisionCount) * 100);
