@@ -75,7 +75,7 @@ public class SubScenes extends SubScene {
       // counts number of scores
       while (true) {
         try {
-          file.createNewFile();
+//          file.createNewFile();
 
           input = new BufferedReader(new FileReader(file));
 
@@ -87,7 +87,6 @@ public class SubScenes extends SubScene {
           input.close(); // closes the stream
           break;
         } catch (IOException e) {
-          System.out.println("f");
           e.printStackTrace();
         }
       }
