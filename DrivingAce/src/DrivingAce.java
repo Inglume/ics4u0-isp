@@ -147,7 +147,7 @@ public class DrivingAce extends Application {
    * Splash screen to program.
    */
   public void intro() {
-    Image image = new Image("/resources/logo_transparent.png", 500, 815, false, true);
+    Image image = new Image("/resources/logo_transparent.png", 500, 815, false, true); //https://hatchful.shopify.com/ 
 
     // Setting the image view 1
     ImageView imageView1 = new ImageView(image);
@@ -162,7 +162,7 @@ public class DrivingAce extends Application {
 
     root.getChildren().add(imageView1);
 
-    FadeTransition ft = new FadeTransition(Duration.millis(4000), imageView1);
+    FadeTransition ft = new FadeTransition(Duration.millis(4000), imageView1); //https://stackoverflow.com/questions/30441834/how-to-use-javafx-fadetransition-in-and-out
     ft.setFromValue(2);
     ft.setToValue(0);
     ft.setAutoReverse(true);
@@ -184,7 +184,7 @@ public class DrivingAce extends Application {
     rect.setFill(Color.WHITE);
     root.getChildren().add(rect);
 
-    FadeTransition ft = new FadeTransition(Duration.millis(2000), rect);
+    FadeTransition ft = new FadeTransition(Duration.millis(2000), rect); //https://stackoverflow.com/questions/30441834/how-to-use-javafx-fadetransition-in-and-out
     ft.setFromValue(2);
     ft.setToValue(0);
     ft.setAutoReverse(true);
@@ -199,7 +199,7 @@ public class DrivingAce extends Application {
 
     BackgroundImage background = new BackgroundImage(
         new Image("/resources/menu.png", 200, 615, false, true), BackgroundRepeat.REPEAT,
-        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT); //https://www.freelancer.in/contest/Need-Background-for-D-Platformer-Game-We-will-work-for-more-after-the-contest-1372733-byentry-22140803
     root.setBackground(new Background(background));
   }
 
@@ -241,7 +241,7 @@ public class DrivingAce extends Application {
     exitBtn.setOnAction(e -> Platform.exit());
 
     // Setting the image view 1
-    ImageView logo = new ImageView(new Image("/resources/name1.png", 350, 500, false, true));
+    ImageView logo = new ImageView(new Image("/resources/name1.png", 350, 500, false, true)); //http://www.picturetopeople.org/text_generator/others/3d/lava/3d-lava-text-logo-effect-creator.html#lava006 
 
     // Setting the position of the image
     logo.setX(370);
@@ -279,7 +279,8 @@ public class DrivingAce extends Application {
    * Level selection menu.
    */
   public void levelSelect() {
-    Image image = new Image("/resources/menubackground.jpg", 200, 615, false, true);
+    Image image = new Image("/resources/menubackground.jpg", 200, 615, false, true); //https://www.freelancer.in/contest/Need-Background-for-D-Platformer-Game-We-will-work-for-more-after-the-contest-1372733-byentry-22140803
+
     resetLevel(image, true);
 
     MenuButton oneBtn = new MenuButton("Level One", 190, 49, 23);
@@ -315,7 +316,7 @@ public class DrivingAce extends Application {
     root.getChildren().add(rect);
 
     if (l == 1) {
-      Image image = new Image("/resources/1.png", 0, 0, false, true);
+      Image image = new Image("/resources/1.png", 0, 0, false, true); //https://www.alamy.com/set-of-seamless-road-marking-on-a-white-isolated-background-top-view-straight-highway-infographic-templates-vector-eps-10-image214533270.html
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -323,7 +324,7 @@ public class DrivingAce extends Application {
         levelOne();
       });
     } else if (l == 2) {
-      Image image = new Image("/resources/2.png", 800, 615, false, true);
+      Image image = new Image("/resources/2.png", 800, 615, false, true); //https://kenney.nl/assets/racing-pack
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
       root.setBackground(new Background(background));
@@ -331,7 +332,7 @@ public class DrivingAce extends Application {
         levelTwo();
       });
     } else {
-      Image image = new Image("/resources/3.png", 0, 800, false, true);
+      Image image = new Image("/resources/3.png", 0, 800, false, true); //http://experience-english.blogspot.com/2012/02/giving-and-understanding-directions.html
       BackgroundPosition bp = new BackgroundPosition(Side.LEFT, -400, false, Side.TOP, -200, false);
       BackgroundImage background = new BackgroundImage(image, BackgroundRepeat.NO_REPEAT,
           BackgroundRepeat.NO_REPEAT, bp, BackgroundSize.DEFAULT);
@@ -340,7 +341,8 @@ public class DrivingAce extends Application {
         levelThree();
       });
     }
-
+    
+    //https://stackoverflow.com/questions/27177137/javafx-typewriter-effect-for-label
     Timeline timeline = new Timeline();
     Text text = new Text();
     text.setLayoutX(200);
@@ -404,9 +406,10 @@ public class DrivingAce extends Application {
    * Level one of the game.
    */
   public void levelOne() {
-    Image image = new Image("/resources/1.png", 0, 0, false, true);
+    Image image = new Image("/resources/1.png", 0, 0, false, true); //https://www.alamy.com/set-of-seamless-road-marking-on-a-white-isolated-background-top-view-straight-highway-infographic-templates-vector-eps-10-image214533270.html
     resetLevel(image);
 
+    //https://kenney.nl/assets/racing-pack for all cars
     cars.add(new Car(190, 420, new Image("/resources/car_yellow_small_3.png"), 180));
     cars.add(new Car(190, 120, new Image("/resources/car_black_small_1.png"), 180));
     cars.add(new Car(250, 10, new Image("/resources/car_green_small_2.png"), 180));
@@ -444,7 +447,7 @@ public class DrivingAce extends Application {
    * Level two of the game.
    */
   public void levelTwo() {
-    Image image = new Image("/resources/2.png", 800, 615, false, true);
+    Image image = new Image("/resources/2.png", 800, 615, false, true); //https://kenney.nl/assets/racing-pack
     resetLevel(image);
     addCar(new Car(488, 522, new Image("/resources/car_red_small_5.png"), -90), image, 2);
 
@@ -561,7 +564,7 @@ public class DrivingAce extends Application {
    * Level three of the game.
    */
   public void levelThree() {
-    Image image = new Image("/resources/3.png", 0, 800, true, false);
+    Image image = new Image("/resources/3.png", 0, 800, true, false); //http://experience-english.blogspot.com/2012/02/giving-and-understanding-directions.html
     resetLevel(image);
 
     BackgroundPosition bp = new BackgroundPosition(Side.LEFT, -400, false, Side.TOP, -200, false);
@@ -867,7 +870,7 @@ public class DrivingAce extends Application {
       rect.setFill(Color.RED);
       root.getChildren().add(rect);
       // Setting the image view 1
-      ImageView i = new ImageView(new Image("/resources/YOU LOSE.png", 350, 500, false, true));
+      ImageView i = new ImageView(new Image("/resources/YOU LOSE.png", 350, 500, false, true)); //https://cooltext.com/
 
       // Setting the position of the image
       i.setX(180);
@@ -901,7 +904,7 @@ public class DrivingAce extends Application {
       root.getChildren().add(rect);
 
       // Setting the image view 1
-      ImageView i = new ImageView(new Image("/resources/YOU WIN.png", 350, 500, false, true));
+      ImageView i = new ImageView(new Image("/resources/YOU WIN.png", 350, 500, false, true)); //https://cooltext.com/
 
       // Setting the position of the image
       i.setX(190);

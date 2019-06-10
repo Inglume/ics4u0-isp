@@ -15,12 +15,14 @@ public class MenuButton extends Button {
 
   /**
    * Stores the style of the pressed button.
+   * https://kenney.nl/assets/ui-pack
    */
   private final String BTN_PRESSED_STYLE =
       "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button01.png'); -fx-background-repeat: no-repeat;";
 
   /**
    * Stores the style of the non-pressed button.
+   * https://kenney.nl/assets/ui-pack
    */
   private final String BTN_FREE_STYLE =
       "-fx-background-color: transparent; -fx-background-image: url('/resources/yellow_button00.png'); -fx-background-repeat: no-repeat;";

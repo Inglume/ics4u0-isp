@@ -9,7 +9,8 @@ import javafx.util.Duration;
 
 
 /**
- * The SubScenes class.
+ * The SubScenes class. It makes an object of either the instructions scene or 
+ * high scores scene. 
  * 
  * @author Jerry Zhu
  * @version 4
@@ -36,7 +37,7 @@ public class SubScenes extends SubScene {
 
     BackgroundImage background =
         new BackgroundImage(new Image("/resources/yellow_panel.png", 400, 330, false, true),
-            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, null);
+            BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, null, null); //https://kenney.nl/assets/ui-pack
 
     AnchorPane r = (AnchorPane) this.getRoot();
     r.setBackground(new Background(background));

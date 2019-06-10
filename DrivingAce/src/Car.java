@@ -6,7 +6,8 @@ import javafx.scene.transform.Rotate;
 
 
 /**
- * The Car class represents a car that can drive.
+ * The Car class represents a car that can drive. Objects of this class are created and used
+ * countless times in DrivingAce.
  * 
  * @author Nicholas Glenn
  * @version 4
@@ -55,6 +56,7 @@ public class Car extends Rectangle {
 
   /**
    * Constructor of the car class.
+   * https://kenney.nl/assets/ui-pack
    * 
    * @param x x-coordinate
    * @param y y-coordinate
