@@ -125,6 +125,8 @@ public class Car extends Rectangle {
 
   /**
    * Move coordinates of car.
+   * 
+   * @param t stores the time-elapsed
    */
   public void move(double t) {
     double cool = velocity * t;
@@ -135,6 +137,9 @@ public class Car extends Rectangle {
 
   /**
    * Move coordinates of car with specified amount of friction.
+   * 
+   * @param t stores the time-elapsed
+   * @param friction stores the amount of friction of the car.
    */
   public void move(double t, double friction) {
     double cool = velocity * t;
