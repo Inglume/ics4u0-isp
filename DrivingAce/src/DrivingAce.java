@@ -119,6 +119,12 @@ public class DrivingAce extends Application {
    */
   private String name;
 
+  
+  /**
+   * Stores the notepad for storing highscores.
+   */
+  private File file;
+  
   /**
    * Starts the program.
    */
@@ -147,6 +153,9 @@ public class DrivingAce extends Application {
    * Splash screen to program.
    */
   public void intro() {
+    new File(System.getProperty("user.home") + "/DrivingAce/").mkdirs();
+    file = new File(System.getProperty("user.home") + "/DrivingAce/highscores.txt");
+    
     Image image = new Image("/resources/logo_transparent.png", 500, 815, false, true); //https://hatchful.shopify.com/ 
 
     // Setting the image view 1
@@ -992,10 +1001,7 @@ public class DrivingAce extends Application {
           name = t.getText();
 
           try {
-            new File(System.getProperty("user.home") + "/DrivingAce/").mkdirs();
-            File file = new File(System.getProperty("user.home") + "/DrivingAce/highscores.txt");
-            file.createNewFile();
-            PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(file)));
+            PrintWriter output = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
             output.println(name);
             output.println((10 - collisionCount) * 100);
             output.close();

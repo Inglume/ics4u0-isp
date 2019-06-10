@@ -76,8 +76,6 @@ public class SubScenes extends SubScene {
       // counts number of scores
       while (true) {
         try {
-          file.createNewFile();
-
           input = new BufferedReader(new FileReader(file));
 
           // loop for as long as there is data in the file
