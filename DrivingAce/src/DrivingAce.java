@@ -155,6 +155,11 @@ public class DrivingAce extends Application {
   public void intro() {
     new File(System.getProperty("user.home") + "/DrivingAce/").mkdirs();
     file = new File(System.getProperty("user.home") + "/DrivingAce/highscores.txt");
+    try {
+      file.createNewFile();
+    } catch (IOException e1) {
+      e1.printStackTrace();
+    }
     
     Image image = new Image("/resources/logo_transparent.png", 500, 815, false, true); //https://hatchful.shopify.com/ 
 
